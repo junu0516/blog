@@ -11,6 +11,14 @@
     <div class="post-content markdown-body">
         {{ .Content }}
     </div>
+    <hr>
+    <script src="https://utteranc.es/client.js"
+        repo="junu0516/blog"
+        issue-term="pathname"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script>
 </article>
 <!-- post license -->
 {{ if and (or .Site.Params.showLicense .Params.showLicense) (ne .Params.showLicense false) }}
