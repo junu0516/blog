@@ -3,9 +3,9 @@
 {{ $paginator := .Paginate (where .Site.RegularPages "Type" "in" .Site.Params.mainSections) }}
 {{ range $paginator.Pages }}
 <div class="post">
-    <h2 class="post-item post-title">
+    <h3 class="post-item post-title">
         <a href="{{ .Permalink }}">{{ .Title }}</a>
-    </h2>
+    </h3>
     <div class="post-item post-meta">
         {{ partial "post-meta.html" . }}
     </div>
