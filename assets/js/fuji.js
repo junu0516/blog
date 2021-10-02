@@ -3,11 +3,14 @@
 // get current theme
 function getNowTheme() {
   let nowTheme = document.body.getAttribute('data-theme');
+  return 'light';
+/*
   if (nowTheme === 'auto') {
     return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
   } else {
     return nowTheme === 'dark' ? 'dark' : 'light';
   }
+  */ 
 }
 
 // load comment button only when comment area exist
@@ -33,6 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
 // update utterances theme
 function updateUtterancesTheme(utterancesFrame) {
   let targetTheme = getNowTheme();
+  targetTheme = 'light';
   if (utterancesFrame) {
     if (targetTheme === 'dark') {
       utterancesFrame.contentWindow.postMessage(
