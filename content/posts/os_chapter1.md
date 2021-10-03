@@ -59,7 +59,7 @@ date = "2021-09-21"
 
 - 디바이스 컨트롤러(Device Controller)는 장치로부터 들어오가 나가는 데이터를 임시로 저장하기 위한  __`로컬 버퍼(Local Buffer)`__ 와 __`레지스터(Register)`__  를 각각 가지고 있음
 
-- 운영체제는 각각의 디바이스 컨트롤러와 소통하기 위해, 각각에 대응하는 __`디바이스 드라이버(Device Driver)`__ 를 가지고 있음
+- CPU는 각각의 디바이스 컨트롤러와 소통하기 위해, 각각에 대응하는 __`디바이스 드라이버(Device Driver)`__ 를 가지고 있음
 
 - 디바이스 드라이버는 운영체제로 하여금 디바이스 컨트롤러의 동작을 이해할 수 있도록 하며,  운영 체제에 해당 장치에 대한 동일한 인터페이스(Uniform Interface)를 제공함
 
@@ -162,7 +162,93 @@ date = "2021-09-21"
 
 ### 2-3. I/O Structure
 
-​    
+![5](https://user-images.githubusercontent.com/68586291/135765438-e8e219a1-6dd8-4dba-bf60-bd9ce8997340.PNG)
+
+- 위의 그림은 일반적인 인터럽트에 의한 I/O 처리 장치의 구조로 큰 규모의 데이터를 옮길 경우에는 높은 오버헤드를 유발하게 됨
+- 이를 해결하기 위해 __`Direct Memory Access(DMA)`__ 가 사용됨
+  - CPU에 독립적으로 메모리에 접근할 수 있도록 하는 시스템 기능으로, CPU를 거치지 않고 디바이스 컨트롤러가 큰 규모의 데이터를 직접 디바이스에서 메인 메모리로 옮기는 것
+  - 이 경우에는 디바이스 드라이버에 해당 연산이 완료되었음을 알리기 위한 하나의 인터럽트만이 발생하게 됨
+  - 따라서 디바이스 컨트롤러가 연산을 수행하는 동안 CPU는 다른 작업을 수행할 수 있게 되는 것
+
+<br>
+
+## 3. Computer-System Architecture
+
+주요 개념을 아래와 같이 다시 정의해볼 수 있음
+
+- __`CPU`__ : 명령을 수행하는 하드웨어 개념(중앙처리 장치)
+- __`Processor`__  : 물리적인 칩으로, 하나 이상의 CPU를 포함하고 있음
+- __`Core`__ : CPU의 기본적인 단위를 일컫음
+- __`Multicore`__ : 복수의 CPU 단위를 가지고 있음을 의미
+- __`Multiprocessor`__ : 복수의 프로세서를 가지고 있는 형태를 의미
+
+<br>
+
+### 3-1. Single-Processor Systems
+
+- 원시적인 컴퓨터의 경우 하나의 CPU와 하나의 코어(Single Core)만을 가진 Single-Processor System 형태였음
+
+- __`core`__ : 명령을 수행하는 단위로 데이터를 로컬에 저장하기 위한 레지스터이기도 함
+
+  (*The core is the component that executes instructions and registers for storing data locally.*)
+
+<br>
+
+### 3-2. Multiprocessor Systems
+
+- 오늘날 모바일 기기를 포함한 대부분의 컴퓨터는 멀티 프로세서 구조를 보임
+
+- 일반적인 정의는 2개 이상의 프로세서를 가진 시스템을 말하며, 각각의 프로세스는 하나의 코어 단위의 CPU를 가지게 됨
+
+  (*Traditionally, such systems have two or more processors, each with a single-core CPU.*)
+
+- 프로세서들은 버스 구조와 클록, 메모리, 기타 주변기기 등을 공유함
+
+- 멀티 프로세스의 제일 큰 장점은 싱글에 비해 __더욱 높은 처리량__ 을 보인다는 것으로, 더 많은 작업을 짧은 시간에 끝낼 수 있음
+
+  - 하지만 N개의 프로세서가 있다고 해서, N개에 비례하는 퍼포먼스 증가량을 보이지는 않음
+  - 프로세서가 증가하는 만큼, 전체 멀티 프로세서 구조를 유지하기 위한 작업의 부하가 올라가기 때문
+
+  (*The speed-up ratio with N processors is not N, however; it is less than N. When multiple processors cooperate on a task, a certain amount of overhead is incurred in keeping all the parts working correctly. This overhead, plus contention for shared resources, lowers the expected gain from additional processors*)
+
+  ![6](https://user-images.githubusercontent.com/68586291/135766000-18952296-f190-424f-8042-ef95b9633645.PNG)
+
+- __`Symmetric Multiprocessing(SMP)`__ : 제일 흔한 형태의 멀티 프로세서 형태로, 프로세서들이 각각의 CPU를 가지고 있으며, CPU는 다시 각각의 레지스터와 캐시를 가지고 있음
+
+  - 또한 시스템 버스 구조를 따라 프로세서들은 메인 메모리를 공유함
+  - 이러한 모델은 여러 프로세스를 안정적으로 병렬로 처리 가능하게 함을 의미하지만 CPU가 각각 독립적인 프로세스에 위치하기 때문에 하나가 유휴상태이면서 다른 하나는 과부하된 상태가 발생할 수 있음
+  - 프로세서들이 특정 자료 구조를 공유하도록 함으로써 프로세스와 자원들이 여러 프로세스들에 의해 공유됨으로써 특정 프로세서에의 과부하를 방지하도록 하는 것
+
+![7](https://user-images.githubusercontent.com/68586291/135766450-cd40f493-2b0b-4104-8b09-fd61caeac6f7.PNG)
+
+- 한편, __`멀티 코어(Multicore)`__ 개념으로도 멀티 프로세서 시스템을 확장시켜 이해할 수 있는데, 이는 하나의 칩(프로세서)에 여러 개의 코어가 존재하는 것을 의미함
+
+  - 이러한 멀티 코어 시스템은 여러 프로세서를 가지고 있는 것보다 더욱 효율적인데, 여러 프로세서들 간의 커뮤니케이션 비용이 발생하지 않을 뿐더러 더 적은 에너지를 소비하기 때문
+
+    (*Multicore systems can be more efficient than multiple chips with single cores because on-chip communication is faster than between-chip communication.*)
+
+  - 위의 그림은 듀얼 코어 시스템 구조를 나타낸 것으로, 하나의 프로세서에 2개의 CPU가 존재하며 각각의 CPU가 다시 레지스터와 캐시(Level 1)를 가지고 있는 형태임
+
+  - 캐시의 경우 Level 1 캐시가 독립적인 CPU가 가지고 있게 되며, Level 2 캐시를 CPU들이 공유하게 되며, 더 작은 규모의 Level 1 캐시가 더욱 빠른 처리 속도롤 보임
+
+![8](https://user-images.githubusercontent.com/68586291/135766883-51d6b4c3-10d9-4de1-8dbf-6c601df1643f.PNG)
+
+- 하지만 이러한 멀티 코어도, CPU를 늘리는 것만이 능사는 아님
+
+  - 너무 많은 CPU를 보유하게 되면 시스템 버스에 가해지는 부하도 그만큼 커지기 때문에 나중에 성능 저하나 병목 현상을 유발할 수 있음
+
+- 이럴 경우에는 각각의 CPU(혹은 일련의 CPU 집단)에 개별 로컬 메모리를 부여하여 작고 빠른 로컬 버스 구조를 통해 접근할 수 있는 방식을 적용할 수 있음
+
+  (*An alternative approach is instead to provide each CPU with its own local memory that is accessed via a small, fast local bus.*)
+
+- 또한 CPU들은 __`Shared system interconnect`__ 에 의해 서로 연결되어 하나의 물리적인 공간을 공유하게 되는데, 이를 __`Non-Uniform Memory access(NUMA)`__ 라고 부름
+  - 위의 그림을 보면 각각의 CPU들이 각자의 메모리를 가지고 있으면서 서로 연결되어 있는 것을 확인할 수 있음 
+  - 로컬 메모리 접근에 따른 속도 향상 뿐만 아니라 전체 시스템 버스와 달리 이러한 CPU 간의 국지적인 연결에는 큰 부하가 없기 때문에 프로세서의 확장에 있어 더욱 유연하다 할 수 있음
+  - 하지만 이러한 NUMA의 장점에도 불구하고 CPU가 늘어날 때마다 CPU 간의 상호 연결을 따라 메모리에 접근(Remote Memory Acess)할 경우 발생하는 지연 시간이 그만큼 늘어난다는 잠재적인 결함이 있음
+  - 따라서 운영체제는 이를 방지하기 위해 CPU Scheduling과 Memory Management에 더욱 신중을 기해야 할 것
+- 마지막으로 __`Blade Servers`__  라 불리는, 멀티 프로세서 보드와 입출력 보드, 네트워킹 보드 등을 한 데 모아놓은 시스템 구조가 있음
+  - 이것이 멀티프로세서 구조와 다른 점은, 각각의 블레이드 프로세서가 독립적으로 돌아가면서 고유의 운영체제를 가지고 있다는 점임
+  - 하지만 본질적으로 이러한 서버 역시 여러 개의 독립적인 멀티 프로세서 시스템을 합쳐놓은 것으로 이해함으로써 어떤 의미에서는 멀티 프로세서가 좀 더 확장된 개념으로도 볼 수 있음
 
 ---
 
