@@ -4,8 +4,10 @@ title = "Junu-Devlog"
 languageCode = "en-us"
 theme = "fuji"
 enableEmoji = true
+enableRobotsTXT = true
 enableInlineShortcodes = true
 enableGitInfo = true
+disableDarkImage = true
 # number of posts to show on home/category/tag pages (Default: 10)
 paginate = 5
 # number of words to use for summary on home/category/tag pages (Default: 70)
@@ -23,10 +25,11 @@ summaryLength = 11
 
   [markup.tableOfContents]
     startLevel = 2
-    endLevel = 3
+    endLevel = 4
 
 [taxonomies]
   tag = "tags"
+  category = "categories"
 
 [menu]
 #  [[menu.nav]]
