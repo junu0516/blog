@@ -3,19 +3,19 @@
     <div class="btn-menu" id="btn-menu">
         <i class="iconfont icon-grid-sharp"></i>
     </div>
-    <!--
-    <div class="btn-toggle-mode">
+    <div class="btn-toggle-mode" style="display: none;">
         <i class="iconfont icon-contrast-sharp"></i>
     </div>
-    -->
+    
     <div class="btn-scroll-top">
         <i class="iconfont icon-chevron-up-circle-sharp"></i>
     </div>
 </div>
+
 <aside class="sidebar-mobile" style="display: none;">
   <div class="sidebar-wrapper">
     <!-- pages -->
-    <div class="sidebar-item sidebar-pages">
+    <div class="sidebar-item sidebar-pages" style="display: none;">
         <h3>{{ i18n "sidebarPages" }}</h3>
         <ul>
             {{ range .Site.Menus.nav }}
@@ -26,7 +26,7 @@
         </ul>
     </div>
     <!-- links -->
-    <div class="sidebar-item sidebar-links">
+    <div class="sidebar-item sidebar-links" style="display: none;">
         <h3>{{ i18n "sidebarLinks" }}</h3>
         <ul>
             {{ range .Site.Menus.link }}
@@ -37,7 +37,7 @@
         </ul>
     </div>
     <!-- tags -->
-    <div class="sidebar-item sidebar-tags">
+    <div class="sidebar-item sidebar-tags" style="display: none;">
         <h3>{{ i18n "sidebarTags" }}</h3>
         <div>
             {{ range .Site.Taxonomies.tags }}
@@ -46,6 +46,18 @@
             </span>
             {{ end }}
         </div>
+    </div>
+
+    <!-- categories -->
+    <div class="sidebar-item sidebar-tags" >
+        <h3>Categories</h3>
+        <ul style="list-style: none !important;">
+            {{ range .Site.Taxonomies.categories }}
+            <li>
+                <a href="{{ .Page.RelPermalink }}">{{ .Page.Title }}</a>
+            </li>
+            {{ end }}
+        </ul>
     </div>
     <!-- in-post toc -->
     {{ if in .Site.Params.mainSections .Type }}

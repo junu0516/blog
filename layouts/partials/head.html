@@ -49,10 +49,18 @@
 {{ partial "analytic-cfga.html" . }}
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css" integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc" crossorigin="anonymous">
 <style>
+    .custom-post-meta-tags a{
+        background-color: rgba(231, 231, 231, 0.897);
+        padding: 1px 1px;
+        border-radius: 3px;
+        font-size: 14px;
+        color: gray;
+    }
     .custom-tags>div a{
         background-color: rgba(231, 231, 231, 0.897);
-        padding: 2px 8px;
+        padding: 2px 5px;
         border-radius: 3px;
+        color: gray;
     }
     .custom-social-link-box{
         text-align: center;
@@ -83,6 +91,7 @@
     }
 
     .custom-content>article>.post-meta{
+        padding-bottom: 5px;
         border-bottom: 1px solid lightgray;
     }
     .custom-content>article>.post-title{

@@ -1,9 +1,9 @@
 
 
 +++
-title = "Spring DI와 IoC"
-tags = ["spring", "java"]
-categories = ["Spring"]
+title = 'Spring DI와 IoC'
+tags = ['spring', 'java']
+categories = ['Spring']
 date = "2021-09-20"
 
 +++
