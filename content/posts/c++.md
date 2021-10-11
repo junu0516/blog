@@ -1003,6 +1003,57 @@ for(int i=0;i<4;i++){
 
 ### 6-1. 디폴트 생성자
 
+- __Default Constructor__ : 매개변수가 없거나, 모든 매개변수에 디폴트 인수가 지정된 생성자
+
+- 클래스 선언시 별도로 생성자를 선언하지 않으면 컴파일러가 묵시적으로 디폴트 생성자를 선언함
+
+  - 묵시적으로 생성된 디폴트 생성자는 아무런 처리하지 않음
+  - 반대로 생성자를 하나라도 선언한다면 컴파일러는 디폴트 생성자를 굳이 정의하지 않음
+
+  ```c++
+  //아래와 같이 클래스가 정의된 상황에서 컴파일러를 돌린다면 자동으로 디폴트 생서자를 컴파일러가 포함시켜 컴파일하는 것
+  Class counter{
+    int value;
+    
+    public:
+    	void reset(){return 0;}
+    	void count(){count++;}
+    	int getValue(){return value;}
+  }
+  
+  //메인 함수에서 아래와 같이 아무런 인수없이 객체를 생성할 수 있음
+  int main(){
+    Counter counter; //단, 위에서 생성자를 하나라도 선언했다면 아무런 인수가 없이 객체를 생성하지 못하게 되는 것!(컴파일 오류 발생s)
+  }
+  ```
+
+- 객체배열을 선언하게 되는 경우
+
+  ```c++
+  class Counter{
+    const int maxValue;
+    int value;
+    
+    public:
+    	//이번에는 클래스에 생성자를 선언하였음
+    	Counter(int maxValue)
+        :maxValue{maxValue}, value{0} {}
+      //...
+  }
+  
+  //디폴트 생성자가 없기 때문에 메인함수에서 아래와 같은 선언하면 컴파일 오류 발생
+  int main(){
+    Counter counterArr1[3]; //에러 발생
+    Counter counterArr2[3] = {Counter(1),Counter(2),Counter(333)}; //반드시 생성자를 통해 객체를 생성하여 배열을 정의해야 함
+  }
+  ```
+
+  
+
+
+
+
+
 ### 6-2. 복사 생성자
 
 ### 6-3. 이동 생성자
