@@ -291,11 +291,83 @@ date = "2021-09-21"
 
 ## 4. Operating-System Operations
 
+- 운영체제의 정의와 기능을 아래와 같이 전제하도록 함
 
+```
+An operating system provides the environment within which programs are executed.
+```
 
----
+<br>
+
+### 4-1. Multiprogramming and Multitasking
+
+- 운영체제의 중요한 기능 중 하나로 멀티 프로그래밍을 들 수 있음
+
+- 멀티프로그래밍을 통해 CPU의 가용성을 높일 수 있으며, 여기서 실행중인 프로그램을 __`프로세스(process)`__ 라고 부름
+
+- 운영체제는 여러 프로세스를 동시에 메모리에 적재하며, 이들 중 어떤 것을 골라 실행시킬 지를 결정함
+
+  - 이는 결과적으로 어떤 프로세스가 실행되는 동안, 다른 프로세스는 대기중인 상태로 있어야 함을 의미
+
+    *(Eventually, the process mya have to wait for some task, such as an I/O operation, to complete.)*
+
+- __`멀티태스킹(Multitasking)`__ : 멀티 프로그래밍을 논리적으로 확장시킨 개념으로, 멀티태스킹 환경에서 CPU는 여러 개의 프로세스를 서로 바꿔가면서 동시에 실행시킴
+
+- 여기서 어떤 프로세스를 현재 시점에서 선택해서 실행시키고, 다음에 또 어떤 프로세스를 선택할 지를 선택하는 과정을 __`CPU 스케쥴링`__ 이라고 함
+
+  - CPU 스케쥴링이 필요한 상황은 곧, 메모리에 여러 프로세스들이 적재된 상황이기 때문에 이에 맞는 __메모리 관리가 필요함을 의미__
+
+  - 하지만, 한정된 메모리 용량이 주어진 환경에서 효율적인 응답 시간을 계속 담보해야 하는 문제가 발생
+
+  - 이 경우 흔히 쓰이는 것이 __`가상 메모리(Virtual Memory)`__ 로, 한정된 물리적 메모리 용량을 넘어서는 규모의 프로그램을 실행시킬 수 있도록 하는 이점이 있음
+
+  - 또한, 가상메모리의 사용은 메인 메모리 구조를 하나의 큰 저장소 배열 형태로 추상화함으로써, 물리적인 메모리와 논리적인 메모리가 사용자 관점에서 서로 분리되도록 함
+
+    *Further, it abstracts main memory into a large, uniform array of storage, separating logical memory as viewed by the user from physical memory. This arrangement frees programmers from concern over memory-storage limitations*
+
+<br>
+
+### 4-2. Dual-Mode and Multimode Operation
+
+<img src="https://user-images.githubusercontent.com/68586291/136745001-946e6f15-9a9d-4bb7-bba2-3c2f2692076b.png" alt="스크린샷 2021-10-11 오후 3 50 13" style="zoom: 32%;" />
+
+- 운영체제의 실행 모드를 크게 __`커널 모드(Kernel Mode)`__ 와, __`사용자 모드(User Mode)`__ 로 나눠볼 수 있음
+  - 용어 그대로 하드웨어를 제어하는 운영체제 자체의 실행을 위한 것이 커널 모드이며, 이를 제외하고 단순히 사용자 어플리케이션의 실행을 위한 것은 사용자 모드임
+  - 실행 모드의 구분은 하드웨어에 __`mode bit`__ 이라고 부르는, 비트신호를 추가함으로써 구분하며 __0이 커널 모드이고 1이 사용자 모드가 됨__
+- 만일 사용자 어플리케이션을 실행시키는 상황이면, 사용자 모드에 진입하게 되며 실행이 종료되고 나면 인터럽트나 시스템 호출 등을 통해 제어권을 운영체제로 넘겨 커널 모드로 전환시키는 것
+- 이런 식으로 굳이 모드를 구분하는 것은 I/O 장치 관리, 인터럽트 혹은 타이머의 관리 등과 같이 컴퓨터에 직접적인 위협을 가할 수 있는 민감한 제어명령을, 일반 사용자가 마음대로 접근하지 못하게 하고자 하기 위함
+- 만일 가상화를 지원하는 CPU라면, 커널 모드와 사용자 모드 외에 __`Virtual Machine Manager(VMM)`__ 을 제어할 수 있는 별도의 모드를 제공함
+  - 이는 사용자모드 이상, 커널모드 이하의 권한을 가지면서 가상화 관련 기기를 제어하는 모드임
+
+<br>
+
+### 4-3. Timer
+
+- 운영체제가 CPU에 대한 제어를 안정적으로 유지시키는 것은 당연하지만 매우 중요함
+- 만일 사용자 프로그램이 알 수 없는 오류에 빠졌을 때, 사용자 모드에서 커널 모드로 전환되지 못해서 운영체제가 이를 제어하지 못한다면 큰 문제가 되기 때문
+- 이를 위해 사용하는 것이 타이머로, 일정 시간을 정해놓고 시간이 지나면 인터럽트 신호를 날리는 원리임
+  - 사용자 모드로 전환되기 전에 운영체제는 일정 시간을 정해놓고 타이머를 세팅함
+  - 이후 시간이 지나 인터럽트가 발생하게 되면 제어권이 자동으로 운영체제로 넘어오게 되는 것
+
+<br>
+
+## 5. Resource Management
+
+### 5-1. Process Management
+
+### 5-2. Memory Management
+
+### 5-3. File-System Management
+
+### 5-4. Mass-Storage Management
+
+### 5-5. Cache Management
+
+### 5-6. I/O System Management
+
+<br>
 
 ## Reference
 
+- Abraham Silberschatz, Greg Gagne, Peter B. Galvin *__Operating System Concepts__* , Wiley
 - [[컴퓨터구조]인터럽트(Interupt)란?](https://whatisthenext.tistory.com/147)
-
