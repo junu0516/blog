@@ -151,7 +151,20 @@
     .sidebar{
         margin-top: 2%;;
         padding: 0 !important;
-        min-width: 30vh;
+        
+    }
+
+        /*
+    ##Device = Laptops, Desktops
+    ##Screen = B/w 1025px to 1280px
+    ##Device = 랩탑, 데스크탑
+    ##Screen = 1025px에서 1280px 사이
+    */
+
+    @media (min-width: 1025px) and (max-width: 1280px) {
+        .sidebar{
+            min-width: 30vh;
+        }
     }
 
     .sidebar-item>h3{
