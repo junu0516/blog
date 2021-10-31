@@ -1292,5 +1292,350 @@ float&& rAvg = CalAvg(); //함수의 반환 객체가 r-value이므로, r-value 
 
 ### 7-1. 스택 클래스
 
+- 스택 : 후입 선출의 원리에 따라 데이터를 저장하는 자료구조
+  - 데이터의 저장을 push, 데이터의 반출을 pop 이라고 함
+- C++로 CharStack클래스 구현하기
+- 1) CharStack.h
+
+```c++
+/*
+문자를 최대 20개까지 저장할 수 있는 스택을 나타내는 클래스를 선언
+스택 객체는 데이터를  push, pop할 수 있고 스택이 비어있거나 가득차있는 지 여부를 검사해야 함
+또한, 스택 클래스에는 입력된 단어를 역순으로 출력하는 메소드가 포함되야 함
+*/
+
+class CharStack{
+  enum {size = 20};
+  int top; //스택의 마지막 데이터를 가리키는 포인터
+  char buf[size]; //스택 저장공간
+  
+public:
+  	CharStack() : top{size} {}//생성자
+  	
+  	//스택이 비어있는지 검사
+  	bool checkEmpty() const{
+      return top == size;
+    }
+  
+  	//스택이 가득찼는지 검사
+  	bool checkFull() const{
+      return !top;
+    }
+  
+	  bool push(char data);
+  	char pop();
+}
+
+```
+
+- 2) CharStack.cpp
+
+```c++
+#include <iostream>
+#include "CharStack.h"
+using namespace std;
+
+bool CharStack::push(char data){
+  if(checkFull()){
+    cout << "Stack is currently full" << endl;
+    return false;
+  }
+  bufp[--top] = data;
+  return true;
+}
+
+char CharStack::pop(){
+  if(checkEmpty()){
+    cout << "Stack is currently empty" << endl;
+    return 0;
+  }
+  return buf[top++]; //바뀐 top에 있는 데이터 리턴
+}
+```
+
+```c++
+#include <iostream>
+#include "CharStack.h"
+using namespace std;
+
+int main(){
+  CharStack charStack;
+  char str[20];
+  
+  cout << "write any word here : " ;
+  cin >> str;
+  
+  char* pointer = str; //포인터로 문자열의 시작 위치를 가리킴
+  while(*pointer){ //문자열의 끝에 도달할 때 까지 반복하면서 스택에 문자를 저장
+    charStack.push(*(pointer++));
+  }
+  
+  //스택에 있는 문자 역순으로 출력
+  cout << "print all characters reversely : ";
+  while(!charStack.checkEmpty()){
+    cout << charStack.pop();
+  }
+  cout << endl;
+  return 0;
+}
+```
+
+<br>
+
 ### 7-2. 복소수 클래스
+
+```c++
+/*
+	복소수를 표현하는 클래스
+	- 사칙연산, 켤레복소수 도출 등을 위한 메소드를 정의
+	- 실수부의 값이 a, 허수부의 값이 b일 때 (a+bj)의 형태로 출력해야 함
+*/
+class Complex{
+  double rPart, iPart; //실수부 및 허수부의 값을 멤버로 선언
+
+public:
+  Complex(double r=0, double i=0) : rPart(r), iPart(i){}
+  Complex conj() const{
+    return Complex(rPart,-iPart); //켤레복소수 도출
+  }
+  Complex add(const Complex& c) const{
+    return Complex(rPart+c.rPart, iPart+c.iPart);
+  }
+  Complex subtract(const COmplex& c) const{
+    return Complex(rPart - c.rPart, iPart - c.iPart);
+  }
+  //아래 메소드는 cpp 파일에서 정의
+  Complex multiply(const Complex& c) const;
+  Complex divide(const Complex& c) const;
+  void display() const; //복소수 출력
+}
+```
+
+```c++
+#include <iostream>
+#include "Complex.h"
+using namespace std;
+
+Complex Complex::multiply(const Complex& c) const{
+  double r = rPart * c.rPart - iPart * c.iPart;
+  double i = rPart * c.iPart + iPart.* c.rPart;
+  return COmplex(r,i);
+}
+
+Complex Complex::divide(const Complex& c) const{
+	double d = c.rPart * c.rPart + c.iPart * c.iPart;
+  Complex c = multiply(c.conj());
+  return Complex(c.rPart/d, c.iPart/d);
+}
+
+void Complex::display() const{
+  cout<<"("<< rPart;
+  if(iPart >0){
+    cout<<"+j"<<iPart;
+  }else if(iPart<0){
+    cout<<"-j"<<-iPart;
+  }
+  cout << ")";
+}
+
+```
+
+
+
+<br>
+
+## 8. 연산자 다중정의
+
+### 8-1. 연산자의 다중정의의 개념
+
+- 동일한 연산자라도, 피연산자의 자료형에 따라 처리가 달라짐
+- C++에 정의된 연산자를 사용자가 선언한 클래스의 객체에 대하여 사용할 수 있도록 정의하는 것을 의미함
+  - 단, 연산자의 의미를 임의로 바꾸면 안됨
+  - 연산자의 고유한 특성이 유지되야 함
+  - 연산자의 우선순위나 피연산자의 수가 불변이어야 함
+  - 전위 표기 혹은 후위 표기 연산자의 의미가 유지되야 함
+- __주요 연산자 다중정의의 대상__
+  - 클래스의 객체 간 대입 및 이동 대입 연산자
+  - 수치형 객체의 산술 연산자 다중정의
+  - 두 객체를 비교하기 위한 관계 연산자의 다중정의
+  - 스트림 입력 및 출력을 위한 __`>>`__  , __`<<`__ 연산자
+- 아래의 경우는 다중 정의를 할 수 없음
+  - 멤버 선택 연산자 __`.`__
+  - 멤버에 대한 포인터 연산자 __`.*`__
+  - 유효범위 결정 연산자 __`::`__
+  - 조건 연산자 __`? :`__
+- 연산자 다중정의 위치
+  - 클래스의 멤버로 정의하는 방법 : 연산자의 구현 과정에서 객체의 멤버를 액세스 할 수 있음
+  - 클래스 외부에서 정의하는 방법 : 클래스의 멤버가 아니기 때문에 private 멤버는 임의로 사용 못함
+
+<br>
+
+### 8-2. 단항연산자의 다중정의
+
+- 단항연산자 : 피연산자가 1개인 연산자 혹은 전위 & 후위 표기(ex. __`b = a++`__ )
+- 다중정의 형식 예시 (1) - 전위표기법
+  - 아래에서 opSymbol이 다중정의할 연산자 기호에 해당함
+  - 형식 매개변수는 없음
+
+```c++
+ReturnClass ClassName::operator opSymbol()
+{
+  //...
+}
+```
+
+```c++
+class IntClass{
+  int a;
+  
+public:
+  IntClass(int n=0) : a(n) {} //생성자
+  IntClass& operator ++ (){
+    ++a;
+    return *this;
+  }
+  int getValue() const {return a;}
+};
+```
+
+```c++
+//메인 클래스에서
+IntClass intClass;
+cout << (++intClass).getValue() << endl;
+//위의 경우 출력 결과는 1이 됨
+```
+
+- 다중정의 형식 예시 (2) - 후위표기법
+  - 여기서는 형식 매개변수를 명시하였음
+  - int는 인수를 전달한다는 의미가 아니라, 후위 표기법을 사용하는 단항 연산자임을 의미
+
+```c++
+ReturnClass ClassName::operator opSymbol(int)
+{
+  //...
+}
+```
+
+```c++
+class IntClass{
+  int a;
+public:
+  IntClass(int n=0) : a(n) {}
+  IntClass operator ++ (int){
+    IntClass temp(*this);
+    ++a;
+    return temp;
+  }
+  int getVale() const {return a;} 
+};
+```
+
+```c++
+//메인 클래스에서
+IntClass intClass;
+cout << (i++).getValue() << endl; 
+//위의 경우에는 출력 결과가 0이 됨
+```
+
+<br>
+
+### 8-3. 이항연산자의 다중정의
+
+- 항목 7-2에서 선언한 복소수 클래스를 활용
+- 예시 (1) - 복소수 객체와 복소수 객체의 덧셈연산자 다중정의 (complex1 + complex2)
+
+```c++
+Complex Complex::operator + (const Complex &c) const
+{
+  Complex temp(*this);
+  temp.rPart += c.rPart;
+  temp.iPart += c.iPart;
+  return temp;
+}
+```
+
+- 예시 (2) - 복소수 객체와 실수의 덧셈연산자 다중정의(complex + 10.0)
+  - Complex에 (double r=0, diouble i=0) 이라는 생성자가 정의되어있기 때문에, 연산자 뒤에 붙은 double value는 묵시적으로 Complex로 변환
+
+```c++
+Complex Complex::operator + (double r) const
+{
+  return Complex(rPart + r, iPart);
+}
+```
+
+- 예시 (3) - 실수와 복소수 객체의 덧셈 연산자 다중정의(10.0 + complex)
+  - 이번에는 실수가 연산자의 앞에 붙어있기 때문에, 묵시적으로 실수를 복소수 클래스의 멤버로 정의하지 못함
+  - 이 경우에는 클래스에 속하지 않는 외부의 별도 연산자로 정의
+
+```c++
+Complex operator + (double r, const Complex &c)
+{
+  return Complex(r+c.rPart,c.iPart);
+  /*
+  	주의)
+  	위의 경우에 Complex 클래스의 멤버 rPart, iPart는 private이 아니어야 함
+  	private인 경우에는 getter 메소드를 정의
+  */
+}
+```
+
+- 예시(4) - 복소수 객체의 복합 대입 연산자 (+=)
+
+```c++
+Complex& Complex::operator += (const Complex &c)
+{
+  rPart += c.rPart;
+  iPart += c.iPart;
+  return *this;
+}
+```
+
+<br>
+
+### 8-4. 스트림 출력 연산자의 다중정의
+
+- __`<<`__ 연산자의 정의
+  - 아래의 예에서 좌측에 있는 cout은 일반 프로그래머가 수정할 수 없음
+  - 따라서 외부의 별도 연산자로 정의
+  - << 연산자가  Complex 객체의 private 멤버에 접근 가능하도록 __`friend`__ 로 지정 
+
+```c++
+Complex c(1.0,2.0);
+cout << c;
+```
+
+```c++
+class Complex{
+  friend ostream& operator<<(ostream &os, const Complex &c);
+};
+```
+
+```c++
+ostream& operator<<(ostream& os, const Complex& c)
+{
+  os<<"("<<c.rPart;//실수부 출력
+  if(c.iPart>0){ //허수부 출력
+    os<<"+j"<<c.iPart;
+  }else if(c.iPart<0){
+    os<<"-j"<<-c.iPart;
+  }
+  os<<")";
+  return os;
+}
+```
+
+```c++
+#include <iostream>
+#include "Complex.h";
+using namespace std;
+
+int main()
+{
+  Complex a(10,20);
+  Complex b(5,-3);
+  cout << a << "+" << b << "=" << a+b <<endl;
+  return 0;
+}
+```
 
