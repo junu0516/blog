@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<meta name="HandheldFriendly" content="True" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<meta name="generator" content="Hugo 0.88.1" />
+
+
+<link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/dsrkafuu/dsr-cdn-main@1/images/favicons/dsrca.ico" />
+
+
+
+<title>[자료구조] 자바로 스택과 큐 구현하기 - Junu-Devlog</title>
+
+
+
+
+<meta name="keywords" content="자료구조, CS스터디" />
+
+
+<meta property="og:title" content="[자료구조] 자바로 스택과 큐 구현하기" />
+<meta name="twitter:title" content="[자료구조] 자바로 스택과 큐 구현하기" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://junu0516.github.io/posts/stack_queue/" /><meta property="og:description" content="자바로 스택과 큐에 대해 알아보도록 하자
+ 1. 스택(Stack) 스택의 개념과 활용, 자바를 통한 스택 구현 세 가지를 학습해보자!" />
+<meta name="twitter:description" content="자바로 스택과 큐에 대해 알아보도록 하자
+ 1. 스택(Stack) 스택의 개념과 활용, 자바를 통한 스택 구현 세 가지를 학습해보자!" /><meta name="twitter:card" content="summary" /><meta property="article:published_time" content="2021-10-10T00:00:00+00:00" /><meta property="article:modified_time" content="2021-10-11T02:28:12+09:00" />
+
+
+<style>
+    @media (prefers-color-scheme: dark) {
+        body[data-theme='auto'] img {
+            filter: brightness(60%);
+        }
+    }
+
+    body[data-theme='dark'] img {
+        filter: brightness(60%);
+    }
+</style>
+
+
+
+
+<link rel="stylesheet" href="https://junu0516.github.io/assets/css/fuji.min.css" />
+
+
+
+
+
+
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css" integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc" crossorigin="anonymous">
+<style>
+    img{
+        filter: brightness(100%) !important;
+        display: block !important;
+        margin: auto !important;
+        margin-top: 15px !important;
+        margin-bottom: 15px !important;
+    }
+    .custom-post-meta-tags a{
+        background-color: rgba(231, 231, 231, 0.897);
+        padding: 1px 1px;
+        border-radius: 3px;
+        font-size: 14px;
+        color: gray;
+    }
+    .custom-tags>div a{
+        background-color: rgba(231, 231, 231, 0.897);
+        padding: 2px 5px;
+        border-radius: 3px;
+        color: gray;
+    }
+    .custom-social-link-box{
+        text-align: center;
+    }
+    .custom-social-link{
+        font-size: 2em;
+        margin-right: 15px;
+        color: rgb(104, 98, 98);
+    }
+    .custom-profile-imgbox{
+        width: 100%;
+        height: 100%;
+    }
+    .custom-profile-imgbox__mobile{
+        width: 100%;
+        height: 100%;
+    }
+    .custom-profile-img{
+        width: 90%;
+        height: 80%;
+        border: 1px solid lightgray;
+        border-radius: 100%;
+        opacity: 0.9;
+    }
+
+    .post+.post{
+        border-top: 0.5px solid rgb(226, 226, 226) !important;
+    }
+
+    .custom-content{
+        margin-top : 2%;
+        margin-right: 5%;
+    }
+
+    .custom-content>article>.post-meta{
+        padding-bottom: 5px;
+        border-bottom: 1px solid lightgray;
+    }
+    .custom-content>article>.post-title{
+        font-size: 2rem;
+    }
+
+    header{
+        background-color: rgba(243, 241, 241, 0.89);
+        border-bottom: 0px !important;
+    }
+
+    .custom-header{
+        height: 30%;
+    }
+
+    main{
+        margin-top: 2%;
+    }
+    header .header {
+        height: 80px;
+        padding: 1.2rem 1rem 1rem 1.22rem;
+    }
+
+    .title-main{
+        font-size : 2rem !important;
+        color: rgb(57, 58, 58);
+    }
+
+    .post{
+        padding-bottom: 10px !important;
+    }
+
+    .post-title{
+        font-size: 1.4rem;
+    }
+
+    .post-summary{
+        cursor: pointer;
+        color: rgb(80, 75, 75);
+        font-size: 15px;
+        display: none !important;
+
+    }
+
+    .pagination{
+        margin-top: 50px !important;
+         
+        border-top: none !important;
+    }
+
+    .sidebar{
+        margin-top: 2%;
+        padding: 0 !important;
+    }
+
+         
+
+    @media (min-width: 1025px) and (max-width: 1280px) {
+        .sidebar{
+            min-width: 30vh !important;
+        }
+    }
+
+    .sidebar-item>h3{
+        border-bottom: 1px solid lightgray;
+        margin-bottom: 10px;
+    }
+    
+    .container-lg{
+        max-width: 1400px !important;
+    }
+
+    .markdown-body h1, .markdown-body h2 {
+        border-bottom: 1px solid var(--color-divider) !important;
+    }
+    .markdown-body h3{
+        font-size: 1.35rem !important;
+    }
+    .markdown-body h4{
+        font-size: 1.25rem !important;
+    }
+
+    .content{
+        padding-left: 2.5rem !important;
+    }
+    
+</style>
+
+</head>
+
+<body
+  data-theme="auto"
+  data-theme-auto='false'
+  >
+    <script data-cfasync="false">
+  
+  var fujiThemeData = localStorage.getItem('fuji_data-theme');
+  
+  if (!fujiThemeData) {
+    localStorage.setItem('fuji_data-theme', 'auto');
+  } else {
+    
+    if (fujiThemeData !== 'auto') {
+      document.body.setAttribute('data-theme','light');
+      
+    }
+  }
+</script>
+
+    <header>
+    <div class="container-lg clearfix">
+        <div class="header">
+            <a class="title-main" href="https://junu0516.github.io/">Junu-Devlog</a>
+            
+        </div>
+    </div>
+</header>
+
+    <main>
+        <div class="container-lg clearfix">
+            
+            <div class="col-12 col-md-12 float-left content custom-content">
+                
+<article>
+    
+    <h2 class="post-item post-title">
+        <a href="https://junu0516.github.io/posts/stack_queue/">[자료구조] 자바로 스택과 큐 구현하기</a>
+    </h2>
+    <div class="post-item post-meta">
+        <span>
+    <i class="iconfont icon-today-sharp"></i>&nbsp;2021-10-10
+</span>
+
+<span>
+    <i class="iconfont icon-sync-circle-sharp"></i>&nbsp;2021-10-11</span>
+
+
+<span class="custom-post-meta-tags">
+    <i class="iconfont icon-pricetags-sharp"></i>&nbsp;
+    <a href="/tags/%EC%9E%90%EB%A3%8C%EA%B5%AC%EC%A1%B0">자료구조</a>&nbsp;
+    <a href="/tags/cs%EC%8A%A4%ED%84%B0%EB%94%94">CS스터디</a>&nbsp;
+</span>
+<span class="custom-post-meta-categories">
+    <i class="fas fa-file-alt"></i>&nbsp;
+    <a href="/categories/%EC%9E%90%EB%A3%8C%EA%B5%AC%EC%A1%B0">자료구조</a>&nbsp;
+</span>
+    </div>
+    
+    <div class="post-content markdown-body">
+        <blockquote>
+<p>자바로 스택과 큐에 대해 알아보도록 하자</p>
+</blockquote>
+<p><img src="https://media.vlpt.us/images/nmy0502/post/e3ba79be-8d03-42c0-b1d6-22f70d0b5220/stack,%20queue.png" alt="Linear Structure(Stack, Queue)" style="zoom: 67%;" /></p>
+<br>
+<h2 id="1-스택stack">1. 스택(Stack)</h2>
+<pre tabindex="0"><code>스택의 개념과 활용, 자바를 통한 스택 구현 세 가지를 학습해보자!
+</code></pre><h3 id="1-1-스택의-개념">1-1. 스택의 개념</h3>
+<ul>
+<li>
+<p>데이터의 입출력이 <strong>후입선출(LIFO, Last In First Out)</strong> 에 따라 이루어지는 자료구조</p>
+</li>
+<li>
+<p>데이터의 스택에 추가하는 것을 <strong><code>push</code></strong> , 스택으로부터 데이터를 꺼내는 것을 <strong><code>pop</code></strong> 이라고 부름</p>
+</li>
+<li>
+<p>후입선출이기 때문에 데이터가 들어오고 나가는 위치가 동일하며, 이러한 푸시와 팝이 이루어지는 위치를 <strong><code>top</code></strong> 이라고 함</p>
+</li>
+<li>
+<p>스택의 제일 흔한 활용은 자바 어플리케이션에서 <strong>메소드를 호출하고 실행하는 상황</strong> 을 예로 들 수 있음</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">method1</span><span style="color:#f92672">(){</span>
+  <span style="color:#75715e">//...
+</span><span style="color:#75715e"></span><span style="color:#f92672">}</span>
+
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">method2</span><span style="color:#f92672">(){</span>
+  <span style="color:#75715e">//...
+</span><span style="color:#75715e"></span><span style="color:#f92672">}</span>
+
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">method3</span><span style="color:#f92672">(){</span>
+  method1<span style="color:#f92672">();</span>
+  method2<span style="color:#f92672">();</span>
+<span style="color:#f92672">}</span>
+
+<span style="color:#75715e">//메인메소드 호출
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[]</span> args<span style="color:#f92672">){</span>
+  method3<span style="color:#f92672">();</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><ul>
+<li>위의 상황에서 메소드가 호출되고 실행되는 순서는 아래와 같음
+<ul>
+<li>Main 메소드의 실행(푸시)</li>
+<li>3번 메소드 호출(푸시)</li>
+<li>1번 메소드 호출(푸시)</li>
+<li>1번 메소드 종료(팝)</li>
+<li>2번 메소드 호출(푸시)</li>
+<li>2번 메소드 종료(팝)</li>
+<li>메인 메소드 종료(팝)</li>
+</ul>
+</li>
+<li>메소드의 호출 순서대로 푸시가 일어나고, 호출 순서 반대로 팝이 일어나는 것을 알 수 있음</li>
+<li>자바 외에도, 컴퓨터의 메모리 구조에서 메소드의 호출 관련 부분을 저장하는 영역은 이러한 스택 자료구조를 사용하고 있음</li>
+</ul>
+</li>
+</ul>
+<br>
+<h3 id="1-2-스택의-활용">1-2. 스택의 활용</h3>
+<pre tabindex="0"><code>위에서 말한 것 외에도, 컴퓨터 곳곳에서 다양하게 스택을 응용하고 있다!
+</code></pre><ul>
+<li>변수에 대한 메모리 할당과 수집을 위한 시스템 스택
+<ul>
+<li>자바를 예로 들면, <strong><code>heap</code></strong> 영역에 생성된 객체들이 저장되며, 이러한 <strong>객체를 참조하는 변수가 스택에 저장됨</strong></li>
+<li>또는  int, char 과 같은 원시타입의 데이터 또한 스택에 저장됨(객체변수와 달리 참조값이 아닌 실제 데이터를 직접 저장하는 것)</li>
+<li>시스템 스택에는 변수의 선언과 동시에 순서대로 변수를 저장할 공간이 할당되며, 마지막에 저장된 변수부터 다시 스택에서 제거되는 것</li>
+</ul>
+</li>
+<li>서브루틴의 호출 관리를 위한 스택
+<ul>
+<li>반복되는 작업을 별도로 묶어 이름을 붙인 것을 <strong><code>서브루틴</code></strong> 이라고 하며, 위에서 언급한 메소드 혹은 함수 호출의 예시가 바로 여기에 해당됨</li>
+</ul>
+</li>
+<li>인터럽트 처리와, 이후에 리턴할 명령의 수행 지점을 저장하기 위한 스택
+<ul>
+<li><strong><code>인터럽트(interrupt)</code></strong> : 프로그램이 동작하는 도중에 발생하는 의도치 않은 사건들을 의미함</li>
+<li>운영체제는 외부 장치의 동작과 전체 시스템의 동작 간의 안정적인 조화를 위해 인터럽트를 사용</li>
+<li>프로램이 실행되고 있는 도중에 외부장치에 의한 인터럽트 신호가 들어올 경우 운영체제는 현재 상태를 <strong><code>프로세스 제어블록(PCB)</code></strong> 에 저장한 후, 인터럽트 요청을 처리하고 다시 원래의 상태로 돌아오게 됨</li>
+<li>여기서 프로세스 제어 블록이 저장되는 곳이 스택 메모리 영역이며, 인터럽트 처리 후 다시 복귀해야 할 명령의 수행 지점에 대한 정보가 저장됨</li>
+</ul>
+</li>
+<li>컴파일러, 순환호출 관리</li>
+</ul>
+<br>
+<h3 id="1-3-스택-구현하기">1-3. 스택 구현하기</h3>
+<pre tabindex="0"><code>여기서는 크게 스택의 생성, 삽입, 삭제, 탐색에 대한 처리를 구현해보도록 한다.
+</code></pre><p>​</p>
+<ul>
+<li><strong>배열을 활용한 경우</strong> : int 타입의 데이터만을 담는 스택을 배열을 활용하여 구현해보았음</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MyStack</span><span style="color:#f92672">{</span>
+  <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">int</span> stackSize<span style="color:#f92672">;</span> <span style="color:#75715e">//스택 용량
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">int</span> top<span style="color:#f92672">;</span> <span style="color:#75715e">//top(push/pop이 일어나는 지점)
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">int</span><span style="color:#f92672">[]</span> stack<span style="color:#f92672">;</span> <span style="color:#75715e">//스택 본체
+</span><span style="color:#75715e"></span>  
+  <span style="color:#66d9ef">public</span> <span style="color:#a6e22e">StackExample</span><span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> size<span style="color:#f92672">){</span>
+    <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">top</span> <span style="color:#f92672">=</span> <span style="color:#f92672">-</span>1<span style="color:#f92672">;</span>
+    <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">stackSize</span> <span style="color:#f92672">=</span> size<span style="color:#f92672">;</span>
+    stack <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#66d9ef">int</span><span style="color:#f92672">[</span>size<span style="color:#f92672">];</span>
+  <span style="color:#f92672">}</span>
+  
+  <span style="color:#75715e">//예외처리 1. 스택이 비어 있는 경우
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">EmptyStackException</span> <span style="color:#66d9ef">extends</span> RuntimeException<span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#a6e22e">EmptyStackException</span><span style="color:#f92672">(){}</span>
+  <span style="color:#f92672">}</span>
+  
+  <span style="color:#75715e">//예외처리 2. 스택이 가득 찬 경우
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">OverFlownStackException</span> <span style="color:#66d9ef">extends</span> RuntimeException<span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#a6e22e">OverFlownStackException</span><span style="color:#f92672">()</span> <span style="color:#f92672">{}</span>
+  <span style="color:#f92672">}</span>
+  
+  <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">push</span><span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> data<span style="color:#f92672">){</span>
+    
+    <span style="color:#66d9ef">if</span><span style="color:#f92672">(</span>top<span style="color:#f92672">&gt;=</span>size<span style="color:#f92672">){</span> <span style="color:#75715e">//스택이 가득 찬 경우(배열의 크기 범위를 벗어난 것)
+</span><span style="color:#75715e"></span>      <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> OverFlownStackException<span style="color:#f92672">();</span>
+    <span style="color:#f92672">}</span>
+    <span style="color:#75715e">//데이터를 넣고, top값을 1 증가시킴
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">return</span> stack<span style="color:#f92672">[</span>top<span style="color:#f92672">++]</span> <span style="color:#f92672">=</span> data<span style="color:#f92672">;</span>
+  <span style="color:#f92672">}</span>
+  
+  <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">pop</span><span style="color:#f92672">()</span> <span style="color:#66d9ef">throws</span> EmptyStackException<span style="color:#f92672">{</span>
+    
+    <span style="color:#66d9ef">if</span><span style="color:#f92672">(</span>top<span style="color:#f92672">&lt;</span>0<span style="color:#f92672">){</span> <span style="color:#75715e">//스택이 비어있는 경우(top이 초기값 그대로인 것)
+</span><span style="color:#75715e"></span>      <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> EmptyStackException<span style="color:#f92672">();</span>
+    <span style="color:#f92672">}</span>
+    
+    <span style="color:#75715e">//포인터 값을 1 감소시킨 후, 감소된 포인터 위치에 있는 데이터를 리턴
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">return</span> stack<span style="color:#f92672">[--</span>top<span style="color:#f92672">];</span>
+  <span style="color:#f92672">}</span>
+  
+  <span style="color:#75715e">//peek() 메소드는 현재 top에 있는 데이터 값이 무엇인지를 알려줌
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">peek</span><span style="color:#f92672">()</span> <span style="color:#66d9ef">throws</span> EmptyStackException<span style="color:#f92672">{</span>
+    
+    <span style="color:#66d9ef">if</span><span style="color:#f92672">(</span>pointer<span style="color:#f92672">&lt;=</span>0<span style="color:#f92672">){</span><span style="color:#75715e">//스택이 비어있는 경우에는 알려줄 값이 없으므로 예외발생
+</span><span style="color:#75715e"></span>      <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> EmptyStackException<span style="color:#f92672">();</span>
+    <span style="color:#f92672">}</span>
+    
+    <span style="color:#75715e">//top에 있는 데이터를 리턴
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">return</span> stack<span style="color:#f92672">[</span>top<span style="color:#f92672">];</span>
+  <span style="color:#f92672">}</span>
+  
+  <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">boolean</span> <span style="color:#a6e22e">empty</span><span style="color:#f92672">(){</span>
+    <span style="color:#66d9ef">return</span> top<span style="color:#f92672">&lt;</span>0<span style="color:#f92672">;</span> <span style="color:#75715e">//top=-1일 경우에는 스택이 빈 것이므로 true
+</span><span style="color:#75715e"></span>  <span style="color:#f92672">}</span>
+  
+  <span style="color:#75715e">//특정 데이터의 위치값을 찾음(없는 경우에는 -1 리턴)
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">public</span> <span style="color:#a6e22e">search</span><span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> data<span style="color:#f92672">){</span>
+    
+    <span style="color:#66d9ef">for</span><span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span>0<span style="color:#f92672">;</span>i<span style="color:#f92672">&lt;=</span>top<span style="color:#f92672">;</span>i<span style="color:#f92672">++){</span>
+      <span style="color:#66d9ef">if</span><span style="color:#f92672">(</span>stack<span style="color:#f92672">[</span>i<span style="color:#f92672">]</span> <span style="color:#f92672">==</span> data<span style="color:#f92672">){</span>
+        <span style="color:#66d9ef">return</span> i<span style="color:#f92672">;</span>
+      <span style="color:#f92672">}</span>
+    <span style="color:#f92672">}</span>
+    <span style="color:#66d9ef">return</span> <span style="color:#f92672">-</span>1<span style="color:#f92672">;</span>
+  <span style="color:#f92672">}</span>
+  
+  <span style="color:#75715e">/*
+</span><span style="color:#75715e">  	이 외에도, 스택이 비어있거나 가득 찼는 지 여부 혹은 스택에 존재하는 데이터의 수를 반환하는 메소드 등을 배열을 통해 정의해볼 수 있음
+</span><span style="color:#75715e">  	(간단하니 여기서는 생략하도록 한다 ...)
+</span><span style="color:#75715e">  */</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><br>
+<ul>
+<li>연결리스트(LinkedList) 구조를 활용하여 스택을 구현할 수도 있음
+<ul>
+<li>단순 연결리스트의 구조를 활용하며, 이는 각 노드들 간의 연결이 단방향적이라는 특징을 가짐</li>
+<li>마지막 노드의 포인터는 null을 가리키는 것</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#75715e">//개별 노드 클래스의 생성
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Node</span><span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">int</span> data<span style="color:#f92672">;</span> <span style="color:#75715e">//노드에 담을 데이터
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">private</span> Node nextNode<span style="color:#f92672">;</span> <span style="color:#75715e">//해당 노드에 연결된 다음 노드
+</span><span style="color:#75715e"></span>    
+    <span style="color:#66d9ef">public</span> <span style="color:#a6e22e">Node</span><span style="color:#f92672">(){</span>
+       
+    <span style="color:#f92672">}</span>
+ 
+  <span style="color:#66d9ef">public</span> <span style="color:#a6e22e">Node</span><span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> data<span style="color:#f92672">){</span>
+    	<span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">data</span> <span style="color:#f92672">=</span> data<span style="color:#f92672">;</span>
+        <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">nextNode</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
+	
+    <span style="color:#75715e">//다음 노드와의 연결 동작
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">protected</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">linkNode</span><span style="color:#f92672">(</span>Node node<span style="color:#f92672">){</span>
+    	<span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">nextNode</span> <span style="color:#f92672">=</span> node<span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
+    
+    <span style="color:#75715e">//노드에 담긴 데이터 반환
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">protected</span> <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">getData</span><span style="color:#f92672">(){</span>
+    	<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">data</span><span style="color:#f92672">;</span> 
+    <span style="color:#f92672">}</span>
+    
+    <span style="color:#75715e">//연결된 다음 노드 반환
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">protected</span> Node <span style="color:#a6e22e">getNextNode</span><span style="color:#f92672">(){</span>
+    	<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">nextNode</span><span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+
+<span style="color:#75715e">// 단순 연결리스트 구조를 활용한 스택 클래스 선언
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MyStack</span><span style="color:#f92672">{</span>
+   <span style="color:#66d9ef">private</span> Node top<span style="color:#f92672">;</span> <span style="color:#75715e">//가장 최근에 추가된 노드
+</span><span style="color:#75715e"></span>   
+   <span style="color:#66d9ef">public</span> <span style="color:#a6e22e">MyStack</span><span style="color:#f92672">(){</span>
+        <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">top</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">;</span>
+   <span style="color:#f92672">}</span>
+    
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">push</span><span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> data<span style="color:#f92672">){</span>
+        Node newNode <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Node<span style="color:#f92672">(</span>data<span style="color:#f92672">);</span>
+        newNode<span style="color:#f92672">.</span><span style="color:#a6e22e">linkNode</span><span style="color:#f92672">(</span>top<span style="color:#f92672">);</span>
+        top <span style="color:#f92672">=</span> newNode<span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
+    
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">pop</span><span style="color:#f92672">(){</span>
+     	 top <span style="color:#f92672">=</span> top<span style="color:#f92672">.</span><span style="color:#a6e22e">getNextNode</span><span style="color:#f92672">();</span>
+    <span style="color:#f92672">}</span>
+    
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">peek</span><span style="color:#f92672">(){</span>
+    	<span style="color:#66d9ef">if</span><span style="color:#f92672">(</span>empty<span style="color:#f92672">()){</span>
+        	<span style="color:#75715e">//예외처리
+</span><span style="color:#75715e"></span>        <span style="color:#f92672">}</span>
+    	<span style="color:#66d9ef">return</span> top<span style="color:#f92672">.</span><span style="color:#a6e22e">getData</span><span style="color:#f92672">();</span> 
+    <span style="color:#f92672">}</span>
+    
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">boolean</span> <span style="color:#a6e22e">empty</span><span style="color:#f92672">(){</span>
+    	<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">top</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
+    
+    <span style="color:#75715e">//해당 데이터를 포함하는 노드를 검색
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">public</span> <span style="color:#a6e22e">search</span><span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> data<span style="color:#f92672">){</span>
+    	Node searchNode <span style="color:#f92672">=</span> top<span style="color:#f92672">;</span>
+        <span style="color:#66d9ef">int</span> index <span style="color:#f92672">=</span> 1<span style="color:#f92672">;</span>
+        <span style="color:#66d9ef">while</span><span style="color:#f92672">(</span><span style="color:#66d9ef">true</span><span style="color:#f92672">){</span>
+            <span style="color:#66d9ef">if</span><span style="color:#f92672">(</span>searchNode<span style="color:#f92672">.</span><span style="color:#a6e22e">getData</span><span style="color:#f92672">()</span> <span style="color:#f92672">==</span> data<span style="color:#f92672">){</span>
+            	d
+                <span style="color:#66d9ef">return</span> index<span style="color:#f92672">;</span>                
+            <span style="color:#f92672">}</span>
+            <span style="color:#66d9ef">else</span><span style="color:#f92672">{</span>
+                searchNode <span style="color:#f92672">=</span> searchNode<span style="color:#f92672">.</span><span style="color:#a6e22e">getNextNode</span><span style="color:#f92672">();</span>
+                index<span style="color:#f92672">++;</span>
+                <span style="color:#66d9ef">if</span><span style="color:#f92672">(</span>searchNode <span style="color:#f92672">==</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">){</span>
+                    <span style="color:#66d9ef">break</span><span style="color:#f92672">;</span>
+                <span style="color:#f92672">}</span>
+            <span style="color:#f92672">}</span>
+        <span style="color:#f92672">}</span>
+        <span style="color:#66d9ef">return</span> <span style="color:#f92672">-</span>1<span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+
+</code></pre></div><br>
+<ul>
+<li>배열과 리스트 구조를 통한 스택 구현은 효율성 측면에서 차이가 있음</li>
+<li>배열은 기본적으로 각 인덱스에 할당된 메모리 주소값을 통해 직접 데이터에 접근하기 때문에, 데이터에 대한 접근 속도가 빠름</li>
+<li>하지만 데이터를 추가, 삭제할 경우에는 나머지 데이터의 인덱스값들을 모두 조정해야 하기 때문에 잦은 push, pop이 일어나는 경우에는 맞지 않음</li>
+<li>반면 리스트 구조를 활용할 경우에는, 삽입 혹은 삭제 대상 노드와 인접한 노드들의 포인터만 바꿔주면 되기 때문에 더욱 효율적</li>
+<li>결국 LinkedList와 배열의 특성 차이를 생각해보면 되겠다..</li>
+</ul>
+<br>
+<h2 id="2-큐queue">2. 큐(Queue)</h2>
+<hr>
+<h2 id="reference">Reference</h2>
+<ul>
+<li></li>
+</ul>
+
+    </div>
+    <hr>
+    <script src="https://utteranc.es/client.js"
+        repo="junu0516/blog"
+        issue-term="pathname"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script>
+</article>
+
+
+
+
+            </div>
+            <aside class="col-12 col-md-3 float-left sidebar">
+    
+    
+    <div class="sidebar-item sidebar-toc">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-스택stack">1. 스택(Stack)</a>
+      <ul>
+        <li><a href="#1-1-스택의-개념">1-1. 스택의 개념</a></li>
+        <li><a href="#1-2-스택의-활용">1-2. 스택의 활용</a></li>
+        <li><a href="#1-3-스택-구현하기">1-3. 스택 구현하기</a></li>
+      </ul>
+    </li>
+    <li><a href="#2-큐queue">2. 큐(Queue)</a></li>
+    <li><a href="#reference">Reference</a></li>
+  </ul>
+</nav></div>
+</aside>
+
+        </div>
+        <div class="btn">
+    
+    <div class="btn-menu" id="btn-menu">
+        <i class="iconfont icon-grid-sharp"></i>
+    </div>
+    <div class="btn-toggle-mode" style="display: none;">
+        <i class="iconfont icon-contrast-sharp"></i>
+    </div>
+    
+    <div class="btn-scroll-top">
+        <i class="iconfont icon-chevron-up-circle-sharp"></i>
+    </div>
+</div>
+
+<aside class="sidebar-mobile" style="display: none;">
+  <div class="sidebar-wrapper">
+    
+    <div class="sidebar-item sidebar-pages" style="display: none;">
+        <h3>Pages</h3>
+        <ul>
+            
+        </ul>
+    </div>
+    
+    <div class="sidebar-item sidebar-links" style="display: none;">
+        <h3>Links</h3>
+        <ul>
+            
+            <li>
+                <a href="https://github.com/junu0516" target="_blank"><span>GitHub</span></a>
+            </li>
+            
+            <li>
+                <a href="https://twitter.com/dsrkafuu" target="_blank"><span>Linkedin</span></a>
+            </li>
+            
+            <li>
+                <a href="https://space.bilibili.com/19767474" target="_blank"><span>Instagram</span></a>
+            </li>
+            
+        </ul>
+    </div>
+    
+    <div class="sidebar-item sidebar-tags" style="display: none;">
+        <h3>Tags</h3>
+        <div>
+            
+            <span>
+                <a href="/tags/c&#43;&#43;/">c&#43;&#43;</a>
+            </span>
+            
+            <span>
+                <a href="/tags/cs%EC%8A%A4%ED%84%B0%EB%94%94/">CS스터디</a>
+            </span>
+            
+            <span>
+                <a href="/tags/java/">java</a>
+            </span>
+            
+            <span>
+                <a href="/tags/spring/">spring</a>
+            </span>
+            
+            <span>
+                <a href="/tags/%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC/">네트워크</a>
+            </span>
+            
+            <span>
+                <a href="/tags/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C/">운영체제</a>
+            </span>
+            
+            <span>
+                <a href="/tags/%EC%9E%90%EB%A3%8C%EA%B5%AC%EC%A1%B0/">자료구조</a>
+            </span>
+            
+        </div>
+    </div>
+
+    
+    <div class="sidebar-item sidebar-tags" >
+        <h3>Categories</h3>
+        <ul style="list-style: none !important;">
+            
+            <li>
+                <a href="/categories/spring/">Spring</a>
+            </li>
+            
+            <li>
+                <a href="/categories/%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC/">네트워크</a>
+            </li>
+            
+            <li>
+                <a href="/categories/%EB%B0%A9%ED%86%B5%EB%8C%80-%EA%B0%95%EC%9D%98%EB%85%B8%ED%8A%B8/">방통대 강의노트</a>
+            </li>
+            
+            <li>
+                <a href="/categories/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C/">운영체제</a>
+            </li>
+            
+            <li>
+                <a href="/categories/%EC%9E%90%EB%A3%8C%EA%B5%AC%EC%A1%B0/">자료구조</a>
+            </li>
+            
+        </ul>
+    </div>
+    
+    
+    
+    
+  </div>
+</aside>
+    </main>
+
+    <footer>
+    <div class="container-lg clearfix">
+        <div class="col-12 footer">
+            
+            <span>&copy; 2021
+                <a href="https://junu0516.github.io/"></a>
+                
+                | Powered by <a href="https://github.com/dsrkafuu/hugo-theme-fuji/"
+                   target="_blank">Fuji-v2</a> &amp; <a href="https://gohugo.io/"
+                                                    target="_blank">Hugo</a> 
+            </span>
+        </div>
+    </div>
+</footer>
+
+    
+<script defer src="https://cdn.jsdelivr.net/npm/medium-zoom@1.0.6/dist/medium-zoom.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/components/prism-core.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/autoloader/prism-autoloader.min.js"></script>
+
+
+
+<script defer src="/assets/js/fuji.min.js"></script>
+
+
+
+</body>
+
+</html>

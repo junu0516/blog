@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<meta name="HandheldFriendly" content="True" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<meta name="generator" content="Hugo 0.88.1" />
+
+
+<link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/dsrkafuu/dsr-cdn-main@1/images/favicons/dsrca.ico" />
+
+
+
+<title>Spring DI와 IoC - Junu-Devlog</title>
+
+
+
+
+<meta name="keywords" content="spring, java" />
+
+
+<meta property="og:title" content="Spring DI와 IoC" />
+<meta name="twitter:title" content="Spring DI와 IoC" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://junu0516.github.io/posts/%EC%8A%A4%ED%94%84%EB%A7%81%EC%97%90%EC%84%9C%EC%9D%98_di%EC%99%80_ioc/" /><meta property="og:description" content="Spring DI와 IoC의 개념에 대해 알아보자.
+1. DI(Dependency Injection, 의존성 주입) DI(Dependency Injection) 은 스프링 프레임워크의 의존성 주입을 일컫는 말로, 특정 객체를 미리 생성 후 주입하는 것을 말한다." />
+<meta name="twitter:description" content="Spring DI와 IoC의 개념에 대해 알아보자.
+1. DI(Dependency Injection, 의존성 주입) DI(Dependency Injection) 은 스프링 프레임워크의 의존성 주입을 일컫는 말로, 특정 객체를 미리 생성 후 주입하는 것을 말한다." /><meta name="twitter:card" content="summary" /><meta property="article:published_time" content="2021-09-20T00:00:00+00:00" /><meta property="article:modified_time" content="2021-09-20T00:00:00+00:00" />
+
+
+<style>
+    @media (prefers-color-scheme: dark) {
+        body[data-theme='auto'] img {
+            filter: brightness(60%);
+        }
+    }
+
+    body[data-theme='dark'] img {
+        filter: brightness(60%);
+    }
+</style>
+
+
+
+
+<link rel="stylesheet" href="https://junu0516.github.io/assets/css/fuji.min.css" />
+
+
+
+
+
+
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css" integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc" crossorigin="anonymous">
+<style>
+    img{
+        filter: brightness(100%) !important;
+        display: block !important;
+        margin: auto !important;
+        margin-top: 15px !important;
+        margin-bottom: 15px !important;
+    }
+    .custom-post-meta-tags a{
+        background-color: rgba(231, 231, 231, 0.897);
+        padding: 1px 1px;
+        border-radius: 3px;
+        font-size: 14px;
+        color: gray;
+    }
+    .custom-tags>div a{
+        background-color: rgba(231, 231, 231, 0.897);
+        padding: 2px 5px;
+        border-radius: 3px;
+        color: gray;
+    }
+    .custom-social-link-box{
+        text-align: center;
+    }
+    .custom-social-link{
+        font-size: 2em;
+        margin-right: 15px;
+        color: rgb(104, 98, 98);
+    }
+    .custom-profile-imgbox{
+        width: 100%;
+        height: 100%;
+    }
+    .custom-profile-imgbox__mobile{
+        width: 100%;
+        height: 100%;
+    }
+    .custom-profile-img{
+        width: 90%;
+        height: 80%;
+        border: 1px solid lightgray;
+        border-radius: 100%;
+        opacity: 0.9;
+    }
+
+    .post+.post{
+        border-top: 0.5px solid rgb(226, 226, 226) !important;
+    }
+
+    .custom-content{
+        margin-top : 2%;
+        margin-right: 5%;
+    }
+
+    .custom-content>article>.post-meta{
+        padding-bottom: 5px;
+        border-bottom: 1px solid lightgray;
+    }
+    .custom-content>article>.post-title{
+        font-size: 2rem;
+    }
+
+    header{
+        background-color: rgba(243, 241, 241, 0.89);
+        border-bottom: 0px !important;
+    }
+
+    .custom-header{
+        height: 30%;
+    }
+
+    main{
+        margin-top: 2%;
+    }
+    header .header {
+        height: 80px;
+        padding: 1.2rem 1rem 1rem 1.22rem;
+    }
+
+    .title-main{
+        font-size : 2rem !important;
+        color: rgb(57, 58, 58);
+    }
+
+    .post{
+        padding-bottom: 10px !important;
+    }
+
+    .post-title{
+        font-size: 1.4rem;
+    }
+
+    .post-summary{
+        cursor: pointer;
+        color: rgb(80, 75, 75);
+        font-size: 15px;
+        display: none !important;
+
+    }
+
+    .pagination{
+        margin-top: 50px !important;
+         
+        border-top: none !important;
+    }
+
+    .sidebar{
+        margin-top: 2%;
+        padding: 0 !important;
+    }
+
+         
+
+    @media (min-width: 1025px) and (max-width: 1280px) {
+        .sidebar{
+            min-width: 30vh !important;
+        }
+    }
+
+    .sidebar-item>h3{
+        border-bottom: 1px solid lightgray;
+        margin-bottom: 10px;
+    }
+    
+    .container-lg{
+        max-width: 1400px !important;
+    }
+
+    .markdown-body h1, .markdown-body h2 {
+        border-bottom: 1px solid var(--color-divider) !important;
+    }
+    .markdown-body h3{
+        font-size: 1.35rem !important;
+    }
+    .markdown-body h4{
+        font-size: 1.25rem !important;
+    }
+
+    .content{
+        padding-left: 2.5rem !important;
+    }
+    
+</style>
+
+</head>
+
+<body
+  data-theme="auto"
+  data-theme-auto='false'
+  >
+    <script data-cfasync="false">
+  
+  var fujiThemeData = localStorage.getItem('fuji_data-theme');
+  
+  if (!fujiThemeData) {
+    localStorage.setItem('fuji_data-theme', 'auto');
+  } else {
+    
+    if (fujiThemeData !== 'auto') {
+      document.body.setAttribute('data-theme','light');
+      
+    }
+  }
+</script>
+
+    <header>
+    <div class="container-lg clearfix">
+        <div class="header">
+            <a class="title-main" href="https://junu0516.github.io/">Junu-Devlog</a>
+            
+        </div>
+    </div>
+</header>
+
+    <main>
+        <div class="container-lg clearfix">
+            
+            <div class="col-12 col-md-12 float-left content custom-content">
+                
+<article>
+    
+    <h2 class="post-item post-title">
+        <a href="https://junu0516.github.io/posts/%EC%8A%A4%ED%94%84%EB%A7%81%EC%97%90%EC%84%9C%EC%9D%98_di%EC%99%80_ioc/">Spring DI와 IoC</a>
+    </h2>
+    <div class="post-item post-meta">
+        <span>
+    <i class="iconfont icon-today-sharp"></i>&nbsp;2021-09-20
+</span>
+
+
+
+<span class="custom-post-meta-tags">
+    <i class="iconfont icon-pricetags-sharp"></i>&nbsp;
+    <a href="/tags/spring">spring</a>&nbsp;
+    <a href="/tags/java">java</a>&nbsp;
+</span>
+<span class="custom-post-meta-categories">
+    <i class="fas fa-file-alt"></i>&nbsp;
+    <a href="/categories/spring">Spring</a>&nbsp;
+</span>
+    </div>
+    
+    <div class="post-content markdown-body">
+        <p>Spring DI와 IoC의 개념에 대해 알아보자.</p>
+<br>  
+<p><img class="img-zoomable" src="https://t1.daumcdn.net/cfile/tistory/2434D33454E702B835" alt="이러쿵저러쿵 :: 스프링(Spring) 프레임워크 기본 개념 강좌 (3) - IoC" />
+</p>
+<br>
+<h2 id="1-didependency-injection-의존성-주입">1. DI(Dependency Injection, 의존성 주입)</h2>
+<p><strong><code>DI(Dependency Injection)</code></strong> 은 스프링 프레임워크의 의존성 주입을 일컫는 말로, 특정 객체를 미리 생성 후 주입하는 것을 말한다. 여기서 특정 클래스가 제 기능을 다하기 위해, 다른 클래스의 생성을 필요로하는 경우 클래스 간에  <strong><code>의존성</code></strong> 이 존재한다고 표현한다.</p>
+<p>아래의 코드를 통해 의존성에 대해 살펴보도록 하자</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Car</span><span style="color:#f92672">{</span>
+    Tire tire<span style="color:#f92672">;</span>
+    
+    <span style="color:#66d9ef">public</span> <span style="color:#a6e22e">Car</span><span style="color:#f92672">(){</span>
+        <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">tire</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Tire<span style="color:#f92672">();</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><p>보통 의존 관계는 <strong><code>new</code></strong> 키워드를 선언하는 것과 밀접한 관련이 있다. 위의 코드에서 Car 클래스는 Tire 클래스를 필요로 하며, 따라서 Car 클래스는 Tire 클래스에 의존성을 가진다고 할 수 있다.</p>
+<p>하지만 위와 같은 코드는 우선 Car 클래스와 Tire 클래스 간의 결합도가 높기 때문에, <strong>하나를 수정하면 다른 하나를 수정해야 하는 번거로움이 존재한다.</strong> 따라서, 결합도를 낮출수록(=의존성 혹은 종속성을 줄일수록) 코드의 재활용성 및 유연한 코드 작성이 가능해진다.</p>
+<p>의존성의 주입은 아래처럼 생성자나 setter 메소드를 통해서도 가능하다.  new를 통해 직접 생성하지 않고, 외부에서 생성한 객체를 가져와 인스턴스에 할당하는 것이다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Car</span><span style="color:#f92672">{</span>
+    Tire tire<span style="color:#f92672">;</span>
+    
+    <span style="color:#66d9ef">public</span> <span style="color:#a6e22e">Car</span><span style="color:#f92672">(</span>Tire tire<span style="color:#f92672">){</span>
+        <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">tire</span> <span style="color:#f92672">=</span> tire<span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
+    
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">setTire</span><span style="color:#f92672">(</span>Tire tire<span style="color:#f92672">){</span>
+        <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">tire</span> <span style="color:#f92672">=</span> tire<span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><br>
+<h2 id="2-iocinversion-of-conrol">2. IoC(Inversion of Conrol)</h2>
+<p>스프링 프레임워크에서는 주입 대상이 되는 의존성 객체를 Bean이라고 한다. 처음 프로젝트가 실행될 때 Bean을 생성하여 Bean 컨테이너에서 관리하게 되고, 이후 필요시 컨테이너로부터 Bean을 주입받아 활용하는 것이다.</p>
+<p>이러한 방식은 Bean 객체의 생성 및 소멸을 개발자가 아닌 프레임워크가 주도하게 함으로써, Singleton Pattern의 특징에서 알 수 있듯 빈번한 객체의 생성 및 소멸로 인한 자원 낭비를 줄이고 재사용성을 높인다는 이점이 있다.</p>
+<p>이렇게 메소드나 객체의 호출을 개발자가 결정하지 않고, 프레임워크가 결정하는 것을 <strong><code>제어의 역전(Inversion of Control)</code></strong> 이라고 표현한다. 스프링에서의 Bean이 만들어지고 실행되는 과정은 아래와 같다.</p>
+<ol>
+<li>최초 객체가 생성된다.</li>
+<li>의존성 객체가 주입된다.
+<ul>
+<li>필드 인스턴스나 setter 혹은 생성자 등을 통해 주입</li>
+<li><code>@Autowired</code>  선언하여 프레임워크가 컨테이너에서, 선언된 객체 타입과 일치하는 Bean을 찾아 주입함</li>
+</ul>
+</li>
+<li>의존성 객체 메소드가 호출된다.</li>
+</ol>
+<br>
+<p>여기서 의존성 객체를 주입할 때 스프링에서 권장하는 방식은 <strong>생성자방식</strong> 이다. 다양한 이유가 있겠지만, 공식문서에 의하면 주된 이유로 <strong>순환참조로 인한 에러를 사전에 방지</strong> 할 수 있다는 점을 언급하고 있다.</p>
+<p>아래의 코드를 통해 살펴보도록 하자.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#a6e22e">@Component</span>
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Dog</span><span style="color:#f92672">{</span>
+    <span style="color:#a6e22e">@Autowired</span>
+    <span style="color:#66d9ef">private</span> Cat cag<span style="color:#f92672">;</span>
+    
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">call</span><span style="color:#f92672">(</span>Car cat<span style="color:#f92672">){</span>
+        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Calling Cat&#34;</span><span style="color:#f92672">);</span>
+        cat<span style="color:#f92672">.</span><span style="color:#a6e22e">call</span><span style="color:#f92672">();</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+
+<span style="color:#a6e22e">@Component</span> 
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Cat</span><span style="color:#f92672">{</span>
+    <span style="color:#a6e22e">@Autowired</span>
+    <span style="color:#66d9ef">private</span> Dog dog<span style="color:#f92672">;</span>
+    
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">call</span><span style="color:#f92672">(</span>Dog dog<span style="color:#f92672">){</span>
+        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Calling Dog&#34;</span><span style="color:#f92672">);</span>
+        dog<span style="color:#f92672">.</span><span style="color:#a6e22e">call</span><span style="color:#f92672">();</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><p>위와 같이 필드 주입 방식을 통해 두 개의 Bean이 서로 의존하는 상황에서, 하나의 Bean이 내무의 call() 메소드를 호출할 경우에는  CallStack이 지속적으로 쌓이면서 <code>StackOverflowError</code>가 발생할 것이다. 쉽게 말해 Calling Cat -&gt; Calling Dog -&gt; Calling Cat -&gt; Calling Dog이 무한으로 반복되는 상황인 것이다.</p>
+<p>문제는 이러한 예외는 컴파일 에러가 아닌 <strong>런타임 에러이기 때문에,</strong> 메소드가 실제로 호출되기 전까지는 순환참조된 부분을 찾아내기 힘들 수 있다. 만일, 생성자 주입 방식을 활용할 경우에는 이러한 순환참조 오류를 컴파일 시점에서 잡아낼 수 있기 때문에 생성자 주입 방식이 권장되는 것이다.</p>
+<p>자바에서의 생성자 특성상 생성자 주입은 보통 <strong>최초 생성자 호출시 1회 호출되는 것이 보장</strong> 되기 때문에, 순환참조가 일어날 경우 <strong><code>BeanCurrentlyInCreationException</code></strong> 이 발생하여 사전에 문제를 방지할 수 있다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#a6e22e">@Component</span>
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Dog</span><span style="color:#f92672">{</span>
+    
+    <span style="color:#66d9ef">private</span> Cat cag<span style="color:#f92672">;</span>
+    
+    <span style="color:#a6e22e">@Autowired</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#a6e22e">Dog</span><span style="color:#f92672">(</span>Car cat<span style="color:#f92672">){</span>
+        <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">cat</span> <span style="color:#f92672">=</span> cat<span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
+    
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">call</span><span style="color:#f92672">(</span>Car cat<span style="color:#f92672">){</span>
+        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Calling Cat&#34;</span><span style="color:#f92672">);</span>
+        cat<span style="color:#f92672">.</span><span style="color:#a6e22e">call</span><span style="color:#f92672">();</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+
+<span style="color:#a6e22e">@Component</span> 
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Cat</span><span style="color:#f92672">{</span>
+    
+    <span style="color:#66d9ef">private</span> Dog dog<span style="color:#f92672">;</span>
+    
+    <span style="color:#a6e22e">@Autowired</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#a6e22e">Cat</span><span style="color:#f92672">(</span>Dog dog<span style="color:#f92672">){</span>
+        <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">dog</span> <span style="color:#f92672">=</span> dog<span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
+    
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">call</span><span style="color:#f92672">(</span>Dog dog<span style="color:#f92672">){</span>
+        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Calling Dog&#34;</span><span style="color:#f92672">);</span>
+        dog<span style="color:#f92672">.</span><span style="color:#a6e22e">call</span><span style="color:#f92672">();</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><p>위의 코드는 생성자 주입 방식을 적용한 것이다. 보통 단일 생성자만 존재하면 <code>@Autowired</code>를 사용하지 않아도 되지만, 2개 이상인 경우에는 반드시 어노테이션을 선언해야 한다.</p>
+<br>
+<h2 id="3-스프링에서-bean-호출해보기">3. 스프링에서 Bean 호출해보기</h2>
+<p>이번에는 간단한 예제를 통해 스프링의 Bean Container에서 IoC가 어떻게 이루어지는지 살펴보도록 하자. 여기서는 JDK1.5 이후 사용 가능한 Java Config 클래스를 통해 Bean Container를 구현하였다.</p>
+<p>먼저, Bean으로 활용될 Car, Engine 두 개의 클래스를 아래와 같이 생성하였다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Car</span> <span style="color:#f92672">{</span>
+	<span style="color:#66d9ef">private</span> Engine v8<span style="color:#f92672">;</span>
+	
+	<span style="color:#66d9ef">public</span> <span style="color:#a6e22e">Car</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+		System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Car 기본 생성자&#34;</span><span style="color:#f92672">);</span>
+	<span style="color:#f92672">}</span>
+	<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">setEngine</span><span style="color:#f92672">(</span>Engine e<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+		<span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">v8</span> <span style="color:#f92672">=</span> e<span style="color:#f92672">;</span>
+	<span style="color:#f92672">}</span>
+	<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">run</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+		System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;엔진을 이용하여 달립니다.&#34;</span><span style="color:#f92672">);</span>
+		v8<span style="color:#f92672">.</span><span style="color:#a6e22e">exec</span><span style="color:#f92672">();</span>
+	<span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Engine</span> <span style="color:#f92672">{</span>
+	<span style="color:#66d9ef">public</span> <span style="color:#a6e22e">Engine</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+		System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Engine 기본 생성자&#34;</span><span style="color:#f92672">);</span>
+	<span style="color:#f92672">}</span>
+	<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">exec</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+		System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;엔진 동작&#34;</span><span style="color:#f92672">);</span>
+	<span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><br>
+<p>이후 Bean Container로 기능할 Java Config 클래스를 생성한다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#a6e22e">@Configuration</span> <span style="color:#75715e">//해당 어노테이션을 읽고 해당 클래스가 config 파일임을 인지(스프링 설정 클래스)
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ApplicationConfig</span> <span style="color:#f92672">{</span>
+	<span style="color:#75715e">/*
+</span><span style="color:#75715e">	 * @Bean 어노테이션이 붙은 메소드(생성자)를 실행해서,
+</span><span style="color:#75715e">	 * 리턴값으로 받은 객체들을 자동으로 싱글톤으로 관리해줌
+</span><span style="color:#75715e">	 * pom.xml에서 일일히 등록하는 것보다 더욱 편리!!
+</span><span style="color:#75715e">	 * 
+</span><span style="color:#75715e">	 * */</span>
+	
+	<span style="color:#a6e22e">@Bean</span>
+	<span style="color:#66d9ef">public</span> Car <span style="color:#a6e22e">car</span><span style="color:#f92672">(</span>Engine e<span style="color:#f92672">)</span> <span style="color:#f92672">{</span> <span style="color:#75715e">//클래스명과 실행파일에서의 getBean()의 매개변수를 서로 맞춰주도록 함
+</span><span style="color:#75715e"></span>		Car c <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Car<span style="color:#f92672">();</span>
+		<span style="color:#75715e">//c.setEngine(e);
+</span><span style="color:#75715e"></span>		<span style="color:#66d9ef">return</span> c<span style="color:#f92672">;</span>
+	<span style="color:#f92672">}</span>
+	
+	<span style="color:#a6e22e">@Bean</span>
+	<span style="color:#66d9ef">public</span> Engine <span style="color:#a6e22e">engine</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+		<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> Engine<span style="color:#f92672">();</span>
+	<span style="color:#f92672">}</span>	
+<span style="color:#f92672">}</span>
+</code></pre></div><p>위의 코드에서 <strong><code>@Configuration</code></strong> 어노테이션은, 간단히 말해 ApplicationConfig 클래스가 Bean Container로 기능할 것임을 나타내는 어노테이션이다. 해당 클래스 내에서  <strong><code>@Bean</code></strong> 어노테이션이 선언된 메소드들이 리턴하는 객체가 컨테이너가 가진 Bean이 된다.</p>
+<p>이후에는 실행 메소드에서 직접 컨테이너를 생성해서 Bean을 주입해보도록 하자.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ApplicationContextTest</span> <span style="color:#f92672">{</span>
+	<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[]</span> args<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+		<span style="color:#75715e">//컨테이너 생성
+</span><span style="color:#75715e"></span>        ApplicationContext ac <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> AnnotationConfigApplicationContext<span style="color:#f92672">(</span>ApplicationConfig<span style="color:#f92672">.</span><span style="color:#a6e22e">class</span><span style="color:#f92672">);</span>
+		
+        <span style="color:#75715e">//컨테이너에서 Bean 호출
+</span><span style="color:#75715e"></span>		Car car <span style="color:#f92672">=</span> <span style="color:#f92672">(</span>Car<span style="color:#f92672">)</span>ac<span style="color:#f92672">.</span><span style="color:#a6e22e">getBean</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;car&#34;</span><span style="color:#f92672">);</span>
+		car<span style="color:#f92672">.</span><span style="color:#a6e22e">run</span><span style="color:#f92672">();</span>
+		
+	<span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><p>여기서는 컨테이너의 구현체로 <strong><code>AnnotationConfigApplicationContext</code></strong> 클래스를 사용하였고, 매개변수로 앞서 생성한 <strong>ApplicationConfig</strong> 클래스를 넣어주었다.</p>
+<p>이후 메인 메소드가 호출되면, AnnotationConfigApplicationContext는 생성자로 주입받은 config 클래스를 읽어 IoC를 적용하게 되며, config 클래스 내에 선언된 여러 Bean들이 싱글톤 방식으로 관리된다.</p>
+<br>
+<hr>
+<h2 id="reference">Reference</h2>
+<ul>
+<li><a href="https://ko.wikipedia.org/wiki/%EC%9D%98%EC%A1%B4%EC%84%B1_%EC%A3%BC%EC%9E%85" target="_blank">위키피디아 의존성 주입</a></li>
+<li><a href="https://www.baeldung.com/constructor-injection-in-spring" target="_blank">Constructor Dependency Injection in Spring</a></li>
+<li><a href="https://velog.io/@gillog/Spring-DIDependency-Injection" target="_blank">[Spring] DI, IoC 정리</a></li>
+</ul>
+
+    </div>
+    <hr>
+    <script src="https://utteranc.es/client.js"
+        repo="junu0516/blog"
+        issue-term="pathname"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script>
+</article>
+
+
+
+
+            </div>
+            <aside class="col-12 col-md-3 float-left sidebar">
+    
+    
+    <div class="sidebar-item sidebar-toc">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-didependency-injection-의존성-주입">1. DI(Dependency Injection, 의존성 주입)</a></li>
+    <li><a href="#2-iocinversion-of-conrol">2. IoC(Inversion of Conrol)</a></li>
+    <li><a href="#3-스프링에서-bean-호출해보기">3. 스프링에서 Bean 호출해보기</a></li>
+    <li><a href="#reference">Reference</a></li>
+  </ul>
+</nav></div>
+</aside>
+
+        </div>
+        <div class="btn">
+    
+    <div class="btn-menu" id="btn-menu">
+        <i class="iconfont icon-grid-sharp"></i>
+    </div>
+    <div class="btn-toggle-mode" style="display: none;">
+        <i class="iconfont icon-contrast-sharp"></i>
+    </div>
+    
+    <div class="btn-scroll-top">
+        <i class="iconfont icon-chevron-up-circle-sharp"></i>
+    </div>
+</div>
+
+<aside class="sidebar-mobile" style="display: none;">
+  <div class="sidebar-wrapper">
+    
+    <div class="sidebar-item sidebar-pages" style="display: none;">
+        <h3>Pages</h3>
+        <ul>
+            
+        </ul>
+    </div>
+    
+    <div class="sidebar-item sidebar-links" style="display: none;">
+        <h3>Links</h3>
+        <ul>
+            
+            <li>
+                <a href="https://github.com/junu0516" target="_blank"><span>GitHub</span></a>
+            </li>
+            
+            <li>
+                <a href="https://twitter.com/dsrkafuu" target="_blank"><span>Linkedin</span></a>
+            </li>
+            
+            <li>
+                <a href="https://space.bilibili.com/19767474" target="_blank"><span>Instagram</span></a>
+            </li>
+            
+        </ul>
+    </div>
+    
+    <div class="sidebar-item sidebar-tags" style="display: none;">
+        <h3>Tags</h3>
+        <div>
+            
+            <span>
+                <a href="/tags/c&#43;&#43;/">c&#43;&#43;</a>
+            </span>
+            
+            <span>
+                <a href="/tags/cs%EC%8A%A4%ED%84%B0%EB%94%94/">CS스터디</a>
+            </span>
+            
+            <span>
+                <a href="/tags/java/">java</a>
+            </span>
+            
+            <span>
+                <a href="/tags/spring/">spring</a>
+            </span>
+            
+            <span>
+                <a href="/tags/%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC/">네트워크</a>
+            </span>
+            
+            <span>
+                <a href="/tags/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C/">운영체제</a>
+            </span>
+            
+            <span>
+                <a href="/tags/%EC%9E%90%EB%A3%8C%EA%B5%AC%EC%A1%B0/">자료구조</a>
+            </span>
+            
+        </div>
+    </div>
+
+    
+    <div class="sidebar-item sidebar-tags" >
+        <h3>Categories</h3>
+        <ul style="list-style: none !important;">
+            
+            <li>
+                <a href="/categories/spring/">Spring</a>
+            </li>
+            
+            <li>
+                <a href="/categories/%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC/">네트워크</a>
+            </li>
+            
+            <li>
+                <a href="/categories/%EB%B0%A9%ED%86%B5%EB%8C%80-%EA%B0%95%EC%9D%98%EB%85%B8%ED%8A%B8/">방통대 강의노트</a>
+            </li>
+            
+            <li>
+                <a href="/categories/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C/">운영체제</a>
+            </li>
+            
+            <li>
+                <a href="/categories/%EC%9E%90%EB%A3%8C%EA%B5%AC%EC%A1%B0/">자료구조</a>
+            </li>
+            
+        </ul>
+    </div>
+    
+    
+    
+    
+  </div>
+</aside>
+    </main>
+
+    <footer>
+    <div class="container-lg clearfix">
+        <div class="col-12 footer">
+            
+            <span>&copy; 2021
+                <a href="https://junu0516.github.io/"></a>
+                
+                | Powered by <a href="https://github.com/dsrkafuu/hugo-theme-fuji/"
+                   target="_blank">Fuji-v2</a> &amp; <a href="https://gohugo.io/"
+                                                    target="_blank">Hugo</a> 
+            </span>
+        </div>
+    </div>
+</footer>
+
+    
+<script defer src="https://cdn.jsdelivr.net/npm/medium-zoom@1.0.6/dist/medium-zoom.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/components/prism-core.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/autoloader/prism-autoloader.min.js"></script>
+
+
+
+<script defer src="/assets/js/fuji.min.js"></script>
+
+
+
+</body>
+
+</html>

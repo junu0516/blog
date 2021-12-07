@@ -1,0 +1,2155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<meta name="HandheldFriendly" content="True" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<meta name="generator" content="Hugo 0.88.1" />
+
+
+<link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/dsrkafuu/dsr-cdn-main@1/images/favicons/dsrca.ico" />
+
+
+
+<title>[방송통신대 강의노트] C&#43;&#43; 프로그래밍 - Junu-Devlog</title>
+
+
+
+
+<meta name="keywords" content="c&#43;&#43;, CS스터디" />
+
+
+<meta property="og:title" content="[방송통신대 강의노트] C&#43;&#43; 프로그래밍" />
+<meta name="twitter:title" content="[방송통신대 강의노트] C&#43;&#43; 프로그래밍" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://junu0516.github.io/posts/c&#43;&#43;/" /><meta property="og:description" content="2021-2 C&#43;&#43; 프로그래밍 수업 내용 정리한 것입니다. 잘못된 부분은 댓글 통해 지적해주세요" />
+<meta name="twitter:description" content="2021-2 C&#43;&#43; 프로그래밍 수업 내용 정리한 것입니다. 잘못된 부분은 댓글 통해 지적해주세요" /><meta name="twitter:card" content="summary" /><meta property="article:published_time" content="2021-10-09T00:00:00+00:00" /><meta property="article:modified_time" content="2021-11-01T01:57:42+09:00" />
+
+
+<style>
+    @media (prefers-color-scheme: dark) {
+        body[data-theme='auto'] img {
+            filter: brightness(60%);
+        }
+    }
+
+    body[data-theme='dark'] img {
+        filter: brightness(60%);
+    }
+</style>
+
+
+
+
+<link rel="stylesheet" href="https://junu0516.github.io/assets/css/fuji.min.css" />
+
+
+
+
+
+
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css" integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc" crossorigin="anonymous">
+<style>
+    img{
+        filter: brightness(100%) !important;
+        display: block !important;
+        margin: auto !important;
+        margin-top: 15px !important;
+        margin-bottom: 15px !important;
+    }
+    .custom-post-meta-tags a{
+        background-color: rgba(231, 231, 231, 0.897);
+        padding: 1px 1px;
+        border-radius: 3px;
+        font-size: 14px;
+        color: gray;
+    }
+    .custom-tags>div a{
+        background-color: rgba(231, 231, 231, 0.897);
+        padding: 2px 5px;
+        border-radius: 3px;
+        color: gray;
+    }
+    .custom-social-link-box{
+        text-align: center;
+    }
+    .custom-social-link{
+        font-size: 2em;
+        margin-right: 15px;
+        color: rgb(104, 98, 98);
+    }
+    .custom-profile-imgbox{
+        width: 100%;
+        height: 100%;
+    }
+    .custom-profile-imgbox__mobile{
+        width: 100%;
+        height: 100%;
+    }
+    .custom-profile-img{
+        width: 90%;
+        height: 80%;
+        border: 1px solid lightgray;
+        border-radius: 100%;
+        opacity: 0.9;
+    }
+
+    .post+.post{
+        border-top: 0.5px solid rgb(226, 226, 226) !important;
+    }
+
+    .custom-content{
+        margin-top : 2%;
+        margin-right: 5%;
+    }
+
+    .custom-content>article>.post-meta{
+        padding-bottom: 5px;
+        border-bottom: 1px solid lightgray;
+    }
+    .custom-content>article>.post-title{
+        font-size: 2rem;
+    }
+
+    header{
+        background-color: rgba(243, 241, 241, 0.89);
+        border-bottom: 0px !important;
+    }
+
+    .custom-header{
+        height: 30%;
+    }
+
+    main{
+        margin-top: 2%;
+    }
+    header .header {
+        height: 80px;
+        padding: 1.2rem 1rem 1rem 1.22rem;
+    }
+
+    .title-main{
+        font-size : 2rem !important;
+        color: rgb(57, 58, 58);
+    }
+
+    .post{
+        padding-bottom: 10px !important;
+    }
+
+    .post-title{
+        font-size: 1.4rem;
+    }
+
+    .post-summary{
+        cursor: pointer;
+        color: rgb(80, 75, 75);
+        font-size: 15px;
+        display: none !important;
+
+    }
+
+    .pagination{
+        margin-top: 50px !important;
+         
+        border-top: none !important;
+    }
+
+    .sidebar{
+        margin-top: 2%;
+        padding: 0 !important;
+    }
+
+         
+
+    @media (min-width: 1025px) and (max-width: 1280px) {
+        .sidebar{
+            min-width: 30vh !important;
+        }
+    }
+
+    .sidebar-item>h3{
+        border-bottom: 1px solid lightgray;
+        margin-bottom: 10px;
+    }
+    
+    .container-lg{
+        max-width: 1400px !important;
+    }
+
+    .markdown-body h1, .markdown-body h2 {
+        border-bottom: 1px solid var(--color-divider) !important;
+    }
+    .markdown-body h3{
+        font-size: 1.35rem !important;
+    }
+    .markdown-body h4{
+        font-size: 1.25rem !important;
+    }
+
+    .content{
+        padding-left: 2.5rem !important;
+    }
+    
+</style>
+
+</head>
+
+<body
+  data-theme="auto"
+  data-theme-auto='false'
+  >
+    <script data-cfasync="false">
+  
+  var fujiThemeData = localStorage.getItem('fuji_data-theme');
+  
+  if (!fujiThemeData) {
+    localStorage.setItem('fuji_data-theme', 'auto');
+  } else {
+    
+    if (fujiThemeData !== 'auto') {
+      document.body.setAttribute('data-theme','light');
+      
+    }
+  }
+</script>
+
+    <header>
+    <div class="container-lg clearfix">
+        <div class="header">
+            <a class="title-main" href="https://junu0516.github.io/">Junu-Devlog</a>
+            
+        </div>
+    </div>
+</header>
+
+    <main>
+        <div class="container-lg clearfix">
+            
+            <div class="col-12 col-md-12 float-left content custom-content">
+                
+<article>
+    
+    <h2 class="post-item post-title">
+        <a href="https://junu0516.github.io/posts/c&#43;&#43;/">[방송통신대 강의노트] C&#43;&#43; 프로그래밍</a>
+    </h2>
+    <div class="post-item post-meta">
+        <span>
+    <i class="iconfont icon-today-sharp"></i>&nbsp;2021-10-09
+</span>
+
+<span>
+    <i class="iconfont icon-sync-circle-sharp"></i>&nbsp;2021-11-01</span>
+
+
+<span class="custom-post-meta-tags">
+    <i class="iconfont icon-pricetags-sharp"></i>&nbsp;
+    <a href="/tags/c&#43;&#43;">c&#43;&#43;</a>&nbsp;
+    <a href="/tags/cs%EC%8A%A4%ED%84%B0%EB%94%94">CS스터디</a>&nbsp;
+</span>
+<span class="custom-post-meta-categories">
+    <i class="fas fa-file-alt"></i>&nbsp;
+    <a href="/categories/%EB%B0%A9%ED%86%B5%EB%8C%80-%EA%B0%95%EC%9D%98%EB%85%B8%ED%8A%B8">방통대 강의노트</a>&nbsp;
+</span>
+    </div>
+    
+    <div class="post-content markdown-body">
+        <br>
+<blockquote>
+<p>2021-2 C++ 프로그래밍 수업 내용 정리한 것입니다. 잘못된 부분은 댓글 통해 지적해주세요</p>
+</blockquote>
+<h2 id="1--c-언어-기초-1">1.  C++ 언어 기초 (1)</h2>
+<h3 id="1-1--c-파일과-프로그램-빌드">1-1 . C++ 파일과 프로그램 빌드</h3>
+<img src="https://static.packt-cdn.com/products/9781789801491/graphics/C11557_01_02.jpg" width = "300" height="400">
+<ul>
+<li>C언어에 객체지향, 일반화, 예외처리 등의 개념을 확장시킨 것</li>
+<li><strong>C++ 소스 프로그램</strong> 의 확장자로는 <strong><code>.cpp</code></strong> , <strong><code>.cxx</code></strong> , <strong><code>.C</code></strong> 등을 사용</li>
+<li><strong>C++ 헤더파일</strong> : <strong><code>#include</code></strong> 키워드 선언과 함께 소스 프로그램 파일에 삽입되어 컴파일되는 파일
+<ul>
+<li>클래스, 매크로, 전역변수, 상수 등 여러 소스 파일에 공통적으로 선언되는 내용을 담고 있음</li>
+<li>확장자로 <strong><code>.h</code></strong> 를 사용</li>
+</ul>
+</li>
+<li>헤더 파일을 포함한 소스 프로그램 파일은 <strong>목적 파일(Object File)</strong> 로 컴파일되며, 이것이 최종적으로 <strong><code>.exe</code></strong> 와 같은 <strong>실행 프로그램 파일(Executable File)로</strong> <strong>빌드</strong> 되는 것 (위 그림 참조)</li>
+</ul>
+<br>
+<h3 id="1-2-c-코드-작성-예시">1-2. C++ 코드 작성 예시</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt; //선행처리기 지시어</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(){
+    
+    <span style="color:#66d9ef">int</span> a; <span style="color:#75715e">//정수형 변수 선언
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">char</span> str[<span style="color:#ae81ff">100</span>]; <span style="color:#75715e">//배열 선언
+</span><span style="color:#75715e"></span>    
+    <span style="color:#75715e">//표준 입력 스트림
+</span><span style="color:#75715e"></span>    std<span style="color:#f92672">::</span>cin <span style="color:#f92672">&gt;&gt;</span> a <span style="color:#f92672">&gt;&gt;</span> str; <span style="color:#75715e">//공백을 기준으로 a, str을 순서대로 입력
+</span><span style="color:#75715e"></span>    
+    <span style="color:#75715e">//표준 출력 스트림으로 문장 출력
+</span><span style="color:#75715e"></span>    std<span style="color:#f92672">::</span>out <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;Hello World&#34;</span>
+        	 <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>endl;
+    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+}
+</code></pre></div><ul>
+<li><strong>선행 처리</strong> : # 로 시작하여, 컴파일 전 소스 프로그램 가공 시 컴파일러가 번역할 소스프로그램으 만드는 것을 말함
+<ul>
+<li><strong><code>#include</code></strong> , <strong><code>#define</code></strong> , <strong><code>#undef</code></strong> , <strong><code>#if</code></strong> , <strong><code>#ifdef</code></strong> , <strong><code>#ifndef</code></strong>  등의 지시어가 있음</li>
+</ul>
+</li>
+<li><strong><code>std::cout</code></strong> 은, 표준 출력 스트림 객체로 데이터를 문자열로 변환하여 콘솔에 출력함
+<ul>
+<li><strong><code>&lt;&lt;</code></strong> 은 출력 연산자를 의미하며, 위의 코드에서 <strong><code>std::endl</code></strong> 은 end of line, 즉 개행의 종료를 선언한다는 의미임</li>
+</ul>
+</li>
+<li><strong><code>std::cin</code></strong> 은 반대로 표준 입력 스트림 객체이며, 출력 연산자와 반대로 <strong><code>&gt;&gt;</code></strong> 연산자를 사용함</li>
+</ul>
+<br>
+<h3 id="1-3-명칭공간namespace">1-3 명칭공간(namespace)</h3>
+<ul>
+<li>특정한 이름들이 인식되는 프로그램의 부분을 말하며, 동일한 명칭이라도 서로 다른 명칭공간에 정의되어 있다면 별개의 것으로 구분함
+<ul>
+<li>다른 언어와 굳이 비교하면 <strong>자바(java)의 패키지</strong> 가 명칭공간과 비슷한 역할을 수행함</li>
+</ul>
+</li>
+<li>여러 프로그래머가 협업시 각자의 필요에 따라 독립적으로 명칭공간을 만들어 사용할 수 있음</li>
+<li><strong>전역 명칭공간</strong> : 특정 명칭공간에 속하지 않는 기본 명칭공간을 의미함</li>
+<li><strong>std 명칭공간</strong> : 표준 C++ 라이브러리 명칭들이 정의된 명칭공간을 의미함</li>
+<li><strong><code>using</code></strong> 키워드를 이용하여 특정 명칭공간 혹은 명칭공간 내 특정 이름을 자주 사용하는 경우, 명칭공간의 지정을 간소화할 수도 있음</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">//std 명칭공간 지정을 간소화하였음
+</span><span style="color:#75715e">// std::cout, std::endl 대신, 그냥 cout, endl만 선언해도 되는 것
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
+
+<span style="color:#75715e">//변수명은 모두 n으로 동일하지만, 명칭공간이 모두 다르기 때문에 별개의 것으로 취급
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">namespace</span> myNameSpace1 {<span style="color:#66d9ef">int</span> n<span style="color:#f92672">=</span><span style="color:#ae81ff">10</span>;}
+<span style="color:#66d9ef">namespace</span> myNameSpace2 {<span style="color:#66d9ef">int</span> n<span style="color:#f92672">=</span><span style="color:#ae81ff">20</span>;}
+<span style="color:#66d9ef">int</span> n<span style="color:#f92672">=</span><span style="color:#ae81ff">30</span>;
+
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(){
+    <span style="color:#66d9ef">int</span> n<span style="color:#f92672">=</span><span style="color:#ae81ff">40</span>;
+    <span style="color:#75715e">// myNameSpace1 명칭공간에 선언된 n
+</span><span style="color:#75715e"></span>    cout <span style="color:#f92672">&lt;&lt;</span> myNameSpace1<span style="color:#f92672">::</span>n<span style="color:#f92672">&lt;&lt;</span> endl;
+    <span style="color:#75715e">// myNameSpace2 명칭공간에 선언된 n
+</span><span style="color:#75715e"></span>    cout <span style="color:#f92672">&lt;&lt;</span> myNameSpace2<span style="color:#f92672">::</span>n<span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>endl;
+    <span style="color:#75715e">//전역 명칭공간에 선언된 n
+</span><span style="color:#75715e"></span>    cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#f92672">::</span>n<span style="color:#f92672">&lt;&lt;</span> endl;
+    <span style="color:#75715e">//함수 내 지역변수로 선언된 n
+</span><span style="color:#75715e"></span>    cout <span style="color:#f92672">&lt;&lt;</span> n<span style="color:#f92672">&lt;&lt;</span> endl;
+    
+	<span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+}
+</code></pre></div><br>
+<h2 id="2-c-언어-기초2">2. C++ 언어 기초(2)</h2>
+<h3 id="2-1-키워드와-식별자">2-1 키워드와 식별자</h3>
+<ul>
+<li><strong>키워드(keyword)</strong> : 미리 용도가 정해진 단어를 의미하며, 정해진 용도로만 반드시 사용해야 함
+<ul>
+<li><strong><code>using namespace</code></strong> , <strong><code>return</code></strong> 등의 것들이 키워드임</li>
+</ul>
+</li>
+<li><strong>식별자(identifie)</strong> : 변수, 함수, 클래스 등 여러 대상을 구분하기 위해 만든 이름을 말함
+<ul>
+<li>쉽게 말해 변수명, 함수명, 클래스명 등의 이름을 식별자라고 하는 것</li>
+<li>첫 글자는 숫자가 아닌 문자를 사용하도록 하며, 이후에는 숫자와 문자를 모두 사용</li>
+<li>길이 제한은 없으나 특수문자를 포함하면 안되며, <strong>키워드는 식별자로 사용할 수 없음</strong></li>
+</ul>
+</li>
+</ul>
+<br>
+<h3 id="2-2-c의-자료형">2-2 C++의 자료형</h3>
+<ul>
+<li>
+<p>기본 자료형</p>
+<ul>
+<li><strong>정수 자료형</strong> : char, int, short, long, bool 등..
+<ul>
+<li>고정소수점(fixed-point) 방식의 숫자 표현</li>
+<li>연산시 정해진 범위를 벗어나는 오버플로우가 발생하지 않도록 주의</li>
+</ul>
+</li>
+<li><strong>실수 자료형</strong> : float, double, long double 등..
+<ul>
+<li>부동소수점(floating-point) 방식의 숫자 표현</li>
+<li>float은 4바이트, double은 8바이트 크기의 자료형</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>복합 자료형</p>
+<ul>
+<li>열, 구조체, 클래스, 열거형(enum) 등</li>
+<li>포인터, 참조</li>
+</ul>
+</li>
+<li>
+<p><strong>정수형 리터럴 표현</strong></p>
+<ul>
+<li>정수형 리터럴 표현시, 숫자를 표현하는 문자와 부호만으로 표현함</li>
+<li>0~9까지의 숫자와 10~15에 해당되는 16진수 표현을 위한 문자 a~f, A~F를 사용</li>
+<li>접두사를 이용해서 정수형 리터럴을 표현할 수 있음(접두사가 없으면 10진수 취급)
+<ul>
+<li>159 : 10진수로 표현된 int</li>
+<li>**<u>0b</u>**10011111 : 2진수로 표현된 int</li>
+<li>**<u>0</u>**237 : 8진수로 표현된 int</li>
+<li>**<u>0x</u>**9f : 16진수로 표현된 int</li>
+</ul>
+</li>
+<li>접미사를 이용해서 정수형 리터럴의 자료형을 지정할 수 있음
+<ul>
+<li>123 : int 자료형</li>
+<li>123**<u>u</u>** : unsigned int 자료형</li>
+<li>123**<u>L</u>** : long 자료형</li>
+<li>123**<u>ul</u>** : unsigned long 자료형</li>
+<li>123**<u>ll</u>** : long long 자료형</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>문자 리터럴 표현</strong></p>
+<ul>
+<li>작은 따옴표(' &lsquo;) 안에 문자를 표기하거나, 8진수나 16진수 문자 코드로 표기
+<ul>
+<li>&lsquo;A&rsquo; : 단순 문자 A를 표현한 것이며, ASCII 코드에 해당되는 정수 65와 동일</li>
+<li>&lsquo;\101&rsquo; : 65의 8진수 표현으로 문자 A를 표현</li>
+<li>&lsquo;\x41&rsquo; : 65의 16진수 표현으로 문자 A를 표현</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>실수 리터럴의 표현</strong></p>
+<ul>
+<li>소수점이나 10의 거듭제곱 표현을 위해 지수기호 e를 사용
+<ul>
+<li>&lsquo;1200.&rsquo; : 1200.0, 12e2, 1.2e+3  (double)</li>
+<li>&lsquo;1200.0f&rsquo; : 12e2f (float)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<br>
+<h3 id="2-3-변수">2-3 변수</h3>
+<ul>
+<li>프로그램이 실행되는 동안 기억해야 하는 값들을 저장하는 메모리 공간을 의미함</li>
+<li>변수는 반드시 이름(식별자)이 지정되야 하며, 사용 전에 미리 선언됨</li>
+<li>함수 내부에 선언되면 <strong>지역 변수</strong> , 함수 외부에 선언되면 <strong>전역 변수</strong></li>
+<li>변수의 선언은 <strong>자료형 + 변수명</strong> 의 형식을 따름</li>
+<li><strong><code>const</code></strong> 는 변수를 상수로 선언하는 키워드로 변수의 값을 초기화 이후 수정하지 못하도록 함</li>
+<li><strong><code>constexpr</code></strong> 은 컴파일하는 시점에 값을 평가한다는 의미로, 런타임(실행) 시점에 비해 좀 더 효율적인 동작이 가능하도록 함
+<ul>
+<li>함수 앞에 <strong><code>constexpr</code></strong> 이 선언된 경우에는 함수 내의 모든 연산에 대해 컴파일 시점에 값을 구하도록 함</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#66d9ef">int</span> a;
+std:cin <span style="color:#f92672">&gt;&gt;</span> a;
+<span style="color:#66d9ef">const</span> <span style="color:#66d9ef">int</span> b <span style="color:#f92672">=</span> <span style="color:#ae81ff">20</span>; <span style="color:#75715e">//상수
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#66d9ef">int</span> C1 <span style="color:#f92672">=</span> a;<span style="color:#75715e">//a가 초기화되어있지 않기 때문에 컴파일 시점에 a의 값을 알지 못하므로 오류 발생
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">constexpr</span> <span style="color:#66d9ef">int</span> C2 <span style="color:#f92672">=</span> a<span style="color:#f92672">+</span><span style="color:#ae81ff">10</span>; <span style="color:#75715e">//마찬가지로 a값이 없기 때문에 오류 발생
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">constexpr</span> <span style="color:#66d9ef">int</span> C3 <span style="color:#f92672">=</span> b<span style="color:#f92672">+</span><span style="color:#ae81ff">100</span>; <span style="color:#75715e">//b는 20으로 초기화되어있기 때문에 컴파일 시점에 오류가 발생하지 않음
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">constexpr</span> <span style="color:#66d9ef">int</span> C4 <span style="color:#f92672">=</span> C1 <span style="color:#f92672">*</span> <span style="color:#ae81ff">2</span>; <span style="color:#75715e">//컴파일 시점에 C2의 초기화에 오류가 있기 때문에 C4 초기화도 오류 발생
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">constexpr</span> <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">fac</span>(<span style="color:#66d9ef">int</span> n){
+    <span style="color:#66d9ef">return</span> n<span style="color:#f92672">&gt;</span><span style="color:#ae81ff">1</span> <span style="color:#f92672">?</span> n<span style="color:#f92672">*</span>f(n<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>) <span style="color:#f92672">:</span><span style="color:#ae81ff">1</span> ; <span style="color:#75715e">//컴파일 시점에 해당 부분 연산 실행
+</span><span style="color:#75715e"></span>}
+</code></pre></div><ul>
+<li>변수의 생명주기(lifetime) : 변수의 생성 및 소멸 시점을 의미하는 것
+<ul>
+<li>지역변수 혹은 자동변수의 경우 함수의 시작 및 종료가 각각 생성 및 소멸 시점이 됨</li>
+<li>정적 변수(static)의 경우에는 프로그램의 시작 및 종료가 각각 생성 및 소멸 시점이 됨</li>
+</ul>
+</li>
+</ul>
+<br>
+<h3 id="2-4-연산자">2-4. 연산자</h3>
+<ul>
+<li>산술연산자 : + , - , * , / , %</li>
+<li>대입 연산자 : =</li>
+<li>복합 대입 연산자 : 산술 연산자와 대입 연산자가 합쳐진 것</li>
+<li>관계 연산자 : &gt; , &lt; . &gt;= , &lt;=, == , !=</li>
+<li>논리 연산자 : || , &amp;&amp; , !</li>
+<li><strong>비트 연산자</strong> : 비트 단위로 논리연산 혹은 왼쪽이나 오른쪽으로 전체 비트를 이동시킬 때 사용</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">비트 연산자</th>
+<th style="text-align:center">설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">~</td>
+<td style="text-align:center">비트를 1이면 0으로, 0이면 1로 반전시킴. (비트 NOT 연산)</td>
+</tr>
+<tr>
+<td style="text-align:center">&amp;</td>
+<td style="text-align:center">대응되는 비트가 모두 1이면 1을 반환함. (비트 AND 연산)</td>
+</tr>
+<tr>
+<td style="text-align:center">|</td>
+<td style="text-align:center">대응되는 비트 중에서 하나라도 1이면 1을 반환함. (비트 OR 연산)</td>
+</tr>
+<tr>
+<td style="text-align:center">^</td>
+<td style="text-align:center">대응되는 비트가 서로 다르면 1을 반환함. (비트 XOR 연산)</td>
+</tr>
+<tr>
+<td style="text-align:center">&laquo;</td>
+<td style="text-align:center">지정한 수만큼 비트들을 전부 왼쪽으로 이동시킴. (left shift 연산)</td>
+</tr>
+<tr>
+<td style="text-align:center">&raquo;</td>
+<td style="text-align:center">지정한 수만큼 비트들을 전부 오른쪽으로 이동시킴. (right shift 연산)</td>
+</tr>
+</tbody>
+</table>
+<br>
+<h3 id="2-5-자료형의-변환">2-5. 자료형의 변환</h3>
+<ul>
+<li>
+<p><strong>묵시적 형변환</strong></p>
+<ul>
+<li>우선순위가 낮은 자료형의 값이 높은 자료형의 값과 동일하게 자동적으로 변환되는 것으로 <strong>연산자 단위로 이루어짐</strong></li>
+<li>대입연산자( <strong><code>=</code></strong> ) 를 사용할 경우 저장할 변수의 자료형으로 묵시적 형변환이 이루어짐
+<ul>
+<li>실수 -&gt; 정수로의 변환에서 오는 오차 발생이나 데이터의 오버플로우가 발생할 수 있음으로 주의</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++">intVar <span style="color:#f92672">=</span> doubleVar <span style="color:#f92672">+</span> intVar <span style="color:#f92672">*</span> floatVar;
+
+<span style="color:#75715e">/*
+</span><span style="color:#75715e">	1. intVar*floatVar : float으로 자동으로 형변환
+</span><span style="color:#75715e">	2. doubleVar + (float) : double로 자동으로 형변환
+</span><span style="color:#75715e">	3. 연산 결과로 얻은 double은 변수 타입에 따라 int로 형변환
+</span><span style="color:#75715e">*/</span>
+</code></pre></div></li>
+<li>
+<p><strong>명시적 형변환</strong></p>
+<ul>
+<li><strong><code>static_cast</code></strong> : 실행 중에 형 검사를 하지 않으며 컴파일 할 때 수식에 지정된 그대로 변환</li>
+<li><strong><code>dynamic_cast</code></strong> : 기초 클래스나 파생 클래스 간의 포인터 또는 참조 형변환이 프로그램의 실행 중에 일어나도록 지시</li>
+<li><strong><code>reinterpret_cast</code></strong> : 포인터를 자른 자료형의 포인터나 정수 자료형으로, 또는 역으로 변환</li>
+<li><strong><code>const_cast</code></strong> : const 지정을 일시적으로 해제</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#66d9ef">static_cast</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span>(n<span style="color:#f92672">/</span><span style="color:#ae81ff">10.0</span>);
+
+<span style="color:#75715e">/*
+</span><span style="color:#75715e">static_cast : 형변환 연산자
+</span><span style="color:#75715e">&lt;int&gt; : 변환하고자 하는 목표 자료형
+</span><span style="color:#75715e">(n/10.0) : 형 변환 대상 수식
+</span><span style="color:#75715e">*/</span>
+</code></pre></div></li>
+</ul>
+<br>
+<h2 id="3-c-언어-기초3">3. C++ 언어 기초(3)</h2>
+<h3 id="3-1-흐름제어-구문">3-1. 흐름제어 구문</h3>
+<ul>
+<li><strong>조건문</strong> : <strong><code>if</code></strong> , <strong><code>switch</code></strong> 와 같이 조건에 따라 실행의 흐름을 제어하는 문장</li>
+<li><strong>반복문</strong> : <strong><code>for</code></strong> , <strong><code>while</code></strong> , <strong><code>do while</code></strong> 과 같이 정해진 범위의 문장을 반복적으로 실행하도록 하는 문장
+<ul>
+<li><strong><code>for</code></strong> 의 경우 <strong>for( 초기화문장 ; 반복조건 ; 증감문장 )</strong> 의 형식으로 사용</li>
+<li>혹은 <strong>for(개별 원소 : 데이터 집합)</strong> 의 for each 구문으로도 사용 가능</li>
+</ul>
+</li>
+</ul>
+<br>
+<h3 id="3-2-구조체와-클래스">3-2. 구조체와 클래스</h3>
+<ul>
+<li><strong>구조체</strong>
+<ul>
+<li>여러 가지 자료형의 데이터 집합을 저장할 수 있는 새로운 자료형을 정의</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#75715e">//구조체 사용 예시
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Coordinates</span>{
+    <span style="color:#66d9ef">double</span> x,y; <span style="color:#75715e">//2차원 좌표 x와 y 변수를 담고 있는 구조체
+</span><span style="color:#75715e"></span>};
+
+<span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Circle</span>{
+    Coordinates center; <span style="color:#75715e">//중심 좌표를 나타낼 구조체 변수
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">double</span> radius; <span style="color:#75715e">//반지름을 나타낼 변수
+</span><span style="color:#75715e"></span>}
+
+<span style="color:#75715e">//Circle 구조체를 파라미터로 받아 면적을 구하는 함수
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">double</span> <span style="color:#a6e22e">getCircleAreaValue</span>(Circle c){
+    
+    <span style="color:#66d9ef">return</span> c.radius <span style="color:#f92672">*</span> c.radius <span style="color:#f92672">*</span> PI;
+}
+</code></pre></div><br>
+<ul>
+<li>
+<p><strong>클래스</strong></p>
+<ul>
+<li>단순히 인스턴스만을 나열한 것이 아닌, 표현 대상이 어떤 행위를 할 수 있는 지와 어떤 데이터를 저장하는 지(속성)를 하나의 큰 단위로 묶어서 선언한 것</li>
+<li>행위는 메소드로, 속성은 가지고 있는 데이터로 나타낼 수 있음</li>
+</ul>
+</li>
+<li>
+<p>클래스 사용 예시</p>
+<ul>
+<li>Circle.h : 멤버 변수와 함수를 선언</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Coordinates</span>{
+    <span style="color:#66d9ef">double</span> x,y; <span style="color:#75715e">//2차원 좌표 x와 y 변수를 담고 있는 구조체
+</span><span style="color:#75715e"></span>};
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Circle</span>{
+    <span style="color:#75715e">//속성(멤버 변수)
+</span><span style="color:#75715e"></span>    Coordinates center; <span style="color:#75715e">//중심 좌표를 나타낼 구조체 변수
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">double</span> radius; <span style="color:#75715e">//반지름을 나타낼 변수
+</span><span style="color:#75715e"></span>
+    <span style="color:#75715e">//행위(멤버 함수)
+</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+          <span style="color:#66d9ef">void</span> init(<span style="color:#66d9ef">double</span> x, <span style="color:#66d9ef">double</span> y, <span style="color:#66d9ef">double</span> r);
+      <span style="color:#66d9ef">double</span> <span style="color:#a6e22e">area</span>() <span style="color:#66d9ef">const</span>;
+        <span style="color:#66d9ef">bool</span> <span style="color:#a6e22e">checkOverLap</span>(<span style="color:#66d9ef">const</span> Circle<span style="color:#f92672">&amp;</span> c) <span style="color:#66d9ef">const</span>;
+      <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">display</span>() <span style="color:#66d9ef">const</span>;
+};
+</code></pre></div><ul>
+<li>Circle.cpp : 선언된 함수의 내용을 정해줌</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;Circle.h&#34;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;cmath&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
+
+<span style="color:#66d9ef">void</span> Circle<span style="color:#f92672">::</span>init(<span style="color:#66d9ef">double</span> x, <span style="color:#66d9ef">double</span> y, <span style="color:#66d9ef">double</span> r)
+{
+    center.x <span style="color:#f92672">=</span> x;
+    center.y <span style="color:#f92672">=</span> y;
+    radius <span style="color:#f92672">=</span> r;
+}
+
+<span style="color:#66d9ef">double</span> Circle<span style="color:#f92672">::</span>area() <span style="color:#66d9ef">const</span>
+{
+    <span style="color:#66d9ef">return</span> radius <span style="color:#f92672">*</span> radius <span style="color:#f92672">*</span> <span style="color:#ae81ff">3.14</span>;
+}
+
+<span style="color:#66d9ef">bool</span> Circle<span style="color:#f92672">::</span>checkOverLap(<span style="color:#66d9ef">const</span> Circle<span style="color:#f92672">&amp;</span> c) <span style="color:#66d9ef">const</span>
+{
+    <span style="color:#66d9ef">double</span> dx <span style="color:#f92672">=</span> center.x <span style="color:#f92672">-</span> c.center.x;
+    <span style="color:#66d9ef">double</span> dy <span style="color:#f92672">=</span> center.y <span style="color:#f92672">-</span> c.center.y;
+    <span style="color:#66d9ef">double</span> dCntr <span style="color:#f92672">=</span> sqrt(dx<span style="color:#f92672">*</span>dx <span style="color:#f92672">+</span> dy<span style="color:#f92672">*</span>dy);
+    <span style="color:#66d9ef">return</span> dCntr <span style="color:#f92672">&lt;</span> radius <span style="color:#f92672">+</span> c.radius;
+}     
+
+<span style="color:#66d9ef">void</span> Circle<span style="color:#f92672">::</span>display() <span style="color:#66d9ef">const</span>{
+    cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;반지름 : &#34;</span> <span style="color:#f92672">&lt;&lt;</span> radius
+         <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34; / 중심 : (&#34;</span> <span style="color:#f92672">&lt;&lt;</span> center.x <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;,&#34;</span> <span style="color:#f92672">&lt;&lt;</span> center.y <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;) /&#34;</span>
+         <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34; 넓이 : &#34;</span> <span style="color:#f92672">&lt;&lt;</span> <span style="color:#66d9ef">this</span><span style="color:#f92672">-&gt;</span>area() <span style="color:#f92672">&lt;&lt;</span> endl;
+}        
+</code></pre></div><ul>
+<li>main.cpp</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;Circle.h&#34;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
+
+
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(){
+    cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;원의 면적 구하기&#34;</span> <span style="color:#f92672">&lt;&lt;</span> endl;
+    Circle c1, c2;
+    c1.init(<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">10</span>);
+    c2.init(<span style="color:#ae81ff">30</span>,<span style="color:#ae81ff">10</span>,<span style="color:#ae81ff">5</span>);
+
+    c1.display();
+    c2.display();
+
+    <span style="color:#66d9ef">if</span>(c1.checkOverLap(c2)){
+        cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;두 원은 서로 중첩입니다.&#34;</span> <span style="color:#f92672">&lt;&lt;</span> endl;
+    }<span style="color:#66d9ef">else</span>{
+        cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;두 원은 서로 중첩이 아닙니다.&#34;</span> <span style="color:#f92672">&lt;&lt;</span> endl;
+    }
+
+    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+}
+
+<span style="color:#75715e">/*
+</span><span style="color:#75715e">출력결과 :
+</span><span style="color:#75715e">-------------------------------------------
+</span><span style="color:#75715e">원의 면적 구하기
+</span><span style="color:#75715e">반지름 : 10 / 중심 : (0,0) / 넓이 : 314
+</span><span style="color:#75715e">반지름 : 5 / 중심 : (30,10) / 넓이 : 78.5
+</span><span style="color:#75715e">두 원은 서로 중첩이 아닙니다.
+</span><span style="color:#75715e">-------------------------------------------
+</span><span style="color:#75715e">*/</span>
+</code></pre></div></li>
+</ul>
+<br>
+<h3 id="3-3-배열">3-3. 배열</h3>
+<ul>
+<li>동일한 자료형의 값을 여러 개 저장할 수 있는 연속적으로 할당된 공간을 하나의 변수로 묶어 할당한 것</li>
+<li>배열의 index는 다른 프로그래밍 언어와 마찬가지로 0부터 시작함</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#75715e">//1차원 배열 선언
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">float</span> floatArr[<span style="color:#ae81ff">4</span>]; <span style="color:#75715e">//크기 4인 배열 선언
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;i<span style="color:#f92672">&lt;</span><span style="color:#ae81ff">4</span>;i<span style="color:#f92672">++</span>){
+    floatArr[i] <span style="color:#f92672">=</span> i;
+}
+</code></pre></div><ul>
+<li>배열 선언시 크기를 나타내는 <strong><code>[]</code></strong> 이 늘어날수록 다차원 배열을 표현</li>
+</ul>
+<br>
+<h3 id="3-4-포인터와-동적-메모리의-할당">3-4. 포인터와 동적 메모리의 할당</h3>
+<ul>
+<li>
+<p><strong>포인터</strong></p>
+<ul>
+<li>
+<p>변수, 구조체, 객체 등 값이 저장된 메모리상의 위치를 가리키는 변수</p>
+</li>
+<li>
+<p>포인터의 선언은 <strong><code>*</code></strong> 을 붙여서 나타냄</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#66d9ef">int</span> <span style="color:#f92672">*</span>iPtr; <span style="color:#75715e">//int형 변수의 메모리 위치를 가리키는 포인터 변수
+</span></code></pre></div></li>
+</ul>
+</li>
+<li>
+<p>포인터 활용 예시</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
+
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+{
+    <span style="color:#66d9ef">int</span> a <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>; <span style="color:#75715e">//int 변수 선언
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">int</span> <span style="color:#f92672">*</span>ptr; <span style="color:#75715e">//int형 포인터 변수의 선언
+</span><span style="color:#75715e"></span>
+    ptr <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span>a; <span style="color:#75715e">//포인터 변수 ptr에 변수 a의 메모리상의 주소를 할당
+</span><span style="color:#75715e"></span>    cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;포인터 값 : &#34;</span> <span style="color:#f92672">&lt;&lt;</span> <span style="color:#f92672">*</span>ptr <span style="color:#f92672">&lt;&lt;</span> endl; <span style="color:#75715e">// 포인터가 가리키는 변수 a의 값인 10을 출력하게 됨
+</span><span style="color:#75715e"></span>
+    <span style="color:#f92672">*</span>ptr <span style="color:#f92672">=</span> <span style="color:#ae81ff">20</span>; <span style="color:#75715e">// 포인터가 가리키는 변수 a에 값 20을 할당
+</span><span style="color:#75715e"></span>    cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;변수 a의 값 : &#34;</span> <span style="color:#f92672">&lt;&lt;</span> a <span style="color:#f92672">&lt;&lt;</span> endl; <span style="color:#75715e">//20을 출력하게 됨
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+}
+</code></pre></div></li>
+<li>
+<p><strong>동적 메모리 할당</strong></p>
+<ul>
+<li>프로그램의 동작 중에 메모리 공간의 필요성 및 소요량 등을 결정하여 필요한 공간을 할당하는 것</li>
+<li>포인터 변수가 할당된 메모리 공간을 가리키도록 함</li>
+<li>메모리 공간의 할당은 <strong><code>new</code></strong> 키워드의 선언 시점에 이루어지며, 이후 <strong><code>delete</code></strong> 키워드의 실행 시점에 소멸하게 됨</li>
+<li>정확히는 new의 선언과 함께 <strong>Heap 영역의 일정한 메모리 공간을</strong> 할당하게 되고, 할당된 메모리 공간의 주소값을 <strong>Stack 영역에 위치한 포인터 변수에</strong> 할당시키는 것</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
+
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+{
+    <span style="color:#66d9ef">int</span> <span style="color:#f92672">*</span>intPtr;
+    intPtr <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#66d9ef">int</span>; <span style="color:#75715e">//intPtr 포인터 변수에 4바이트만큼 heap 공간 할당
+</span><span style="color:#75715e"></span>    <span style="color:#f92672">*</span>intPtr <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>; <span style="color:#75715e">//할당된 공간에 10이란 int 값을 할당
+</span><span style="color:#75715e"></span>
+    <span style="color:#75715e">//값 출력해서 확인해보기
+</span><span style="color:#75715e"></span>    cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;메모리 주소 : &#34;</span> <span style="color:#f92672">&lt;&lt;</span> (<span style="color:#66d9ef">void</span><span style="color:#f92672">*</span>)intPtr <span style="color:#f92672">&lt;&lt;</span> endl; <span style="color:#75715e">//메모리 주소값 출력
+</span><span style="color:#75715e"></span>    cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;할당된 값 : &#34;</span> <span style="color:#f92672">&lt;&lt;</span> <span style="color:#f92672">*</span>intPtr <span style="color:#f92672">&lt;&lt;</span> endl; <span style="color:#75715e">//할당된 값 10 출력
+</span><span style="color:#75715e"></span>      <span style="color:#66d9ef">delete</span> intPtr; <span style="color:#75715e">//메모리 공간 반납 
+</span><span style="color:#75715e"></span>}
+</code></pre></div><br>
+</li>
+</ul>
+<h3 id="3-5-참조reference">3-5. 참조(Reference)</h3>
+<ul>
+<li>
+<p>어떤 대상을 가리키는 값을 말하며 포인터 개념과 유사함</p>
+</li>
+<li>
+<p><strong><code>&amp;</code></strong> 를 사용하여 참조 변수를 표현</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#66d9ef">int</span> a <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>, b <span style="color:#f92672">=</span> <span style="color:#ae81ff">20</span>;
+<span style="color:#66d9ef">int</span> <span style="color:#f92672">&amp;</span>aRef <span style="color:#f92672">=</span> a; <span style="color:#75715e">//참조변수 aRef는 a 변수를 가리킴
+</span><span style="color:#75715e"></span>aRef <span style="color:#f92672">=</span> <span style="color:#ae81ff">100</span>; <span style="color:#75715e">//aRef가 참조하는 변수 a에 100을 할당
+</span><span style="color:#75715e"></span>aRef <span style="color:#f92672">=</span> b; <span style="color:#75715e">//aRef가 변수 b를 참조하는 것이 아니라, b에 할당된 값 20을 변수 a에 할당
+</span></code></pre></div></li>
+<li>
+<p><strong><code>const</code></strong> 선언을 통해, 참조 대상의 값을 바꿀 수 없도록 할 수 있음</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#66d9ef">int</span> x {<span style="color:#ae81ff">10</span>}; <span style="color:#75715e">//변수 x에 값 10 할당
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#66d9ef">int</span> <span style="color:#f92672">&amp;</span>xRef <span style="color:#f92672">=</span> x; <span style="color:#75715e">//참조변수 xRef가 참조하는 변수 x의 값ㅇ르 바꿀 수 없음
+</span><span style="color:#75715e"></span>xRef <span style="color:#f92672">=</span> <span style="color:#ae81ff">20</span>; <span style="color:#75715e">//오류 발생
+</span></code></pre></div></li>
+<li>
+<p>참조변수와 포인터의 차이</p>
+<ul>
+<li>일반 변수의 사용과 동일하게 값을 읽거나 저장할 수 있음</li>
+<li>참조변수는 반드시 최초 선언시 초기화를 통해 어떤 대상을 참조해야 함</li>
+<li>초기화를 통해 지정된 참조 대상을 바꿀 수 없으며, 참조 변수가 유효한 동안에는 하나의 대상만을 참조할 수 있음</li>
+</ul>
+</li>
+</ul>
+<br>
+<h3 id="3-6-r-value와-l-value">3-6. r-value와 l-value</h3>
+<ul>
+<li>r-value : 우항에 위치한 일시적인 값을 담은 변수
+<ul>
+<li>주소가 없는 개체, 리터럴, 참조로 반환되지 않는 함수 호출 등</li>
+</ul>
+</li>
+<li>l-value : 좌항에 존재하는 주소와 이름이 존재하는 일반적인 방식으로 선언된 변수</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#66d9ef">int</span> a <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>;
+<span style="color:#66d9ef">int</span> b <span style="color:#f92672">=</span> a<span style="color:#f92672">++</span>; <span style="color:#75715e">//b에 a의 값을 대입한 후, a=a+1 수행
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> c <span style="color:#f92672">=</span> a<span style="color:#f92672">++</span>; <span style="color:#75715e">//a+1을 거쳐, c에 11을 대입
+</span></code></pre></div><ul>
+<li>위의 코드에서 두번째 줄은 정확히 아래와 같은 수행을 의미함</li>
+</ul>
+<pre tabindex="0"><code>a의 값을 복사하여 임시 변수(r-value)에 저장한 후, 원래 a(l-value)의 값을 변경한다.
+</code></pre><ul>
+<li>다시 말해  <strong><code>a++</code></strong> 와 같은 경우에는 임시 변수이기 때문에 맨 처음 선언한 a와는 다른 변수인 것
+<ul>
+<li>보통 주소값을 가져오는 <strong><code>&amp;</code></strong> 는 엄밀히 말해, l-value에 해당하는 변수의 주소를 가져오는 연산자임</li>
+<li>따라서 위의 경우 <strong><code>&amp;(a++));</code></strong> 과 같은 선언하면 컴파일 에러가 발생</li>
+</ul>
+</li>
+</ul>
+<br>
+<h2 id="4-함수function">4. 함수(Function)</h2>
+<h3 id="4-1-함수의-정의와-호출">4-1. 함수의 정의와 호출</h3>
+<ul>
+<li>
+<p>함수 : 반복적인 프로그램 문장을 하나의 단위로 모아놓은 후 이름을 부여한 것</p>
+<ul>
+<li>매개변수(파라미터)를 통해 함수에서 처리할 데이터를 외부로부터 전달받음</li>
+<li>함수는 명시된 처리를 수행한 후, 결과 값을 반환(return)함</li>
+<li>함수의 실행이 완료되면, 함수를 호출한 지점으로 다시 복귀하게 됨</li>
+</ul>
+</li>
+<li>
+<p>C++에서의 함수 정의 형식</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++">ReturnType <span style="color:#a6e22e">functionName</span>(parameters){
+    Type localVarName; <span style="color:#75715e">//지역변수 선언
+</span><span style="color:#75715e"></span>
+    <span style="color:#75715e">// ...
+</span><span style="color:#75715e"></span>    statement1; <span style="color:#75715e">//처리할 작업 명시
+</span><span style="color:#75715e"></span>
+    <span style="color:#66d9ef">return</span> returnValue; <span style="color:#75715e">//처리 결과 반환
+</span><span style="color:#75715e"></span>}
+</code></pre></div></li>
+<li>
+<p><strong>Return</strong> : 함수를 마침과 동시에, 함수가 호출된 곳으로 복귀하라는 명령어임</p>
+<ul>
+<li>함수의 어느 위치에서나 사용할 수 있으며, 만일 특정 반환값이 없는 함수의 경우에는 Return Type이 <strong><code>void</code></strong> 가 되는 것</li>
+<li>main 함수의 경우 return이 함수 내에 명시되지 않았을 경우에는, 함수의 맨 끝 도달과 함께 <strong>return 0;</strong> 이 실행된 것으로 간주</li>
+</ul>
+</li>
+<li>
+<p>함수의 호출 형식</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#75715e">//함수만 호출
+</span><span style="color:#75715e"></span>functionName(parameters);
+<span style="color:#75715e">//함수의 리턴값을 특정 변수에 할당
+</span><span style="color:#75715e"></span>varName <span style="color:#f92672">=</span> functionName(parameters);
+</code></pre></div></li>
+<li>
+<p>함수 사용 예시</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
+
+<span style="color:#66d9ef">float</span> <span style="color:#a6e22e">FahrToc</span>(<span style="color:#66d9ef">float</span> fahr){
+    <span style="color:#66d9ef">return</span> (Fahr <span style="color:#f92672">-</span> <span style="color:#ae81ff">32</span>) <span style="color:#f92672">*</span> <span style="color:#ae81ff">5</span> <span style="color:#f92672">/</span> <span style="color:#ae81ff">9</span>;
+}
+
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(){
+    <span style="color:#66d9ef">float</span> fTemp, cTemp;
+
+    cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;화씨온도 : &#34;</span>;
+    cin <span style="color:#f92672">&gt;&gt;</span> fTemp;
+    cTemp <span style="color:#f92672">=</span> FahrToc(fTemp); <span style="color:#75715e">//함수 호출해서 cTemp 변수에 값 할당
+</span><span style="color:#75715e"></span>    cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;--&gt; 섭씨온도 : &#34;</span> <span style="color:#f92672">&lt;&lt;</span> cTemp <span style="color:#f92672">&lt;&lt;</span> endl;
+    retur <span style="color:#ae81ff">0</span>;
+}
+</code></pre></div></li>
+<li>
+<p>이런 식으로 함수를 사용하면, 여러 반복되는 작업을 <strong><code>모듈화</code></strong> 함으로써 코드의 불필요한 중복을 방지할 수 있게 됨</p>
+</li>
+<li>
+<p>하지만 함수의 호출과 복귀는 별도의 처리시간을 요하기 때문에, 만일 매우 효율적으로 동작해야 하는 상황이라면 <strong><code>inline 함수</code></strong> 를 사용해야 함</p>
+</li>
+</ul>
+<br>
+<h3 id="4-2-인수의-전달">4-2. 인수의 전달</h3>
+<ul>
+<li>
+<p><strong>인수</strong> : 함수 호출시 함수 내에 전달하는 값으로 매개변수를 통해 전달됨</p>
+<ul>
+<li><strong>실 매개변수(actual parameter)</strong> : 실제 함수 호출시 데이터 처리를 위해 직접 매개변수로 전달한 것</li>
+<li><strong>형식 매개변수(formal parameter)</strong> : 함수 선언시 매개변수 자리에 형식적으로 선언된 것</li>
+</ul>
+</li>
+<li>
+<p><strong>Call By Value</strong> 방식</p>
+<ul>
+<li>실 매개변수의 값을 그대로 형식 매개변수에 복사한 것을 말함</li>
+<li>복사되었다는 것은 두 값이 별개의 데이터라는 것을 의미하기 때문에, 자칫 매개변수로 전달된 데이터의 변형으로 인한 부작용이 발생하지 않음</li>
+<li>하지만 많은 양의 데이터를 인수로 전달하게 된다면, 그만큼 복사량이 많아지게 됨</li>
+</ul>
+</li>
+<li>
+<p><strong>Call By Reference</strong> 방식</p>
+<ul>
+<li>참조 호출방식이라고도 하며, 실 매개변수의 참조를 그대로 형식 매개변수로 전달하는 것</li>
+<li>참조 대상을 이동시키는 것과 같기 때문에, 참조호출에서 형식 매개변수의 값이 변경되는 것은 실 매개변수의 값을 변경하는 것과 같음</li>
+<li>형식 매개변수로 복사되는 데이터의 양은, 실 매개변수의 크기와 관계없이 일정함</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">SwapValues</span>(<span style="color:#66d9ef">int</span> <span style="color:#f92672">&amp;</span>x, <span style="color:#66d9ef">int</span> <span style="color:#f92672">&amp;</span>y); <span style="color:#75715e">//함수 원형
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(){
+    <span style="color:#66d9ef">int</span> a, b;
+      cin <span style="color:#f92672">&gt;&gt;</span> a <span style="color:#f92672">&gt;&gt;</span> b; <span style="color:#75715e">//a, b를 입력받음
+</span><span style="color:#75715e"></span>
+    <span style="color:#66d9ef">if</span>(a<span style="color:#f92672">&lt;</span>b){
+        SwapValues(a,b); <span style="color:#75715e">//a와 b의 값을 바꿔줌
+</span><span style="color:#75715e"></span>    }
+    cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;큰 수 : &#34;</span> <span style="color:#f92672">&lt;&lt;</span> a <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;, 작은 수 :&#34;</span> <span style="color:#f92672">&lt;&lt;</span> b <span style="color:#f92672">&lt;&lt;</span> endl;
+     <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+}
+
+<span style="color:#75715e">//참조 호출을 통해 실제 x, y의 값을 변경
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">SwapValues</span>(<span style="color:#66d9ef">int</span> <span style="color:#f92672">&amp;</span>x, <span style="color:#66d9ef">int</span> <span style="color:#f92672">&amp;</span>y){
+    <span style="color:#66d9ef">int</span> temp <span style="color:#f92672">=</span> x;
+    x <span style="color:#f92672">=</span> y;
+    y <span style="color:#f92672">=</span> temp;
+}
+</code></pre></div></li>
+<li>
+<p>참조 호출을 통한 효율적인 인수의 전달</p>
+<ul>
+<li>많은 양의 데이터를 포함하는 구조체나 객체를 인수로 전달할 경우에는, 참조 호출이 값 호출에 비해 효율적임</li>
+<li>이 경우 실 매개변수의 값 변경을 원하지 않을 경우에는, 형식 매개변수의 해당 부분에 <strong><code>const</code></strong> 키워드를 선언하여 값을 보호하면 됨</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">SaleRec</span> {
+    <span style="color:#75715e">//해당 구조체가 포함하는 데이터의 크기만 해도 대략 64바이트 정도임
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">char</span> pID[<span style="color:#ae81ff">10</span>];
+    <span style="color:#66d9ef">int</span> dYear, dMonth, dDate;
+    <span style="color:#66d9ef">char</span> deliverAddr[<span style="color:#ae81ff">40</span>];
+}
+
+<span style="color:#75715e">//참조호출을 하게 되면 4바이트만 복사하면 됨(값 호출은 64바이트 그대로 복사)
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">PrSalesRec</span>(<span style="color:#66d9ef">const</span> SalesRec <span style="color:#f92672">&amp;</span>srec){ 
+
+    <span style="color:#75715e">/*
+</span><span style="color:#75715e">      함수 처리내용 명시
+</span><span style="color:#75715e">        (하지만 const가 선언되었기 때문에 실제 값의 변경은 불가능)
+</span><span style="color:#75715e">    */</span>
+}
+</code></pre></div></li>
+<li>
+<p><strong><code>Default Parameter (디폴트 인수)</code></strong></p>
+<ul>
+<li>디폴트값을 인수에 지정할 수도 있음</li>
+<li>디폴트 인수는 인수의 맨 끝에만 위치할 수 있음(아닐 경우 오류 발생)</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#66d9ef">double</span> <span style="color:#a6e22e">Round</span>(<span style="color:#66d9ef">double</span> x, <span style="color:#66d9ef">int</span> d<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>); <span style="color:#75715e">//파라미터에 d가 없으면 자동으로 d=0
+</span></code></pre></div></li>
+</ul>
+<br>
+<h3 id="4-3-함수의-다중정의overloading">4-3. 함수의 다중정의(Overloading)</h3>
+<ul>
+<li>
+<p>함수의 오버로딩 : 동일한 이름을 가진 여러 개의 함수가 정의되는 것을 의미</p>
+</li>
+<li>
+<p>함수의 다중 정의는 <strong>인수(파라미터)의 개수와 자료형</strong> 의 차이로 구분</p>
+<ul>
+<li><strong>리턴값의 자료형으로는 구분할 수 없음</strong></li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#75715e">//아래와 같은 경우는 오버로딩이 될 수 없음(모호한 상황)
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">func</span>(<span style="color:#66d9ef">int</span> a){
+    <span style="color:#75715e">//함수 내용
+</span><span style="color:#75715e"></span>}
+
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">func</span>(<span style="color:#66d9ef">int</span> a, <span style="color:#66d9ef">int</span> b<span style="color:#f92672">=</span><span style="color:#ae81ff">100</span>){
+    <span style="color:#75715e">//함수 내용
+</span><span style="color:#75715e"></span>}
+
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(){
+    <span style="color:#75715e">/*
+</span><span style="color:#75715e">      파라미터의 수는 다르지만, 자료형에 차이가 있기 때문에 모호한 것
+</span><span style="color:#75715e">    */</span>
+    func(<span style="color:#ae81ff">10</span>);
+    func(<span style="color:#ae81ff">10</span>,<span style="color:#ae81ff">20</span>);
+}
+</code></pre></div></li>
+</ul>
+<br>
+<h3 id="4-4-inline-함수">4-4. Inline 함수</h3>
+<ul>
+<li>
+<p>인라인 함수 : <strong>일반적인 함수의 호출 절차를 따르지 않고, 함수 호출 위치에 함수 처리 문장이 삽입되게 번역하도록 선언된 함수</strong></p>
+</li>
+<li>
+<p>함수 사용을 통한 모듈화의 장점을 살리면서, 함수 호출에 따른 부수적인 처리 시간이 생략된다는 이점이 있음</p>
+<ul>
+<li>따라서 빈번히 호출되면서 빠른 실행이 요구될 경우에 인라인 함수를 선언하면 성능 개선에 도움이 됨</li>
+</ul>
+</li>
+<li>
+<p><strong>단, 인라인 함수로 선언한다고 해서 무조건 인라인 함수로 번역되지는 않음</strong></p>
+<ul>
+<li>함수가 너무 큰 경우</li>
+<li>재귀 호출(Recursive Call)을 하는 경우</li>
+<li>프로그램 내에서 해당 함수에 대한 포인터를 사용하는 경우</li>
+</ul>
+</li>
+<li>
+<p>인라인 함수 예시</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#75715e">//인라인 함수 선언(두 수를 서로 바꾸는 로직을 수행)
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">inlineFunc</span>(<span style="color:#66d9ef">int</span> <span style="color:#f92672">&amp;</span>x, <span style="color:#66d9ef">int</span> <span style="color:#f92672">&amp;</span>y){
+    <span style="color:#66d9ef">int</span> temp <span style="color:#f92672">=</span> x;
+      x <span style="color:#f92672">=</span> y;
+    y <span style="color:#f92672">=</span> temp;
+}
+
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(){
+    <span style="color:#66d9ef">int</span> a,b;
+    cin <span style="color:#f92672">&gt;&gt;</span> a <span style="color:#f92672">&gt;&gt;</span> b;
+    <span style="color:#66d9ef">if</span>(a<span style="color:#f92672">&lt;</span>b) inlineFunc(a,b); <span style="color:#75715e">//a&lt;b일 경우 두 수를 서로 바꿔줌
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+}
+</code></pre></div></li>
+</ul>
+<br>
+<h2 id="5-클래스와-객체1">5. 클래스와 객체(1)</h2>
+<h3 id="5-1-객체지향-프로그래밍의-개념">5-1. 객체지향 프로그래밍의 개념</h3>
+<ul>
+<li><strong>객체(Object)</strong> : 소프트웨어에서 현실세계에 존재하는 대상들을 표현한 것
+<ul>
+<li>정해진 처리를 수행하게 됨(행위, 메소드, 멤버함수 등)</li>
+<li>처리 과정에 따라 내부의 상태를 변화시킴(속성, 데이터 멤버)</li>
+<li>다른 객체와 상호작용함(멤버함수 호출을 통한 메시지 전달)</li>
+</ul>
+</li>
+<li><strong>클래스(class)</strong> : 객체의 설계도로, 객체가 포함하게 될 속성과 메소드에 대한 정의를 포함함</li>
+<li><strong>캡슐화(encapsulation)</strong> : 객체 내부의 상세 구현을 외부 사용자의 관점으로 부터 분리시킨 것
+<ul>
+<li>내부 구현에 대한 정보를 은닉하며 객체 외부에서는 공개된 인터페이스를 통해 객체를 사용하게 됨</li>
+<li>따라서 캡슐화된 정보에 외부에서의 직접적인 접근이 불가능하기 때문에, 객체 내부의 유지보수가 용이해짐</li>
+<li>캡슐화된 객체는 다른 곳에도 응용할 수 있기 때문에 재사용에도 용이</li>
+</ul>
+</li>
+<li><strong>상속</strong> : 자식 클래스는 부모 클래스의 속성을 상속받아, 부모 클래스의 특징을 가지면서 부가적인 속성을 추가해 사용할 수 있음
+<ul>
+<li>따라서 여러 클래스가 여러 속성을 공유할 경우, 공통적인 속성들을 부모클래스로 선언한 후 이를 상속받으면 더욱 효율적</li>
+</ul>
+</li>
+</ul>
+<br>
+<h3 id="5-2-클래스의-선언과-객체의-정의">5-2. 클래스의 선언과 객체의 정의</h3>
+<ul>
+<li>
+<p><strong>클래스</strong> : 객체의 설계도로 표현하고자 하는 대상의 메소드와 속성을 선언</p>
+</li>
+<li>
+<p>속성은 객체의 상태를 표현하게 됨</p>
+</li>
+<li>
+<p>메소드는 객체의 행위를 정의함</p>
+</li>
+<li>
+<p><strong>클래스 선언 형식</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ClassName</span>{
+    <span style="color:#960050;background-color:#1e0010">가시성</span>_지시어_1:
+      <span style="color:#960050;background-color:#1e0010">데이터</span> <span style="color:#960050;background-color:#1e0010">멤버</span> <span style="color:#960050;background-color:#1e0010">혹은</span> <span style="color:#960050;background-color:#1e0010">멤버함수</span> <span style="color:#960050;background-color:#1e0010">리스트</span>;
+    <span style="color:#960050;background-color:#1e0010">가시성</span>_지시어_2:
+      <span style="color:#960050;background-color:#1e0010">데이터</span> <span style="color:#960050;background-color:#1e0010">멤버</span> <span style="color:#960050;background-color:#1e0010">혹은</span> <span style="color:#960050;background-color:#1e0010">멤버함수</span> <span style="color:#960050;background-color:#1e0010">리스트</span>;
+}
+</code></pre></div></li>
+<li>
+<p><strong>가시성 지시어</strong> : 클래스의 멤버가 공개되는 범위를 나타냄</p>
+<ul>
+<li><strong><code>private</code></strong> : 소속 클래스의 멤버함수와, 형제 클래스의 멤버함수 및 형제함수를 제외한 범위에 모두 비공개
+<ul>
+<li>디폴트 값이면서, 정보의 은닉을 위해 사용됨</li>
+</ul>
+</li>
+<li><strong><code>public</code></strong> : 모든 범위에 공개
+<ul>
+<li>캡슐화 대상이 아닌, 외부에 공개할 인터페이스 선언에 사용됨</li>
+</ul>
+</li>
+<li><strong><code>protected</code></strong> : 상속 관계인 클래스에만 공개함</li>
+</ul>
+</li>
+<li>
+<p>일반적인 클래스 선언 예시</p>
+<ul>
+<li>Counter.h : 클래스의 뼈대가 되는 헤더파일 정의</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Counter</span>{
+    <span style="color:#66d9ef">private</span><span style="color:#f92672">:</span>
+      <span style="color:#66d9ef">int</span> value;
+    <span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+      <span style="color:#66d9ef">void</span> reset();
+      <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">count</span>();
+      <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">getValue</span>();
+};
+</code></pre></div><ul>
+<li>Counter.cpp : 클래스의 구체적인 멤버와 속성이 정의될 파일</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;Counter.h&#34;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
+
+<span style="color:#66d9ef">void</span> Counter<span style="color:#f92672">::</span>reset(){
+    value <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+}
+
+<span style="color:#66d9ef">void</span> Counter<span style="color:#f92672">::</span>count(){
+    value<span style="color:#f92672">++</span>;
+}
+
+<span style="color:#66d9ef">int</span> Counter<span style="color:#f92672">::</span>getValue(){
+
+    <span style="color:#66d9ef">return</span> value;
+}
+</code></pre></div><ul>
+<li>main.cpp</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;Counter.h&#34;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
+
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+{
+    Counter counter;
+    counter.reset();
+    counter.count();
+    counter.count();
+
+    <span style="color:#75715e">//Counter 클래스의 value 멤버변수는 private이기 때문에 직접 접근할 수 없음
+</span><span style="color:#75715e"></span>    cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;value : &#34;</span> <span style="color:#f92672">&lt;&lt;</span> counter.getValue() <span style="color:#f92672">&lt;&lt;</span> endl;
+
+    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+}
+</code></pre></div></li>
+<li>
+<p>여기서 헤더파일이 중복으로 include된다면 이를 방지해야 함</p>
+<ul>
+<li>예를 들어, 위의 예시에서 main.cpp에 Counter.h 헤더파일을 include하는 다른 AnotherCounter.h 헤더 파일을 include하는 경우를 생각해볼 수 있음</li>
+<li>이럴 경우 컴파일할 때 선행처리로 Counter.h 에 해당하는 클래스 멤버를 선언한 후, AnotherCounter.h에 해당하는 클래스 멤버를 선언하면서 Counter.h를 또 다시 선언하는 중복 문제가 발생하게 되는 것</li>
+<li><strong><code>#ifndef</code></strong> , <strong><code>#define</code></strong>  , <strong><code>#endif</code></strong> 패턴을 이용해서 중복 include를 방지할 수 있음
+<ul>
+<li><strong>#ifndef</strong> : 특정 키워드가 정의되지 않았음을 확인</li>
+<li><strong>#endif</strong> : 정의된 경우에는 endif가 있는 블록까지의 코드를 무시하는 것</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#75715e">#ifndef COUNTER_H_INCLUDED
+</span><span style="color:#75715e">#define COUNTER_H_INCLUDED
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Counter</span>{
+    <span style="color:#75715e">//...
+</span><span style="color:#75715e"></span>};
+<span style="color:#75715e">#endif
+</span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#75715e">#ifndef ANOTHERCOUNTER_H_INCLUDED
+</span><span style="color:#75715e">#define ANOTHERCOUNTER_H_INCLUDED
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;Counter.h&#34;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">AnotherCounter</span>{
+    <span style="color:#75715e">//...
+</span><span style="color:#75715e"></span>};
+<span style="color:#75715e">#endif
+</span></code></pre></div><ul>
+<li>혹은 <strong><code>#pragma once</code></strong> 선언을 통해, 헤더 파일을 한 번만 적용하도록 선언할 수도 있음</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#75715e">#pragma once
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Counter</span>{
+    <span style="color:#75715e">//...
+</span><span style="color:#75715e"></span>};
+</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#75715e">#pragma once
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;Counter.h&#34;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">AnotherCounter</span>{
+    <span style="color:#75715e">//...
+</span><span style="color:#75715e"></span>};
+</code></pre></div></li>
+<li>
+<p><strong><code>const</code></strong> 키워드를 선언하면, 클래스 내에서 해당 데이터 멤버의 값은 수정할 수 없음</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Counter</span>{
+    <span style="color:#66d9ef">private</span><span style="color:#f92672">:</span>
+      <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">int</span> value <span style="color:#f92672">=</span> <span style="color:#ae81ff">4</span>; <span style="color:#75715e">//value=4로 고정
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+      <span style="color:#66d9ef">void</span> reset();
+      <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">count</span>();
+      <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">getValue</span>();
+};
+</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;Counter.h&#34;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
+
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+{
+    Counter counter;
+    counter.reset();<span style="color:#75715e">//value값을 변경하려고 할 경우 오류 발생
+</span><span style="color:#75715e"></span>	<span style="color:#75715e">//...
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+}
+</code></pre></div></li>
+</ul>
+<br>
+<h3 id="5-3-생성자constructor">5-3. 생성자(Constructor)</h3>
+<ul>
+<li>
+<p>객체의 생성 시점에 수행할 작업을 정의하는 멤버 함수</p>
+</li>
+<li>
+<p>매개변수를 통한 인수 전달이 가능하며, 여러개의 생성자를 정의할 수 있음</p>
+</li>
+<li>
+<p>클래스의 이름과 동일하며, 리턴값과 리턴 자료형이 존재하지 않음</p>
+</li>
+<li>
+<p>생성자는 public으로 선언해야 외부에서의 객체 생성이 가능해짐</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ClassName</span>{
+    <span style="color:#75715e">//...
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+      ClassName(parameters){
+            <span style="color:#75715e">//...객체 생성시 수행할 작업 명시
+</span><span style="color:#75715e"></span>        }
+}
+</code></pre></div></li>
+<li>
+<p>5-2에서 사용한 Counter 클래스에 생성자를 적용해보기</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Counter</span>{
+    <span style="color:#66d9ef">int</span> value;
+    <span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+      <span style="color:#75715e">//생성자 선언, 최초 Counter 객체 생성시 value=1로 두고 시작하는 것
+</span><span style="color:#75715e"></span>      Counter(){
+            value <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+        }
+      <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">reset</span>(){
+            value <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+        }
+      <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">count</span>(){
+            value<span style="color:#f92672">++</span>;
+        }
+      <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">getValue</span>(){
+            <span style="color:#66d9ef">return</span> value;
+        }
+}
+</code></pre></div></li>
+<li>
+<p><strong>초기화 리스트</strong> : 생성자의 머리에 데이터 멤버를 초기화하는 값들을 나열한 것</p>
+<ul>
+<li>데이터멤버이름{초기값} 의 형태를 사용</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Counter</span>{
+    <span style="color:#66d9ef">int</span> value;
+    <span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+      Counter() <span style="color:#f92672">:</span> value{<span style="color:#ae81ff">0</span>} {
+            <span style="color:#75715e">// value =0은 위에서 정의하고, 이후에 수행할 내용을 명시
+</span><span style="color:#75715e"></span>      }
+}
+</code></pre></div></li>
+</ul>
+<br>
+<h3 id="5-4-소멸자destructor">5-4. 소멸자(Destructor)</h3>
+<ul>
+<li>
+<p>객체의 소멸 시점에 수행할 작업을 정의하는 멤버 함수</p>
+</li>
+<li>
+<p>클래스 이름에 <strong><code>~</code></strong> 를 붙여 선언하며, 생성자와 마찬가지로 리턴값을 명시하지 않음</p>
+</li>
+<li>
+<p>생성자와 달리 매개변수를 포함하지 않으며, 오버로딩 또한 불가능</p>
+</li>
+<li>
+<p>일반적으로 <strong><code>public</code></strong> 으로 선언함</p>
+</li>
+<li>
+<p>만일 상속을 통해 자식 클래스를 정의하게 될 경우에는, <strong><code>virtual</code></strong> 을 지정하여 가상함수가 되도록 하는 것이 좋음</p>
+</li>
+<li>
+<p>소멸자 사용 예시</p>
+<ul>
+<li>Person.h</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#75715e">#ifndef PERSON_H_INCLUDED
+</span><span style="color:#75715e">#DEFINE PERSON_H_INCLUDED
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Person</span>{
+    <span style="color:#66d9ef">private</span><span style="color:#f92672">:</span>
+      <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>name; <span style="color:#75715e">//이름
+</span><span style="color:#75715e"></span>      <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>address; <span style="color:#75715e">//주소
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">public</span> <span style="color:#f92672">:</span>
+      Person(<span style="color:#66d9ef">const</span> <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>name, <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>address);
+      <span style="color:#f92672">~</span>Person();
+    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">print</span>() <span style="color:#66d9ef">const</span>;
+    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">changeAddress</span>(<span style="color:#66d9ef">const</span> <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>newAddress);
+};
+<span style="color:#75715e">#endif 
+</span></code></pre></div><ul>
+<li>Person.cpp</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;cstring&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;Person.h&#34;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
+
+Person<span style="color:#f92672">::</span>Person(<span style="color:#66d9ef">const</span> <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>name, <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>address){
+    <span style="color:#66d9ef">this</span><span style="color:#f92672">-&gt;</span>name <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#66d9ef">char</span>[strlen(name)<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>];
+    strcpy(<span style="color:#66d9ef">this</span><span style="color:#f92672">-&gt;</span>name,name); <span style="color:#75715e">//메모리 주소값 복사
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">this</span><span style="color:#f92672">-&gt;</span>address <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#66d9ef">char</span>[strlen(address)<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>];
+    strcpy(<span style="color:#66d9ef">this</span><span style="color:#f92672">-&gt;</span>address,address); <span style="color:#75715e">//메모리 주소값 복사
+</span><span style="color:#75715e"></span>    cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;Person 객체 생성(&#34;</span> <span style="color:#f92672">&lt;&lt;</span> name <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;)&#34;</span> <span style="color:#f92672">&lt;&lt;</span> endl;
+}
+
+<span style="color:#75715e">//소멸자 선언
+</span><span style="color:#75715e"></span>Person<span style="color:#f92672">::~</span>Person(){
+    cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;Person 객체 제거(&#34;</span> <span style="color:#f92672">&lt;&lt;</span> name <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;)&#34;</span> <span style="color:#f92672">&lt;&lt;</span> endl;
+    <span style="color:#66d9ef">delete</span> [] name; <span style="color:#75715e">//메모리 반납
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">delete</span> [] address; <span style="color:#75715e">//메모리 반납
+</span><span style="color:#75715e"></span>}
+
+<span style="color:#66d9ef">void</span> Person<span style="color:#f92672">::</span>pring() <span style="color:#66d9ef">const</span>{
+    cout <span style="color:#f92672">&lt;&lt;</span> address <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;에 사는 &#34;</span> <span style="color:#f92672">&lt;&lt;</span> name <span style="color:#e6db74">&#34; 입니다.&#34;</span> <span style="color:#f92672">&lt;&lt;</span>endl;
+}
+
+<span style="color:#66d9ef">void</span> Person<span style="color:#f92672">::</span>changeAddress(<span style="color:#66d9ef">const</span> <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>newAddress){
+
+    <span style="color:#66d9ef">delete</span> [] address;
+    address <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#66d9ef">char</span>[stren(newAddr)<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>]; <span style="color:#75715e">//새로운 메모리 공간 할당
+</span><span style="color:#75715e"></span>    strcpy(address,newAddress); <span style="color:#75715e">//address에 새로운 메모리 주소값 복사
+</span><span style="color:#75715e"></span>}
+</code></pre></div><ul>
+<li>Main.cpp</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;Person.h&#34;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
+
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(){
+    Person <span style="color:#f92672">*</span>p1 <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Person(<span style="color:#e6db74">&#34;김철수&#34;</span>,<span style="color:#e6db74">&#34;서울특별시 광진구&#34;</span>);
+    Person <span style="color:#f92672">*</span>p2 <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Person(<span style="color:#e6db74">&#34;김영희&#34;</span>,<span style="color:#e6db74">&#34;서울특별시 광진구&#34;</span>);
+    p1 <span style="color:#f92672">-&gt;</span> print();
+    p2 <span style="color:#f92672">-&gt;</span> pring();
+    cout <span style="color:#f92672">&lt;&lt;</span> endl <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;주소 변경 : &#34;</span>;
+    p2 <span style="color:#f92672">-&gt;</span> changeAddress(<span style="color:#e6db74">&#34;서울특별시 송파구&#34;</span>);
+    p2 <span style="color:#f92672">-&gt;</span> print();
+    <span style="color:#66d9ef">delete</span> p1;
+    <span style="color:#66d9ef">delete</span> p2;
+    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+}
+</code></pre></div></li>
+</ul>
+<br>
+<h2 id="6-클래스와-객체2">6. 클래스와 객체(2)</h2>
+<h3 id="6-1-디폴트-생성자">6-1. 디폴트 생성자</h3>
+<ul>
+<li>
+<p><strong>Default Constructor</strong> : 매개변수가 없거나, 모든 매개변수에 디폴트 인수가 지정된 생성자</p>
+</li>
+<li>
+<p>클래스 선언시 별도로 생성자를 선언하지 않으면 컴파일러가 묵시적으로 디폴트 생성자를 선언함</p>
+<ul>
+<li>묵시적으로 생성된 디폴트 생성자는 아무런 처리하지 않음</li>
+<li>반대로 생성자를 하나라도 선언한다면 컴파일러는 디폴트 생성자를 굳이 정의하지 않음</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#75715e">//아래와 같이 클래스가 정의된 상황에서 컴파일러를 돌린다면 자동으로 디폴트 생서자를 컴파일러가 포함시켜 컴파일하는 것
+</span><span style="color:#75715e"></span>Class counter{
+  <span style="color:#66d9ef">int</span> value;
+
+  <span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+      <span style="color:#66d9ef">void</span> reset(){<span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;}
+      <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">count</span>(){count<span style="color:#f92672">++</span>;}
+      <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">getValue</span>(){<span style="color:#66d9ef">return</span> value;}
+}
+
+<span style="color:#75715e">//메인 함수에서 아래와 같이 아무런 인수없이 객체를 생성할 수 있음
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(){
+  Counter counter; <span style="color:#75715e">//단, 위에서 생성자를 하나라도 선언했다면 아무런 인수가 없이 객체를 생성하지 못하게 되는 것!(컴파일 오류 발생s)
+</span><span style="color:#75715e"></span>}
+</code></pre></div></li>
+<li>
+<p>객체배열을 선언하게 되는 경우</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Counter</span>{
+  <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">int</span> maxValue;
+  <span style="color:#66d9ef">int</span> value;
+
+  <span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+      <span style="color:#75715e">//이번에는 클래스에 생성자를 선언하였음
+</span><span style="color:#75715e"></span>      Counter(<span style="color:#66d9ef">int</span> maxValue)
+      <span style="color:#f92672">:</span>maxValue{maxValue}, value{<span style="color:#ae81ff">0</span>} {}
+    <span style="color:#75715e">//...
+</span><span style="color:#75715e"></span>}
+
+<span style="color:#75715e">//디폴트 생성자가 없기 때문에 메인함수에서 아래와 같은 선언하면 컴파일 오류 발생
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(){
+  Counter counterArr1[<span style="color:#ae81ff">3</span>]; <span style="color:#75715e">//에러 발생
+</span><span style="color:#75715e"></span>  Counter counterArr2[<span style="color:#ae81ff">3</span>] <span style="color:#f92672">=</span> {Counter(<span style="color:#ae81ff">1</span>),Counter(<span style="color:#ae81ff">2</span>),Counter(<span style="color:#ae81ff">333</span>)}; <span style="color:#75715e">//반드시 생성자를 통해 객체를 생성하여 배열을 정의해야 함
+</span><span style="color:#75715e"></span>}
+</code></pre></div></li>
+</ul>
+<br>
+<h3 id="6-2-복사-생성자">6-2. 복사 생성자</h3>
+<ul>
+<li>
+<p>같은 클래스의 객체를 복사하여 객체를 만드는 생성자</p>
+</li>
+<li>
+<p>자신의 같은 클래스 타입의 다른 객체에 대한 참조를 전달받아 해당 참조를 가지고 자신을 초기화하는 방법</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#75715e">//명시적인 복사 생성자 정의 방식
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ClassName</span>{
+  <span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+      ClassName(<span style="color:#66d9ef">const</span> ClassName <span style="color:#f92672">&amp;</span>obj){
+      <span style="color:#75715e">//생성되는 객체에 매개변수로 받은 obj객체 자체를 복사
+</span><span style="color:#75715e"></span>    }
+}
+</code></pre></div><ul>
+<li>여기서 <strong><code>&amp;</code></strong> 연산자는, 해당 객체의 참조(레퍼런스)를 가리킴</li>
+</ul>
+</li>
+<li>
+<p><strong>묵시적 복사 생성자</strong> : 객체의 멤버를 그대로 복사하여 객체를 만들도록 <strong>묵시적으로 정의된</strong> 복사 생성자</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Counter</span>{
+  <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">int</span> maxValue;
+  <span style="color:#66d9ef">int</span> value;
+  <span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+      <span style="color:#75715e">//값에 의한 호출(Call by Value)
+</span><span style="color:#75715e"></span>      Counter(<span style="color:#66d9ef">int</span> maxValue)
+      <span style="color:#f92672">:</span> maxValue{maxValue}, value{<span style="color:#ae81ff">0</span>} {<span style="color:#ae81ff">0</span>}
+
+      <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">reset</span>(){
+      value <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+    }
+};
+</code></pre></div><ul>
+<li>위와 같은 클래스가 있다고 했을 때, 메인함수에 아래와 같은 방식으로 객체를 생성하면서 묵시적인 복사 생성자를 적용할 수 있음</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(){
+  <span style="color:#75715e">//중괄호 초기화 : 초기 멤버 값을 중괄호 안의 값으로 초기화
+</span><span style="color:#75715e"></span>  Counter counter1{<span style="color:#ae81ff">99</span>}; <span style="color:#75715e">//maxValue = 99;
+</span><span style="color:#75715e"></span>
+  <span style="color:#75715e">//복사 생성자 자동 호출(객체로 초기화한 경우)
+</span><span style="color:#75715e"></span>  Counter counter2{counter1};
+  Counter counter3 <span style="color:#f92672">=</span> counter1;
+
+  <span style="color:#75715e">//아래의 경우는 복사 생성자를 호출하지 않음
+</span><span style="color:#75715e"></span>  Counter counter4;
+  counter4 <span style="color:#f92672">=</span> counter1; <span style="color:#75715e">//이 경우는 대입 연산자를 실행
+</span><span style="color:#75715e"></span>}
+</code></pre></div></li>
+<li>
+<p><strong>얕은 복사의 문제점</strong> : 단순히 포인터만을 복사해서 쓰면, 결국에는 같은 주소를 참조하기 때문에 어느 한 포인터에 의해 객체를 변경하게 되면, 전체 구조에 영향을 끼치는 문제가 생김</p>
+<ul>
+<li>쉽게 말해 어느 한 포인터에 의한 변경이, 다른 포인터의 참조에도 영향을 끼치는 것</li>
+<li>단순히 스택 영역에만 저장되는 원형 타입의 변수라면 문제가 되지 않지만, 힙 영역을 참조하는 멤버를 가지는 객체일 경우에는 문제가 발생할 수 있음</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#75715e">/*
+</span><span style="color:#75715e">	ClassEx 타입의 class1 객체가 존재한다고 할 경우,
+</span><span style="color:#75715e">	아래와 같이 대입연산자를 사용해서 객체를 대입할 경우 얕은 복사가 수행됨
+</span><span style="color:#75715e">*/</span>
+ClassEx class2 <span style="color:#f92672">=</span> class1;
+</code></pre></div><ul>
+<li>이럴 경우 사용하는 것이 <strong>깊은 복사</strong> 인데, 이는 주소값이 아닌 주소가 가리키는 값, 즉 대상 자체를 복사하는 방식임</li>
+<li>포인터가 새로 할당받은 복사한 객체의 주소를 참조하기 때문에 상대적으로 안전함</li>
+<li>기본적으로 제공되는 생성자는 얕은 복사를 사용하기 때문에, 깊은 복사를 원할 경우에는 복사 생성자를 사용해야 함</li>
+</ul>
+</li>
+</ul>
+<br>
+<h3 id="6-3-이동-생성자">6-3. 이동 생성자</h3>
+<ul>
+<li>
+<p>3-6에서 언급한대로, r-value를 일반적인 방식으로 참조할 경우(ex. <strong><code>&amp;a++</code></strong> ) 컴파일 에러가 발생함</p>
+</li>
+<li>
+<p>아래와 같은 복사 생서자의 활용이 있다고 가정하자.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">VecF</span>{
+  <span style="color:#66d9ef">int</span> n; <span style="color:#75715e">//배열의 사이즈 n
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">float</span> <span style="color:#f92672">*</span>arr; <span style="color:#75715e">//float 타입 변수를 담을 배열
+</span><span style="color:#75715e"></span>
+  <span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+      VecF(<span style="color:#66d9ef">int</span> d, <span style="color:#66d9ef">float</span><span style="color:#f92672">*</span> a<span style="color:#f92672">=</span><span style="color:#66d9ef">nullptr</span>) <span style="color:#f92672">:</span> n{d}{
+      arr <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#66d9ef">float</span>[d]; <span style="color:#75715e">//매개변수로 받은 d 크기 만큼의 float 배열 초기화
+</span><span style="color:#75715e"></span>      <span style="color:#66d9ef">if</span>(a) memcpy(arr,a,<span style="color:#66d9ef">sizeof</span>(<span style="color:#66d9ef">float</span>)<span style="color:#f92672">*</span>n); <span style="color:#75715e">//a의 포인터가 존재할 경우, a를 멤버 arr 배열로 복사
+</span><span style="color:#75715e"></span>
+      <span style="color:#75715e">/*
+</span><span style="color:#75715e">          memcpy : memory + copy, 즉 메모리의 값을 복사하는 기능을 가진 함수
+</span><span style="color:#75715e">          첫번째 인자 : 복사받을 메모리를 가리키는 포인터
+</span><span style="color:#75715e">          두번째 인자 : 박사할 메모리를 가리키는 포인터
+</span><span style="color:#75715e">          세번째 인자 : 복사할 데이터(혹은 값)의 길이(바이트 단위)
+</span><span style="color:#75715e">      */</span>
+    }
+
+      <span style="color:#75715e">//복사생성자 선언
+</span><span style="color:#75715e"></span>      VecF(<span style="color:#66d9ef">const</span> VecF<span style="color:#f92672">&amp;</span> fv) <span style="color:#f92672">:</span> n{fv.n}{ <span style="color:#75715e">//매개변수로 VecF 타입의 객체 fv의 참조를 넘겨준 것
+</span><span style="color:#75715e"></span>      arr <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#66d9ef">float</span>[n];
+      memcpy(arr,fv.arr,<span style="color:#66d9ef">sizeof</span>(<span style="color:#66d9ef">float</span>)<span style="color:#f92672">*</span>n);
+    }
+
+      <span style="color:#75715e">//소멸자
+</span><span style="color:#75715e"></span>      <span style="color:#f92672">~</span>VecF(){<span style="color:#75715e">//...}
+</span><span style="color:#75715e"></span>
+    <span style="color:#75715e">//인자로 받은 배열의 원소와 합한 결과를 리턴
+</span><span style="color:#75715e"></span>    VecF <span style="color:#a6e22e">add</span>(<span style="color:#66d9ef">const</span> VecF<span style="color:#f92672">&amp;</span> fv) <span style="color:#66d9ef">const</span>{
+      VecF temp(n); <span style="color:#75715e">//크기 n인 임시 배열 공간 선언
+</span><span style="color:#75715e"></span>      <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;i<span style="color:#f92672">&lt;</span>n;i<span style="color:#f92672">++</span>){
+          temp.arr[i] <span style="color:#f92672">=</span> arr[i] <span style="color:#f92672">+</span> fv.arr[i];
+      }
+      <span style="color:#66d9ef">return</span> temp; <span style="color:#75715e">//덧셈 결과를 담은 배열 리턴
+</span><span style="color:#75715e"></span>    }
+
+    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">print</span>() <span style="color:#66d9ef">const</span>{
+      <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;i<span style="color:#f92672">&lt;</span>n;i<span style="color:#f92672">++</span>){
+        cout<span style="color:#f92672">&lt;&lt;</span>arr[i]<span style="color:#f92672">&lt;&lt;</span><span style="color:#e6db74">&#34; , &#34;</span>;
+      }
+    }
+}
+</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
+<span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;VecF.h&#34;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(){
+  <span style="color:#66d9ef">float</span> a[<span style="color:#ae81ff">3</span>] <span style="color:#f92672">=</span> {<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>};
+  <span style="color:#66d9ef">float</span> b[<span style="color:#ae81ff">3</span>] <span style="color:#f92672">=</span> {<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">6</span>};
+  VecF v1(<span style="color:#ae81ff">3</span>,a);
+  VecF v2(<span style="color:#ae81ff">3</span>,b);
+  <span style="color:#75715e">//여기서 add() 메소드 수행한 후 리턴한 temp 객체는, v3로 복사된 후 제거됨
+</span><span style="color:#75715e"></span>  VecF v3(v1.add(v2));
+}
+</code></pre></div></li>
+<li>
+<p>위와 같은 상황에서 <strong>add()</strong> 를 활용하게 되면, 메소드 수행 후 리턴한 임시 객체가 복사생성자를 통해  v3로 복사된 후 제거됨</p>
+<ul>
+<li>규모가 좀 더 큰 프로그래밍에서 위와 같은 상황이 많아지면, 결과적으로 임시로 사용하는 객체의 복사가 너무 많이 일어나는 비효율이 발생할 수 있음</li>
+<li>위의 예로 치면  add() 메소드의 잦은 수행으로 인해 , temp 객체에 대해 <strong>생성-&gt;복사-&gt;제거</strong> 의 과정이 너무 많이 일어나는 비효율이 발생하는 것</li>
+</ul>
+</li>
+<li>
+<p>C++ 11 이후부터는 수식을 아래와 같이 분류하여 xvalue, prvalue에 대해 r-value의 참조를 가능하게 하였음</p>
+<ul>
+<li>이전까지는 임시로 사용되는 r-value의 참조가 불가능하기 때문에, 위와 같이 복사 후 제거하는 방식을 사용할 수 밖에 없던 것</li>
+<li>r-value의 참조는 <strong><code>&amp;&amp;</code></strong> 연산자를 사용</li>
+</ul>
+</li>
+</ul>
+<p><img class="img-zoomable" src="https://docs.microsoft.com/ko-kr/cpp/cpp/media/value_categories.png?view=msvc-160" alt="값 범주: Lvalues 및 Rvalue(C&#43;&#43;) | Microsoft Docs" />
+</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#66d9ef">int</span> num <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>; <span style="color:#75715e">//일반적인 int 변수 선언
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span><span style="color:#f92672">&amp;</span> num2 <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>; <span style="color:#75715e">//l-value의 참조로 r-value를 참조할 수 없음
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span><span style="color:#f92672">&amp;&amp;</span> rNum1 <span style="color:#f92672">=</span> num; <span style="color:#75715e">//num은 l-value이기 때문에, r-value의 참조로 참조할 수 없음
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span><span style="color:#f92672">&amp;&amp;</span> rNum2 <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>; <span style="color:#75715e">//10은 r-value이기 때문에, r-value의 참조로 r-value를 참조할 수 있음
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">float</span><span style="color:#f92672">&amp;&amp;</span> rAvg <span style="color:#f92672">=</span> CalAvg(); <span style="color:#75715e">//함수의 반환 객체가 r-value이므로, r-value 참조로 참조 가능
+</span></code></pre></div><pre tabindex="0"><code>주의) 위의 예에서 int&amp;&amp; rNum1 = num; 과 같이 우항에 있다고 무조건 r-value로 판단하지 말자
+</code></pre><ul>
+<li>
+<p><strong>이동생성자</strong> : r-value 참조로 전달된 같은 클래스의 객체의 내용을 이동하여 객체를 만드는 생성자</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#75715e">//이동 생성자 선언 형식
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ClassName</span>{
+  <span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+      ClassName(ClassName<span style="color:#f92672">&amp;&amp;</span> obj){
+      <span style="color:#75715e">//생성되는 객체에 매개변수로 받은 obj의 내용을 이동
+</span><span style="color:#75715e"></span>    }
+}
+</code></pre></div></li>
+<li>
+<p>이동생성자를 활용하여 위의 add() 메소드를 불필요한 복사 없이 효율적으로 바꿀 수 있음</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">VecF</span>{
+  <span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+  <span style="color:#75715e">//...
+</span><span style="color:#75715e"></span>    VecF(VecF<span style="color:#f92672">&amp;&amp;</span> fv) <span style="color:#f92672">:</span> n{fv.n},arr{fv.arr}{
+      fv.arr <span style="color:#f92672">=</span> <span style="color:#66d9ef">nullptr</span>;
+      fv.n <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+    }
+	<span style="color:#75715e">//...      
+</span><span style="color:#75715e"></span>}
+</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(){
+  <span style="color:#75715e">//...
+</span><span style="color:#75715e"></span>  VecF v3(v1.add(v2));
+}
+</code></pre></div><ul>
+<li>add() 가 리턴하는 메소드(r-value)의 참조를 매개변수로 받았기 때문에, 값을 굳이 재할당하지 않고 소멸되지 않은 임시 객체의 참조를 받아서 실행한 것</li>
+<li>메모리 재할당이 없기 때문에 복사 생성자보다 더욱 속도가 빠름</li>
+</ul>
+</li>
+</ul>
+<br>
+<h3 id="6-4-static-키워드">6-4. static 키워드</h3>
+<ul>
+<li><strong>static 멤버</strong> : 클래스에 속하는 모든 객체들이 공유하는 데이터 멤버
+<ul>
+<li>객체의 생성과 관계 없이, 프로그램이 시작되면 static 멤버를 위한 별도의 메모리 공간이 할당됨</li>
+<li>static 멤버는 <strong>클래스 선언문 내에서는 선언만 하고 클래스 외부에서는 별도로 정의해야 함</strong></li>
+</ul>
+</li>
+<li><strong>static 멤버함수</strong> : 특정 객체에 대한 처리가 아닌, 클래스 전체의 작업을 수행하는 함수
+<ul>
+<li>static 멤버함수는 따라서 객체가 정의되지 않아도 사용 가능함</li>
+<li>단,  static 멤버 함수 안에서 일반 멤버를 사용할 수는 없음(statoc 멤버만 사용)</li>
+</ul>
+</li>
+</ul>
+<br>
+<h2 id="7-클래스와-객체3">7. 클래스와 객체(3)</h2>
+<h3 id="7-1-스택-클래스">7-1. 스택 클래스</h3>
+<ul>
+<li>스택 : 후입 선출의 원리에 따라 데이터를 저장하는 자료구조
+<ul>
+<li>데이터의 저장을 push, 데이터의 반출을 pop 이라고 함</li>
+</ul>
+</li>
+<li>C++로 CharStack클래스 구현하기</li>
+<li>
+<ol>
+<li>CharStack.h</li>
+</ol>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#75715e">/*
+</span><span style="color:#75715e">문자를 최대 20개까지 저장할 수 있는 스택을 나타내는 클래스를 선언
+</span><span style="color:#75715e">스택 객체는 데이터를  push, pop할 수 있고 스택이 비어있거나 가득차있는 지 여부를 검사해야 함
+</span><span style="color:#75715e">또한, 스택 클래스에는 입력된 단어를 역순으로 출력하는 메소드가 포함되야 함
+</span><span style="color:#75715e">*/</span>
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">CharStack</span>{
+  <span style="color:#66d9ef">enum</span> {size <span style="color:#f92672">=</span> <span style="color:#ae81ff">20</span>};
+  <span style="color:#66d9ef">int</span> top; <span style="color:#75715e">//스택의 마지막 데이터를 가리키는 포인터
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">char</span> buf[size]; <span style="color:#75715e">//스택 저장공간
+</span><span style="color:#75715e"></span>  
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+  	CharStack() <span style="color:#f92672">:</span> top{size} {}<span style="color:#75715e">//생성자
+</span><span style="color:#75715e"></span>  	
+  	<span style="color:#75715e">//스택이 비어있는지 검사
+</span><span style="color:#75715e"></span>  	<span style="color:#66d9ef">bool</span> <span style="color:#a6e22e">checkEmpty</span>() <span style="color:#66d9ef">const</span>{
+      <span style="color:#66d9ef">return</span> top <span style="color:#f92672">==</span> size;
+    }
+  
+  	<span style="color:#75715e">//스택이 가득찼는지 검사
+</span><span style="color:#75715e"></span>  	<span style="color:#66d9ef">bool</span> <span style="color:#a6e22e">checkFull</span>() <span style="color:#66d9ef">const</span>{
+      <span style="color:#66d9ef">return</span> <span style="color:#f92672">!</span>top;
+    }
+  
+	  <span style="color:#66d9ef">bool</span> <span style="color:#a6e22e">push</span>(<span style="color:#66d9ef">char</span> data);
+  	<span style="color:#66d9ef">char</span> <span style="color:#a6e22e">pop</span>();
+}
+
+</code></pre></div><ul>
+<li>
+<ol start="2">
+<li>CharStack.cpp</li>
+</ol>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;CharStack.h&#34;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
+
+<span style="color:#66d9ef">bool</span> CharStack<span style="color:#f92672">::</span>push(<span style="color:#66d9ef">char</span> data){
+  <span style="color:#66d9ef">if</span>(checkFull()){
+    cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;Stack is currently full&#34;</span> <span style="color:#f92672">&lt;&lt;</span> endl;
+    <span style="color:#66d9ef">return</span> false;
+  }
+  bufp[<span style="color:#f92672">--</span>top] <span style="color:#f92672">=</span> data;
+  <span style="color:#66d9ef">return</span> true;
+}
+
+<span style="color:#66d9ef">char</span> CharStack<span style="color:#f92672">::</span>pop(){
+  <span style="color:#66d9ef">if</span>(checkEmpty()){
+    cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;Stack is currently empty&#34;</span> <span style="color:#f92672">&lt;&lt;</span> endl;
+    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+  }
+  <span style="color:#66d9ef">return</span> buf[top<span style="color:#f92672">++</span>]; <span style="color:#75715e">//바뀐 top에 있는 데이터 리턴
+</span><span style="color:#75715e"></span>}
+</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;CharStack.h&#34;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
+
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(){
+  CharStack charStack;
+  <span style="color:#66d9ef">char</span> str[<span style="color:#ae81ff">20</span>];
+  
+  cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;write any word here : &#34;</span> ;
+  cin <span style="color:#f92672">&gt;&gt;</span> str;
+  
+  <span style="color:#66d9ef">char</span><span style="color:#f92672">*</span> pointer <span style="color:#f92672">=</span> str; <span style="color:#75715e">//포인터로 문자열의 시작 위치를 가리킴
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">while</span>(<span style="color:#f92672">*</span>pointer){ <span style="color:#75715e">//문자열의 끝에 도달할 때 까지 반복하면서 스택에 문자를 저장
+</span><span style="color:#75715e"></span>    charStack.push(<span style="color:#f92672">*</span>(pointer<span style="color:#f92672">++</span>));
+  }
+  
+  <span style="color:#75715e">//스택에 있는 문자 역순으로 출력
+</span><span style="color:#75715e"></span>  cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;print all characters reversely : &#34;</span>;
+  <span style="color:#66d9ef">while</span>(<span style="color:#f92672">!</span>charStack.checkEmpty()){
+    cout <span style="color:#f92672">&lt;&lt;</span> charStack.pop();
+  }
+  cout <span style="color:#f92672">&lt;&lt;</span> endl;
+  <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+}
+</code></pre></div><br>
+<h3 id="7-2-복소수-클래스">7-2. 복소수 클래스</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#75715e">/*
+</span><span style="color:#75715e">	복소수를 표현하는 클래스
+</span><span style="color:#75715e">	- 사칙연산, 켤레복소수 도출 등을 위한 메소드를 정의
+</span><span style="color:#75715e">	- 실수부의 값이 a, 허수부의 값이 b일 때 (a+bj)의 형태로 출력해야 함
+</span><span style="color:#75715e">*/</span>
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Complex</span>{
+  <span style="color:#66d9ef">double</span> rPart, iPart; <span style="color:#75715e">//실수부 및 허수부의 값을 멤버로 선언
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+  Complex(<span style="color:#66d9ef">double</span> r<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>, <span style="color:#66d9ef">double</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>) <span style="color:#f92672">:</span> rPart(r), iPart(i){}
+  Complex <span style="color:#a6e22e">conj</span>() <span style="color:#66d9ef">const</span>{
+    <span style="color:#66d9ef">return</span> Complex(rPart,<span style="color:#f92672">-</span>iPart); <span style="color:#75715e">//켤레복소수 도출
+</span><span style="color:#75715e"></span>  }
+  Complex <span style="color:#a6e22e">add</span>(<span style="color:#66d9ef">const</span> Complex<span style="color:#f92672">&amp;</span> c) <span style="color:#66d9ef">const</span>{
+    <span style="color:#66d9ef">return</span> Complex(rPart<span style="color:#f92672">+</span>c.rPart, iPart<span style="color:#f92672">+</span>c.iPart);
+  }
+  Complex <span style="color:#a6e22e">subtract</span>(<span style="color:#66d9ef">const</span> COmplex<span style="color:#f92672">&amp;</span> c) <span style="color:#66d9ef">const</span>{
+    <span style="color:#66d9ef">return</span> Complex(rPart <span style="color:#f92672">-</span> c.rPart, iPart <span style="color:#f92672">-</span> c.iPart);
+  }
+  <span style="color:#75715e">//아래 메소드는 cpp 파일에서 정의
+</span><span style="color:#75715e"></span>  Complex <span style="color:#a6e22e">multiply</span>(<span style="color:#66d9ef">const</span> Complex<span style="color:#f92672">&amp;</span> c) <span style="color:#66d9ef">const</span>;
+  Complex <span style="color:#a6e22e">divide</span>(<span style="color:#66d9ef">const</span> Complex<span style="color:#f92672">&amp;</span> c) <span style="color:#66d9ef">const</span>;
+  <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">display</span>() <span style="color:#66d9ef">const</span>; <span style="color:#75715e">//복소수 출력
+</span><span style="color:#75715e"></span>}
+</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;Complex.h&#34;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
+
+Complex Complex<span style="color:#f92672">::</span>multiply(<span style="color:#66d9ef">const</span> Complex<span style="color:#f92672">&amp;</span> c) <span style="color:#66d9ef">const</span>{
+  <span style="color:#66d9ef">double</span> r <span style="color:#f92672">=</span> rPart <span style="color:#f92672">*</span> c.rPart <span style="color:#f92672">-</span> iPart <span style="color:#f92672">*</span> c.iPart;
+  <span style="color:#66d9ef">double</span> i <span style="color:#f92672">=</span> rPart <span style="color:#f92672">*</span> c.iPart <span style="color:#f92672">+</span> iPart.<span style="color:#f92672">*</span> c.rPart;
+  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">COmplex</span>(r,i);
+}
+
+Complex Complex<span style="color:#f92672">::</span>divide(<span style="color:#66d9ef">const</span> Complex<span style="color:#f92672">&amp;</span> c) <span style="color:#66d9ef">const</span>{
+	<span style="color:#66d9ef">double</span> d <span style="color:#f92672">=</span> c.rPart <span style="color:#f92672">*</span> c.rPart <span style="color:#f92672">+</span> c.iPart <span style="color:#f92672">*</span> c.iPart;
+  Complex c <span style="color:#f92672">=</span> multiply(c.conj());
+  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">Complex</span>(c.rPart<span style="color:#f92672">/</span>d, c.iPart<span style="color:#f92672">/</span>d);
+}
+
+<span style="color:#66d9ef">void</span> Complex<span style="color:#f92672">::</span>display() <span style="color:#66d9ef">const</span>{
+  cout<span style="color:#f92672">&lt;&lt;</span><span style="color:#e6db74">&#34;(&#34;</span><span style="color:#f92672">&lt;&lt;</span> rPart;
+  <span style="color:#66d9ef">if</span>(iPart <span style="color:#f92672">&gt;</span><span style="color:#ae81ff">0</span>){
+    cout<span style="color:#f92672">&lt;&lt;</span><span style="color:#e6db74">&#34;+j&#34;</span><span style="color:#f92672">&lt;&lt;</span>iPart;
+  }<span style="color:#66d9ef">else</span> <span style="color:#a6e22e">if</span>(iPart<span style="color:#f92672">&lt;</span><span style="color:#ae81ff">0</span>){
+    cout<span style="color:#f92672">&lt;&lt;</span><span style="color:#e6db74">&#34;-j&#34;</span><span style="color:#f92672">&lt;&lt;-</span>iPart;
+  }
+  cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;)&#34;</span>;
+}
+
+</code></pre></div><br>
+<h2 id="8-연산자-다중정의">8. 연산자 다중정의</h2>
+<h3 id="8-1-연산자의-다중정의의-개념">8-1. 연산자의 다중정의의 개념</h3>
+<ul>
+<li>동일한 연산자라도, 피연산자의 자료형에 따라 처리가 달라짐</li>
+<li>C++에 정의된 연산자를 사용자가 선언한 클래스의 객체에 대하여 사용할 수 있도록 정의하는 것을 의미함
+<ul>
+<li>단, 연산자의 의미를 임의로 바꾸면 안됨</li>
+<li>연산자의 고유한 특성이 유지되야 함</li>
+<li>연산자의 우선순위나 피연산자의 수가 불변이어야 함</li>
+<li>전위 표기 혹은 후위 표기 연산자의 의미가 유지되야 함</li>
+</ul>
+</li>
+<li><strong>주요 연산자 다중정의의 대상</strong>
+<ul>
+<li>클래스의 객체 간 대입 및 이동 대입 연산자</li>
+<li>수치형 객체의 산술 연산자 다중정의</li>
+<li>두 객체를 비교하기 위한 관계 연산자의 다중정의</li>
+<li>스트림 입력 및 출력을 위한 <strong><code>&gt;&gt;</code></strong>  , <strong><code>&lt;&lt;</code></strong> 연산자</li>
+</ul>
+</li>
+<li>아래의 경우는 다중 정의를 할 수 없음
+<ul>
+<li>멤버 선택 연산자 <strong><code>.</code></strong></li>
+<li>멤버에 대한 포인터 연산자 <strong><code>.*</code></strong></li>
+<li>유효범위 결정 연산자 <strong><code>::</code></strong></li>
+<li>조건 연산자 <strong><code>? :</code></strong></li>
+</ul>
+</li>
+<li>연산자 다중정의 위치
+<ul>
+<li>클래스의 멤버로 정의하는 방법 : 연산자의 구현 과정에서 객체의 멤버를 액세스 할 수 있음</li>
+<li>클래스 외부에서 정의하는 방법 : 클래스의 멤버가 아니기 때문에 private 멤버는 임의로 사용 못함</li>
+</ul>
+</li>
+</ul>
+<br>
+<h3 id="8-2-단항연산자의-다중정의">8-2. 단항연산자의 다중정의</h3>
+<ul>
+<li>단항연산자 : 피연산자가 1개인 연산자 혹은 전위 &amp; 후위 표기(ex. <strong><code>b = a++</code></strong> )</li>
+<li>다중정의 형식 예시 (1) - 전위표기법
+<ul>
+<li>아래에서 opSymbol이 다중정의할 연산자 기호에 해당함</li>
+<li>형식 매개변수는 없음</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++">ReturnClass ClassName<span style="color:#f92672">::</span><span style="color:#66d9ef">operator</span> opSymbol()
+{
+  <span style="color:#75715e">//...
+</span><span style="color:#75715e"></span>}
+</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">IntClass</span>{
+  <span style="color:#66d9ef">int</span> a;
+  
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+  IntClass(<span style="color:#66d9ef">int</span> n<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>) <span style="color:#f92672">:</span> a(n) {} <span style="color:#75715e">//생성자
+</span><span style="color:#75715e"></span>  IntClass<span style="color:#f92672">&amp;</span> <span style="color:#66d9ef">operator</span> <span style="color:#f92672">++</span> (){
+    <span style="color:#f92672">++</span>a;
+    <span style="color:#66d9ef">return</span> <span style="color:#f92672">*</span><span style="color:#66d9ef">this</span>;
+  }
+  <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">getValue</span>() <span style="color:#66d9ef">const</span> {<span style="color:#66d9ef">return</span> a;}
+};
+</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#75715e">//메인 클래스에서
+</span><span style="color:#75715e"></span>IntClass intClass;
+cout <span style="color:#f92672">&lt;&lt;</span> (<span style="color:#f92672">++</span>intClass).getValue() <span style="color:#f92672">&lt;&lt;</span> endl;
+<span style="color:#75715e">//위의 경우 출력 결과는 1이 됨
+</span></code></pre></div><ul>
+<li>다중정의 형식 예시 (2) - 후위표기법
+<ul>
+<li>여기서는 형식 매개변수를 명시하였음</li>
+<li>int는 인수를 전달한다는 의미가 아니라, 후위 표기법을 사용하는 단항 연산자임을 의미</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++">ReturnClass ClassName<span style="color:#f92672">::</span><span style="color:#66d9ef">operator</span> opSymbol(<span style="color:#66d9ef">int</span>)
+{
+  <span style="color:#75715e">//...
+</span><span style="color:#75715e"></span>}
+</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">IntClass</span>{
+  <span style="color:#66d9ef">int</span> a;
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+  IntClass(<span style="color:#66d9ef">int</span> n<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>) <span style="color:#f92672">:</span> a(n) {}
+  IntClass <span style="color:#66d9ef">operator</span> <span style="color:#f92672">++</span> (<span style="color:#66d9ef">int</span>){
+    IntClass <span style="color:#a6e22e">temp</span>(<span style="color:#f92672">*</span><span style="color:#66d9ef">this</span>);
+    <span style="color:#f92672">++</span>a;
+    <span style="color:#66d9ef">return</span> temp;
+  }
+  <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">getVale</span>() <span style="color:#66d9ef">const</span> {<span style="color:#66d9ef">return</span> a;} 
+};
+</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#75715e">//메인 클래스에서
+</span><span style="color:#75715e"></span>IntClass intClass;
+cout <span style="color:#f92672">&lt;&lt;</span> (i<span style="color:#f92672">++</span>).getValue() <span style="color:#f92672">&lt;&lt;</span> endl; 
+<span style="color:#75715e">//위의 경우에는 출력 결과가 0이 됨
+</span></code></pre></div><br>
+<h3 id="8-3-이항연산자의-다중정의">8-3. 이항연산자의 다중정의</h3>
+<ul>
+<li>항목 7-2에서 선언한 복소수 클래스를 활용</li>
+<li>예시 (1) - 복소수 객체와 복소수 객체의 덧셈연산자 다중정의 (complex1 + complex2)</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++">Complex Complex<span style="color:#f92672">::</span><span style="color:#66d9ef">operator</span> <span style="color:#f92672">+</span> (<span style="color:#66d9ef">const</span> Complex <span style="color:#f92672">&amp;</span>c) <span style="color:#66d9ef">const</span>
+{
+  Complex <span style="color:#a6e22e">temp</span>(<span style="color:#f92672">*</span><span style="color:#66d9ef">this</span>);
+  temp.rPart <span style="color:#f92672">+=</span> c.rPart;
+  temp.iPart <span style="color:#f92672">+=</span> c.iPart;
+  <span style="color:#66d9ef">return</span> temp;
+}
+</code></pre></div><ul>
+<li>예시 (2) - 복소수 객체와 실수의 덧셈연산자 다중정의(complex + 10.0)
+<ul>
+<li>Complex에 (double r=0, diouble i=0) 이라는 생성자가 정의되어있기 때문에, 연산자 뒤에 붙은 double value는 묵시적으로 Complex로 변환</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++">Complex Complex<span style="color:#f92672">::</span><span style="color:#66d9ef">operator</span> <span style="color:#f92672">+</span> (<span style="color:#66d9ef">double</span> r) <span style="color:#66d9ef">const</span>
+{
+  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">Complex</span>(rPart <span style="color:#f92672">+</span> r, iPart);
+}
+</code></pre></div><ul>
+<li>예시 (3) - 실수와 복소수 객체의 덧셈 연산자 다중정의(10.0 + complex)
+<ul>
+<li>이번에는 실수가 연산자의 앞에 붙어있기 때문에, 묵시적으로 실수를 복소수 클래스의 멤버로 정의하지 못함</li>
+<li>이 경우에는 클래스에 속하지 않는 외부의 별도 연산자로 정의</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++">Complex <span style="color:#66d9ef">operator</span> <span style="color:#f92672">+</span> (<span style="color:#66d9ef">double</span> r, <span style="color:#66d9ef">const</span> Complex <span style="color:#f92672">&amp;</span>c)
+{
+  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">Complex</span>(r<span style="color:#f92672">+</span>c.rPart,c.iPart);
+  <span style="color:#75715e">/*
+</span><span style="color:#75715e">  	주의)
+</span><span style="color:#75715e">  	위의 경우에 Complex 클래스의 멤버 rPart, iPart는 private이 아니어야 함
+</span><span style="color:#75715e">  	private인 경우에는 getter 메소드를 정의
+</span><span style="color:#75715e">  */</span>
+}
+</code></pre></div><ul>
+<li>예시(4) - 복소수 객체의 복합 대입 연산자 (+=)</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++">Complex<span style="color:#f92672">&amp;</span> Complex<span style="color:#f92672">::</span><span style="color:#66d9ef">operator</span> <span style="color:#f92672">+=</span> (<span style="color:#66d9ef">const</span> Complex <span style="color:#f92672">&amp;</span>c)
+{
+  rPart <span style="color:#f92672">+=</span> c.rPart;
+  iPart <span style="color:#f92672">+=</span> c.iPart;
+  <span style="color:#66d9ef">return</span> <span style="color:#f92672">*</span><span style="color:#66d9ef">this</span>;
+}
+</code></pre></div><br>
+<h3 id="8-4-스트림-출력-연산자의-다중정의">8-4. 스트림 출력 연산자의 다중정의</h3>
+<ul>
+<li><strong><code>&lt;&lt;</code></strong> 연산자의 정의
+<ul>
+<li>아래의 예에서 좌측에 있는 cout은 일반 프로그래머가 수정할 수 없음</li>
+<li>따라서 외부의 별도 연산자로 정의</li>
+<li>&laquo; 연산자가  Complex 객체의 private 멤버에 접근 가능하도록 <strong><code>friend</code></strong> 로 지정</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++">Complex <span style="color:#a6e22e">c</span>(<span style="color:#ae81ff">1.0</span>,<span style="color:#ae81ff">2.0</span>);
+cout <span style="color:#f92672">&lt;&lt;</span> c;
+</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Complex</span>{
+  <span style="color:#66d9ef">friend</span> ostream<span style="color:#f92672">&amp;</span> <span style="color:#66d9ef">operator</span><span style="color:#f92672">&lt;&lt;</span>(ostream <span style="color:#f92672">&amp;</span>os, <span style="color:#66d9ef">const</span> Complex <span style="color:#f92672">&amp;</span>c);
+};
+</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++">ostream<span style="color:#f92672">&amp;</span> <span style="color:#66d9ef">operator</span><span style="color:#f92672">&lt;&lt;</span>(ostream<span style="color:#f92672">&amp;</span> os, <span style="color:#66d9ef">const</span> Complex<span style="color:#f92672">&amp;</span> c)
+{
+  os<span style="color:#f92672">&lt;&lt;</span><span style="color:#e6db74">&#34;(&#34;</span><span style="color:#f92672">&lt;&lt;</span>c.rPart;<span style="color:#75715e">//실수부 출력
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">if</span>(c.iPart<span style="color:#f92672">&gt;</span><span style="color:#ae81ff">0</span>){ <span style="color:#75715e">//허수부 출력
+</span><span style="color:#75715e"></span>    os<span style="color:#f92672">&lt;&lt;</span><span style="color:#e6db74">&#34;+j&#34;</span><span style="color:#f92672">&lt;&lt;</span>c.iPart;
+  }<span style="color:#66d9ef">else</span> <span style="color:#a6e22e">if</span>(c.iPart<span style="color:#f92672">&lt;</span><span style="color:#ae81ff">0</span>){
+    os<span style="color:#f92672">&lt;&lt;</span><span style="color:#e6db74">&#34;-j&#34;</span><span style="color:#f92672">&lt;&lt;-</span>c.iPart;
+  }
+  os<span style="color:#f92672">&lt;&lt;</span><span style="color:#e6db74">&#34;)&#34;</span>;
+  <span style="color:#66d9ef">return</span> os;
+}
+</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c++" data-lang="c++"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;Complex.h&#34;;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
+
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+{
+  Complex a(<span style="color:#ae81ff">10</span>,<span style="color:#ae81ff">20</span>);
+  Complex b(<span style="color:#ae81ff">5</span>,<span style="color:#f92672">-</span><span style="color:#ae81ff">3</span>);
+  cout <span style="color:#f92672">&lt;&lt;</span> a <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;+&#34;</span> <span style="color:#f92672">&lt;&lt;</span> b <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;=&#34;</span> <span style="color:#f92672">&lt;&lt;</span> a<span style="color:#f92672">+</span>b <span style="color:#f92672">&lt;&lt;</span>endl;
+  <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+}
+</code></pre></div>
+    </div>
+    <hr>
+    <script src="https://utteranc.es/client.js"
+        repo="junu0516/blog"
+        issue-term="pathname"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script>
+</article>
+
+
+
+
+            </div>
+            <aside class="col-12 col-md-3 float-left sidebar">
+    
+    
+    <div class="sidebar-item sidebar-toc">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#1--c-언어-기초-1">1.  C++ 언어 기초 (1)</a>
+      <ul>
+        <li><a href="#1-1--c-파일과-프로그램-빌드">1-1 . C++ 파일과 프로그램 빌드</a></li>
+        <li><a href="#1-2-c-코드-작성-예시">1-2. C++ 코드 작성 예시</a></li>
+        <li><a href="#1-3-명칭공간namespace">1-3 명칭공간(namespace)</a></li>
+      </ul>
+    </li>
+    <li><a href="#2-c-언어-기초2">2. C++ 언어 기초(2)</a>
+      <ul>
+        <li><a href="#2-1-키워드와-식별자">2-1 키워드와 식별자</a></li>
+        <li><a href="#2-2-c의-자료형">2-2 C++의 자료형</a></li>
+        <li><a href="#2-3-변수">2-3 변수</a></li>
+        <li><a href="#2-4-연산자">2-4. 연산자</a></li>
+        <li><a href="#2-5-자료형의-변환">2-5. 자료형의 변환</a></li>
+      </ul>
+    </li>
+    <li><a href="#3-c-언어-기초3">3. C++ 언어 기초(3)</a>
+      <ul>
+        <li><a href="#3-1-흐름제어-구문">3-1. 흐름제어 구문</a></li>
+        <li><a href="#3-2-구조체와-클래스">3-2. 구조체와 클래스</a></li>
+        <li><a href="#3-3-배열">3-3. 배열</a></li>
+        <li><a href="#3-4-포인터와-동적-메모리의-할당">3-4. 포인터와 동적 메모리의 할당</a></li>
+        <li><a href="#3-5-참조reference">3-5. 참조(Reference)</a></li>
+        <li><a href="#3-6-r-value와-l-value">3-6. r-value와 l-value</a></li>
+      </ul>
+    </li>
+    <li><a href="#4-함수function">4. 함수(Function)</a>
+      <ul>
+        <li><a href="#4-1-함수의-정의와-호출">4-1. 함수의 정의와 호출</a></li>
+        <li><a href="#4-2-인수의-전달">4-2. 인수의 전달</a></li>
+        <li><a href="#4-3-함수의-다중정의overloading">4-3. 함수의 다중정의(Overloading)</a></li>
+        <li><a href="#4-4-inline-함수">4-4. Inline 함수</a></li>
+      </ul>
+    </li>
+    <li><a href="#5-클래스와-객체1">5. 클래스와 객체(1)</a>
+      <ul>
+        <li><a href="#5-1-객체지향-프로그래밍의-개념">5-1. 객체지향 프로그래밍의 개념</a></li>
+        <li><a href="#5-2-클래스의-선언과-객체의-정의">5-2. 클래스의 선언과 객체의 정의</a></li>
+        <li><a href="#5-3-생성자constructor">5-3. 생성자(Constructor)</a></li>
+        <li><a href="#5-4-소멸자destructor">5-4. 소멸자(Destructor)</a></li>
+      </ul>
+    </li>
+    <li><a href="#6-클래스와-객체2">6. 클래스와 객체(2)</a>
+      <ul>
+        <li><a href="#6-1-디폴트-생성자">6-1. 디폴트 생성자</a></li>
+        <li><a href="#6-2-복사-생성자">6-2. 복사 생성자</a></li>
+        <li><a href="#6-3-이동-생성자">6-3. 이동 생성자</a></li>
+        <li><a href="#6-4-static-키워드">6-4. static 키워드</a></li>
+      </ul>
+    </li>
+    <li><a href="#7-클래스와-객체3">7. 클래스와 객체(3)</a>
+      <ul>
+        <li><a href="#7-1-스택-클래스">7-1. 스택 클래스</a></li>
+        <li><a href="#7-2-복소수-클래스">7-2. 복소수 클래스</a></li>
+      </ul>
+    </li>
+    <li><a href="#8-연산자-다중정의">8. 연산자 다중정의</a>
+      <ul>
+        <li><a href="#8-1-연산자의-다중정의의-개념">8-1. 연산자의 다중정의의 개념</a></li>
+        <li><a href="#8-2-단항연산자의-다중정의">8-2. 단항연산자의 다중정의</a></li>
+        <li><a href="#8-3-이항연산자의-다중정의">8-3. 이항연산자의 다중정의</a></li>
+        <li><a href="#8-4-스트림-출력-연산자의-다중정의">8-4. 스트림 출력 연산자의 다중정의</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+</aside>
+
+        </div>
+        <div class="btn">
+    
+    <div class="btn-menu" id="btn-menu">
+        <i class="iconfont icon-grid-sharp"></i>
+    </div>
+    <div class="btn-toggle-mode" style="display: none;">
+        <i class="iconfont icon-contrast-sharp"></i>
+    </div>
+    
+    <div class="btn-scroll-top">
+        <i class="iconfont icon-chevron-up-circle-sharp"></i>
+    </div>
+</div>
+
+<aside class="sidebar-mobile" style="display: none;">
+  <div class="sidebar-wrapper">
+    
+    <div class="sidebar-item sidebar-pages" style="display: none;">
+        <h3>Pages</h3>
+        <ul>
+            
+        </ul>
+    </div>
+    
+    <div class="sidebar-item sidebar-links" style="display: none;">
+        <h3>Links</h3>
+        <ul>
+            
+            <li>
+                <a href="https://github.com/junu0516" target="_blank"><span>GitHub</span></a>
+            </li>
+            
+            <li>
+                <a href="https://twitter.com/dsrkafuu" target="_blank"><span>Linkedin</span></a>
+            </li>
+            
+            <li>
+                <a href="https://space.bilibili.com/19767474" target="_blank"><span>Instagram</span></a>
+            </li>
+            
+        </ul>
+    </div>
+    
+    <div class="sidebar-item sidebar-tags" style="display: none;">
+        <h3>Tags</h3>
+        <div>
+            
+            <span>
+                <a href="/tags/c&#43;&#43;/">c&#43;&#43;</a>
+            </span>
+            
+            <span>
+                <a href="/tags/cs%EC%8A%A4%ED%84%B0%EB%94%94/">CS스터디</a>
+            </span>
+            
+            <span>
+                <a href="/tags/java/">java</a>
+            </span>
+            
+            <span>
+                <a href="/tags/spring/">spring</a>
+            </span>
+            
+            <span>
+                <a href="/tags/%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC/">네트워크</a>
+            </span>
+            
+            <span>
+                <a href="/tags/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C/">운영체제</a>
+            </span>
+            
+            <span>
+                <a href="/tags/%EC%9E%90%EB%A3%8C%EA%B5%AC%EC%A1%B0/">자료구조</a>
+            </span>
+            
+        </div>
+    </div>
+
+    
+    <div class="sidebar-item sidebar-tags" >
+        <h3>Categories</h3>
+        <ul style="list-style: none !important;">
+            
+            <li>
+                <a href="/categories/spring/">Spring</a>
+            </li>
+            
+            <li>
+                <a href="/categories/%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC/">네트워크</a>
+            </li>
+            
+            <li>
+                <a href="/categories/%EB%B0%A9%ED%86%B5%EB%8C%80-%EA%B0%95%EC%9D%98%EB%85%B8%ED%8A%B8/">방통대 강의노트</a>
+            </li>
+            
+            <li>
+                <a href="/categories/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C/">운영체제</a>
+            </li>
+            
+            <li>
+                <a href="/categories/%EC%9E%90%EB%A3%8C%EA%B5%AC%EC%A1%B0/">자료구조</a>
+            </li>
+            
+        </ul>
+    </div>
+    
+    
+    
+    
+  </div>
+</aside>
+    </main>
+
+    <footer>
+    <div class="container-lg clearfix">
+        <div class="col-12 footer">
+            
+            <span>&copy; 2021
+                <a href="https://junu0516.github.io/"></a>
+                
+                | Powered by <a href="https://github.com/dsrkafuu/hugo-theme-fuji/"
+                   target="_blank">Fuji-v2</a> &amp; <a href="https://gohugo.io/"
+                                                    target="_blank">Hugo</a> 
+            </span>
+        </div>
+    </div>
+</footer>
+
+    
+<script defer src="https://cdn.jsdelivr.net/npm/medium-zoom@1.0.6/dist/medium-zoom.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/components/prism-core.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/autoloader/prism-autoloader.min.js"></script>
+
+
+
+<script defer src="/assets/js/fuji.min.js"></script>
+
+
+
+</body>
+
+</html>

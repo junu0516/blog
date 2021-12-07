@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<meta name="HandheldFriendly" content="True" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<meta name="generator" content="Hugo 0.88.1" />
+
+
+<link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/dsrkafuu/dsr-cdn-main@1/images/favicons/dsrca.ico" />
+
+
+
+<title>Http 메시지와 Https 통신 - Junu-Devlog</title>
+
+
+
+
+<meta name="keywords" content="네트워크, CS스터디" />
+
+
+<meta property="og:title" content="Http 메시지와 Https 통신" />
+<meta name="twitter:title" content="Http 메시지와 Https 통신" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://junu0516.github.io/posts/httpmsg_https/" /><meta property="og:description" content="Http 메시지의 구조와, 암호화가 추가된 Https 통신의 특징에 대해 알아보도록 한다." />
+<meta name="twitter:description" content="Http 메시지의 구조와, 암호화가 추가된 Https 통신의 특징에 대해 알아보도록 한다." /><meta name="twitter:card" content="summary" /><meta property="article:published_time" content="2021-10-10T00:00:00+00:00" /><meta property="article:modified_time" content="2021-10-11T02:46:20+09:00" />
+
+
+<style>
+    @media (prefers-color-scheme: dark) {
+        body[data-theme='auto'] img {
+            filter: brightness(60%);
+        }
+    }
+
+    body[data-theme='dark'] img {
+        filter: brightness(60%);
+    }
+</style>
+
+
+
+
+<link rel="stylesheet" href="https://junu0516.github.io/assets/css/fuji.min.css" />
+
+
+
+
+
+
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css" integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc" crossorigin="anonymous">
+<style>
+    img{
+        filter: brightness(100%) !important;
+        display: block !important;
+        margin: auto !important;
+        margin-top: 15px !important;
+        margin-bottom: 15px !important;
+    }
+    .custom-post-meta-tags a{
+        background-color: rgba(231, 231, 231, 0.897);
+        padding: 1px 1px;
+        border-radius: 3px;
+        font-size: 14px;
+        color: gray;
+    }
+    .custom-tags>div a{
+        background-color: rgba(231, 231, 231, 0.897);
+        padding: 2px 5px;
+        border-radius: 3px;
+        color: gray;
+    }
+    .custom-social-link-box{
+        text-align: center;
+    }
+    .custom-social-link{
+        font-size: 2em;
+        margin-right: 15px;
+        color: rgb(104, 98, 98);
+    }
+    .custom-profile-imgbox{
+        width: 100%;
+        height: 100%;
+    }
+    .custom-profile-imgbox__mobile{
+        width: 100%;
+        height: 100%;
+    }
+    .custom-profile-img{
+        width: 90%;
+        height: 80%;
+        border: 1px solid lightgray;
+        border-radius: 100%;
+        opacity: 0.9;
+    }
+
+    .post+.post{
+        border-top: 0.5px solid rgb(226, 226, 226) !important;
+    }
+
+    .custom-content{
+        margin-top : 2%;
+        margin-right: 5%;
+    }
+
+    .custom-content>article>.post-meta{
+        padding-bottom: 5px;
+        border-bottom: 1px solid lightgray;
+    }
+    .custom-content>article>.post-title{
+        font-size: 2rem;
+    }
+
+    header{
+        background-color: rgba(243, 241, 241, 0.89);
+        border-bottom: 0px !important;
+    }
+
+    .custom-header{
+        height: 30%;
+    }
+
+    main{
+        margin-top: 2%;
+    }
+    header .header {
+        height: 80px;
+        padding: 1.2rem 1rem 1rem 1.22rem;
+    }
+
+    .title-main{
+        font-size : 2rem !important;
+        color: rgb(57, 58, 58);
+    }
+
+    .post{
+        padding-bottom: 10px !important;
+    }
+
+    .post-title{
+        font-size: 1.4rem;
+    }
+
+    .post-summary{
+        cursor: pointer;
+        color: rgb(80, 75, 75);
+        font-size: 15px;
+        display: none !important;
+
+    }
+
+    .pagination{
+        margin-top: 50px !important;
+         
+        border-top: none !important;
+    }
+
+    .sidebar{
+        margin-top: 2%;
+        padding: 0 !important;
+    }
+
+         
+
+    @media (min-width: 1025px) and (max-width: 1280px) {
+        .sidebar{
+            min-width: 30vh !important;
+        }
+    }
+
+    .sidebar-item>h3{
+        border-bottom: 1px solid lightgray;
+        margin-bottom: 10px;
+    }
+    
+    .container-lg{
+        max-width: 1400px !important;
+    }
+
+    .markdown-body h1, .markdown-body h2 {
+        border-bottom: 1px solid var(--color-divider) !important;
+    }
+    .markdown-body h3{
+        font-size: 1.35rem !important;
+    }
+    .markdown-body h4{
+        font-size: 1.25rem !important;
+    }
+
+    .content{
+        padding-left: 2.5rem !important;
+    }
+    
+</style>
+
+</head>
+
+<body
+  data-theme="auto"
+  data-theme-auto='false'
+  >
+    <script data-cfasync="false">
+  
+  var fujiThemeData = localStorage.getItem('fuji_data-theme');
+  
+  if (!fujiThemeData) {
+    localStorage.setItem('fuji_data-theme', 'auto');
+  } else {
+    
+    if (fujiThemeData !== 'auto') {
+      document.body.setAttribute('data-theme','light');
+      
+    }
+  }
+</script>
+
+    <header>
+    <div class="container-lg clearfix">
+        <div class="header">
+            <a class="title-main" href="https://junu0516.github.io/">Junu-Devlog</a>
+            
+        </div>
+    </div>
+</header>
+
+    <main>
+        <div class="container-lg clearfix">
+            
+            <div class="col-12 col-md-12 float-left content custom-content">
+                
+<article>
+    
+    <h2 class="post-item post-title">
+        <a href="https://junu0516.github.io/posts/httpmsg_https/">Http 메시지와 Https 통신</a>
+    </h2>
+    <div class="post-item post-meta">
+        <span>
+    <i class="iconfont icon-today-sharp"></i>&nbsp;2021-10-10
+</span>
+
+<span>
+    <i class="iconfont icon-sync-circle-sharp"></i>&nbsp;2021-10-11</span>
+
+
+<span class="custom-post-meta-tags">
+    <i class="iconfont icon-pricetags-sharp"></i>&nbsp;
+    <a href="/tags/%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC">네트워크</a>&nbsp;
+    <a href="/tags/cs%EC%8A%A4%ED%84%B0%EB%94%94">CS스터디</a>&nbsp;
+</span>
+<span class="custom-post-meta-categories">
+    <i class="fas fa-file-alt"></i>&nbsp;
+    <a href="/categories/%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC">네트워크</a>&nbsp;
+</span>
+    </div>
+    
+    <div class="post-content markdown-body">
+        <blockquote>
+<p>Http 메시지의 구조와, 암호화가 추가된 Https 통신의 특징에 대해 알아보도록 한다.</p>
+</blockquote>
+<br>
+<h2 id="1-http-메시지-구조">1. Http 메시지 구조</h2>
+<pre tabindex="0"><code>모든 Http 통신에서의 정보는 Http 메시지로부터 나온다!
+</code></pre><ul>
+<li>Http 프로토콜이라고 하면 보통 서버/클라이언트 모델을 따르는 네트워크 프로토콜을 일컫음</li>
+<li>서버와 클라이언트는 각각 요청 &amp; 응답(Request, Response)를 통해 서로 정보를 주고받음</li>
+<li>Http는 <strong>비연결 지향(Connectionless)</strong> 적인 특징으로 인해, 일단 클라이언트가 보낸 요청에 대해 응답이 오면 연결을 끊음
+<ul>
+<li>이를 통해 과도한 서버에의 부하를 줄일 수 있는 것</li>
+</ul>
+</li>
+</ul>
+<br>
+<h3 id="1-1-http-메시의-구조">1-1. HTTP 메시의 구조</h3>
+<p><img src="https://media.vlpt.us/post-images/codemcd/6ce81a10-e267-11e9-bbca-93d7aa4138bb/HTTP3-4.png" alt="img" style="zoom: 67%;" /></p>
+<ul>
+<li>
+<p>Http 통신에서 교환되는 정보를 보통 Http 메시지라고 부름</p>
+<ul>
+<li>리퀘스트 메시지와 리스폰스 메시지의 총 2가지가 존재</li>
+</ul>
+</li>
+<li>
+<p>Http 메시지는 <strong><code>복수행</code></strong> 의 데이터로 구성된 텍스트 문자열의 형태이며 크게 <strong><code>메시지 헤더</code></strong> 와 <strong><code>메시지 바디</code></strong> 로 구성되어있으며, 각각은 <strong><code>개행 문자(CR+LF)</code></strong> 로 구분됨</p>
+<ul>
+<li>혹은 메시지 헤더를 시작줄과 헤더 블록(필드)로 나눌 수도 있음</li>
+<li><strong>메시지 헤더</strong> : 서버와 클라이언트가 반드시 처리해야 하는 리퀘스트나 리스폰스의 내용 및 속성이 정의되어 있음
+<ul>
+<li><strong>HTTP 통신에 필요한 모든 부가정보가 헤더에 명시</strong> 되어 있는 것</li>
+<li>ex) 메시지 바디의 크기, 인증, 클라이언트 정보, 캐시 관리 정보 등등</li>
+</ul>
+</li>
+<li><strong>메시지 바디</strong> : 전송되는 데이터 그 자체가 들어 있음
+<ul>
+<li>여기에는 HTML 문서와 json 형식의 데이터에서부터 이미지 및 영상에 이르기까지 byte로 표현 가능한 모든 데이터가 전송될 수 있음</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>리퀘스트 헤더의 첫 시작 라인은 <strong><code>리퀘스트 라인(요청 라인)</code></strong> 으로 구성됨</p>
+<ul>
+<li>
+<p><strong>리퀘스트 라인(요청 라인)</strong> : 요청에 사용될 메소드(GET, POST 등)와 요청 URI, 그리고 사용되는 HTTP 버전 정보가 명시되어 있음</p>
+<pre tabindex="0"><code>GET/search HTTP/1.1 
+</code></pre></li>
+</ul>
+</li>
+<li>
+<p>리스폰스 헤더의 첫 시작 라인은 <strong><code>상태 라인(응답 라인)</code></strong> 으로 구성됨</p>
+<ul>
+<li>
+<p><strong>상태 라인(응답 라인)</strong> : 리스폰스 결과를 나타내는 상태코드와 설명, 그리고 사용된 HTTP 버전 정보가 명시되어 있음</p>
+<pre tabindex="0"><code>HTTP/1.1 200 OK
+</code></pre></li>
+<li>
+<p><strong>keep-alive 헤더</strong> : 아래와 같이 명시되며, 연결을 계속 유지하겠다는 것을 의미함(HTTP 1.1부터 기본적으로 동작)</p>
+<pre tabindex="0"><code>Connection:Keep-Alive
+Keep-Alive: timeout=5, max=1000
+</code></pre><ul>
+<li>기본적으로 Http 통신은 TCP 통신을 기반으로 동작하는데, TCP 통신은 일단 전송하면 연결이 끊어지므로 Http 역시 전송이 끝나면 연결이 끊어지며 이후의 일에 대해서는 신경쓰지 않음</li>
+<li>따라서 이러한 문제를 막고자 Keep-Alive 헤더가 사용되는 것이며, <strong>특정 시간(timeout)</strong> 동안 <strong>최대 요청(max)</strong> 의 수를 명시함</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="1-2-자주-사용되는-http-메소드-및-응답상태-코드">1-2. 자주 사용되는 HTTP 메소드 및 응답(상태) 코드</h3>
+<ul>
+<li>
+<p>HTTP 메소드</p>
+<ul>
+<li><strong>GET</strong> : 서버로부터 특정 정보(혹은 문서)를 가져올 때 사용</li>
+<li><strong>HEAD</strong> : GET과 비슷한 동작을 하되, 서버의 응답에는 헤더만 포함되며 본문은 존재하지 않음
+<ul>
+<li>단순히 리소스의 존재 및 변경 여부와 같은 정보가 필요한 경우에는 본문에 리소스를 포함시키지 않고 헤더의 확인만으로도 충분하기 때문</li>
+<li>단, 서버개발을 할 경우에는 HEAD 요청으로 응답받은 헤더와 GET 요청으로 응답받은 헤더의 정확한 일치를 항상 염두에 둬야 함!</li>
+</ul>
+</li>
+<li><strong>POST</strong> : 서버가 처리해야 할 데이터를 전송하며, 보통 새로운 데이터를 서버에 입력할 경우 사용
+<ul>
+<li>데이터는 메시지 바디에 포함되므로(ex. 요청 json), 헤당 메소드 사용시에는 본문이 존재</li>
+</ul>
+</li>
+<li><strong>PUT</strong> : 서버에 존재하는 데이터를 수정하고자 할 경우 사용(새 문서를 만들거나, 요청한 본문으로 교체)
+<ul>
+<li>마찬가지로 본문이 존재하며, POST와 달리 <strong><code>멱등성(Idempotence)</code></strong> 을 지님(GET, DELETE도 동일)</li>
+</ul>
+</li>
+<li><strong>PATCH</strong> : PUT과 마찬가지로 자원의 수정을 위한 메소드지만, 일부만을 수정할 경우에 사용됨
+<ul>
+<li>PUT의 경우 요청을 일부만 보낼 경우에는 나머지 부분은 default값으로 수정되는 문제가 있음
+<ul>
+<li>자칫 보내지 않은 데이터가 null로 변경될 수 있기 때문에, 변경되지 않는 데이터도 모두 전달해야 함</li>
+</ul>
+</li>
+<li>반면, PATCH의 경우에는 요청 본문에 포함된 부분만 수정됨</li>
+</ul>
+</li>
+<li><strong>DELETE</strong> : 서버에서 특정 정보(혹은 문서)를 제거
+<ul>
+<li>하지만 서버가 요청을 무시할 수도 있기 때문에 클라이언트는 항상 삭제가 정상적으로 수행되는 것을 보장받지 못함</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>상태 코드</p>
+<ul>
+<li>100-199 : 정보</li>
+<li>200-299 : 성공(200 OK)</li>
+<li>300-399 : 리디렉션</li>
+<li>400-499 : 클라이언트 에러(404 Not Found)</li>
+<li>500-599 : 서버 에러(500 Internal Server Error)</li>
+</ul>
+</li>
+</ul>
+<br>
+<h2 id="2-https-통신">2. Https 통신</h2>
+<p><img src="https://kyun2da.dev/static/c146b5a07e442c48d900034b2610ae3e/37523/https_process.png" alt="https에 대해서 | Kyun2da.dev" style="zoom:85%;" /></p>
+<h3 id="2-1-http-통신의-한계와-https">2-1. Http 통신의 한계와 Https</h3>
+<ul>
+<li>
+<p><strong>http 통신의 한계</strong></p>
+<ul>
+<li>데이터를 암호화하지 않고, 사용자가 누군지를 따로 검증하지 않기 때문에 보안에 취약함</li>
+<li>감청 혹은 데이터 변조의 가능성이 있음</li>
+</ul>
+</li>
+<li>
+<p><strong>https(Hypertext Transfer Protocol Over Secure Socket Layer)</strong></p>
+<ul>
+<li>
+<p>보안이 강화된 http 통신으로 http(80번 포트)와 달리 443번 포트 사용</p>
+</li>
+<li>
+<p>모든 http 요청과 응답 데이터가 네트워크 계층을 거치기 전에 암호화됨</p>
+</li>
+<li>
+<p>https는 http 하부에 SSL과 같은 보안 계층을 따로 제공하여 동작함</p>
+</li>
+<li>
+<p>응용계층과 전송계층 사이에 독립적인 보안 계층이 위치</p>
+</li>
+<li>
+<p>다시 말해, https는 http에 보안계층이 조합된 프로토콜인 것!</p>
+</li>
+</ul>
+</li>
+</ul>
+<br>
+<h3 id="2-2-ssl">2-2. SSL</h3>
+<ul>
+<li>네트워크에 통신 보안을 제공하기 위한 계층(혹은 규약)</li>
+<li>https 통신에서는 보안 계층을 거치면서 모든 요청 및 응답 데이터가 네트워크로 보내지기 전에 암호화됨</li>
+<li>암호화 방식은 크게 대칭키 암호화, 공개키 암호화 방식이 존재
+<ul>
+<li>
+<p><strong>대칭키 암호화 방식</strong></p>
+<ul>
+<li>암호화, 복호화에 동일한 키(대칭키)가 사용됨</li>
+<li>수신자, 송신자가 동일한 키를 공유해야 하며, 대칭키가 통신 도중 유출되면 제 3자가 암호를 복호화할 수 있기 때문에 위험</li>
+</ul>
+</li>
+<li>
+<p><strong>공개키 암호화 방식</strong></p>
+<ul>
+<li>위에서 언급한 대칭키 암호화 방식의 단점을 극복한 방식</li>
+<li>암호화, 복호화에 서로 다른 키가 사용됨</li>
+<li>A키로 암호화하면 B키로 복호화해야 하고, 반대로 B키로 암호화하면 A키로 복호화하는 방식</li>
+<li>보통 암호화에 사용되는 키는 공개되어 있음(public key)</li>
+<li>복호화에 사용되는 키(secret key)는 호스트만 알 수 있으며 이를 통해 메시지를 안전하게 주고받을 수 있는 것</li>
+<li>대신 두 개의 키를 사용하므로 계산이 대칭키 암호화에 비해 상대적으로 느림</li>
+</ul>
+</li>
+<li>
+<p>(SSL) <strong>디지털 인증서 &amp; 디지털 서명</strong></p>
+<ul>
+<li>
+<p>클라이언트와 서버간의 통신을 공인된 제 3자(혹은 기업이나 업체)가 보증해주는 문서</p>
+</li>
+<li>
+<p>디지털 서명을 통해 누가 메시지를 보낸 것이며, 메시지가 위조되지 않았음을 증명하는 것</p>
+</li>
+<li>
+<p>데이터를 안전하게 전달할 뿐만 아니라, 데이터 제공자의 신원을 보장할 수 있음</p>
+<ul>
+<li>송신자는 비공개 키(secret key)로 정보를 암호화하여, 공개 키와 함께 암호화된 데이터를 전송</li>
+<li>수신자는 공개 키로 암호화된 정보를 복호화 하여 읽어들임</li>
+<li>여기서 데이터를 공개 키로 복호화했다는 것은, 해당 데이터가 공개 키와 한 쌍을 이루는 비공개 키에 의해 암호화되었음을 의미하는 것</li>
+<li>다시 말해, 제대로 전달된 공개 키가 송신자의 신원을 보장해주는 것(디지털 서명)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>암호화된 http 메시지를 교환하기 전 클라이언트와 서버는 <strong>SSL 핸드쉐이크</strong> 과정을 거쳐야 함</p>
+<ul>
+<li>서버와 클라이언트가 서로 연락하여 클라이언트가 여러 암호화 방식을 제시하면 서버가 여기서 하나를 선택하여 공개 키와 함께 응답</li>
+<li>클라이언트는 이후 암호화 통신에 사용할 키를 생성하여 서버에 전달하며, 전달된 키는 서버가 전달한 공개 키에 의해 암호화되어 보내짐</li>
+<li>위의 과정이 마무리되면 클라이언트와 서버 모두 finished 메시지를 주고 받으며, 이후부터는 클라이언트가 생성한 키를 이용하여 데이터가 암호화되는 것</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+    </div>
+    <hr>
+    <script src="https://utteranc.es/client.js"
+        repo="junu0516/blog"
+        issue-term="pathname"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script>
+</article>
+
+
+
+
+            </div>
+            <aside class="col-12 col-md-3 float-left sidebar">
+    
+    
+    <div class="sidebar-item sidebar-toc">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-http-메시지-구조">1. Http 메시지 구조</a>
+      <ul>
+        <li><a href="#1-1-http-메시의-구조">1-1. HTTP 메시의 구조</a></li>
+        <li><a href="#1-2-자주-사용되는-http-메소드-및-응답상태-코드">1-2. 자주 사용되는 HTTP 메소드 및 응답(상태) 코드</a></li>
+      </ul>
+    </li>
+    <li><a href="#2-https-통신">2. Https 통신</a>
+      <ul>
+        <li><a href="#2-1-http-통신의-한계와-https">2-1. Http 통신의 한계와 Https</a></li>
+        <li><a href="#2-2-ssl">2-2. SSL</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+</aside>
+
+        </div>
+        <div class="btn">
+    
+    <div class="btn-menu" id="btn-menu">
+        <i class="iconfont icon-grid-sharp"></i>
+    </div>
+    <div class="btn-toggle-mode" style="display: none;">
+        <i class="iconfont icon-contrast-sharp"></i>
+    </div>
+    
+    <div class="btn-scroll-top">
+        <i class="iconfont icon-chevron-up-circle-sharp"></i>
+    </div>
+</div>
+
+<aside class="sidebar-mobile" style="display: none;">
+  <div class="sidebar-wrapper">
+    
+    <div class="sidebar-item sidebar-pages" style="display: none;">
+        <h3>Pages</h3>
+        <ul>
+            
+        </ul>
+    </div>
+    
+    <div class="sidebar-item sidebar-links" style="display: none;">
+        <h3>Links</h3>
+        <ul>
+            
+            <li>
+                <a href="https://github.com/junu0516" target="_blank"><span>GitHub</span></a>
+            </li>
+            
+            <li>
+                <a href="https://twitter.com/dsrkafuu" target="_blank"><span>Linkedin</span></a>
+            </li>
+            
+            <li>
+                <a href="https://space.bilibili.com/19767474" target="_blank"><span>Instagram</span></a>
+            </li>
+            
+        </ul>
+    </div>
+    
+    <div class="sidebar-item sidebar-tags" style="display: none;">
+        <h3>Tags</h3>
+        <div>
+            
+            <span>
+                <a href="/tags/c&#43;&#43;/">c&#43;&#43;</a>
+            </span>
+            
+            <span>
+                <a href="/tags/cs%EC%8A%A4%ED%84%B0%EB%94%94/">CS스터디</a>
+            </span>
+            
+            <span>
+                <a href="/tags/java/">java</a>
+            </span>
+            
+            <span>
+                <a href="/tags/spring/">spring</a>
+            </span>
+            
+            <span>
+                <a href="/tags/%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC/">네트워크</a>
+            </span>
+            
+            <span>
+                <a href="/tags/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C/">운영체제</a>
+            </span>
+            
+            <span>
+                <a href="/tags/%EC%9E%90%EB%A3%8C%EA%B5%AC%EC%A1%B0/">자료구조</a>
+            </span>
+            
+        </div>
+    </div>
+
+    
+    <div class="sidebar-item sidebar-tags" >
+        <h3>Categories</h3>
+        <ul style="list-style: none !important;">
+            
+            <li>
+                <a href="/categories/spring/">Spring</a>
+            </li>
+            
+            <li>
+                <a href="/categories/%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC/">네트워크</a>
+            </li>
+            
+            <li>
+                <a href="/categories/%EB%B0%A9%ED%86%B5%EB%8C%80-%EA%B0%95%EC%9D%98%EB%85%B8%ED%8A%B8/">방통대 강의노트</a>
+            </li>
+            
+            <li>
+                <a href="/categories/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C/">운영체제</a>
+            </li>
+            
+            <li>
+                <a href="/categories/%EC%9E%90%EB%A3%8C%EA%B5%AC%EC%A1%B0/">자료구조</a>
+            </li>
+            
+        </ul>
+    </div>
+    
+    
+    
+    
+  </div>
+</aside>
+    </main>
+
+    <footer>
+    <div class="container-lg clearfix">
+        <div class="col-12 footer">
+            
+            <span>&copy; 2021
+                <a href="https://junu0516.github.io/"></a>
+                
+                | Powered by <a href="https://github.com/dsrkafuu/hugo-theme-fuji/"
+                   target="_blank">Fuji-v2</a> &amp; <a href="https://gohugo.io/"
+                                                    target="_blank">Hugo</a> 
+            </span>
+        </div>
+    </div>
+</footer>
+
+    
+<script defer src="https://cdn.jsdelivr.net/npm/medium-zoom@1.0.6/dist/medium-zoom.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/components/prism-core.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/autoloader/prism-autoloader.min.js"></script>
+
+
+
+<script defer src="/assets/js/fuji.min.js"></script>
+
+
+
+</body>
+
+</html>

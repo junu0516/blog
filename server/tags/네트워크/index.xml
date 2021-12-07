@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>네트워크 on Junu-Devlog</title>
+    <link>https://junu0516.github.io/tags/%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC/</link>
+    <description>Recent content in 네트워크 on Junu-Devlog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 10 Oct 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://junu0516.github.io/tags/%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Http 메시지와 Https 통신</title>
+      <link>https://junu0516.github.io/posts/httpmsg_https/</link>
+      <pubDate>Sun, 10 Oct 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://junu0516.github.io/posts/httpmsg_https/</guid>
+      <description>Http 메시지의 구조와, 암호화가 추가된 Https 통신의 특징에 대해 알아보도록 한다.</description>
+    </item>
+    
+    <item>
+      <title>TCP/IP 4계층의 이해</title>
+      <link>https://junu0516.github.io/posts/tcp_ip_4%EA%B3%84%EC%B8%B5/</link>
+      <pubDate>Sat, 25 Sep 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://junu0516.github.io/posts/tcp_ip_4%EA%B3%84%EC%B8%B5/</guid>
+      <description>TCP/IP 4계층에서 각각의 계층별 특징에 대해 알아보도록 하자.
+​
+네트워크 이론에서 흔히 접하는 OSI 7계층은 1984년 ISO에서 개발한 네트워크 통신 모델로, 네트워크 통신 구조를 크게 7개의 계층(Layer) 개념으로 나눠 설명한 것이다.</description>
+    </item>
+    
+  </channel>
+</rss>

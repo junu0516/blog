@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<meta name="HandheldFriendly" content="True" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<meta name="generator" content="Hugo 0.88.1" />
+
+
+<link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/dsrkafuu/dsr-cdn-main@1/images/favicons/dsrca.ico" />
+
+
+
+<title>TCP/IP 4계층의 이해 - Junu-Devlog</title>
+
+
+
+
+<meta name="keywords" content="네트워크, CS스터디" />
+
+
+<meta property="og:title" content="TCP/IP 4계층의 이해" />
+<meta name="twitter:title" content="TCP/IP 4계층의 이해" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://junu0516.github.io/posts/tcp_ip_4%EA%B3%84%EC%B8%B5/" /><meta property="og:description" content="TCP/IP 4계층에서 각각의 계층별 특징에 대해 알아보도록 하자.
+​
+네트워크 이론에서 흔히 접하는 OSI 7계층은 1984년 ISO에서 개발한 네트워크 통신 모델로, 네트워크 통신 구조를 크게 7개의 계층(Layer) 개념으로 나눠 설명한 것이다." />
+<meta name="twitter:description" content="TCP/IP 4계층에서 각각의 계층별 특징에 대해 알아보도록 하자.
+​
+네트워크 이론에서 흔히 접하는 OSI 7계층은 1984년 ISO에서 개발한 네트워크 통신 모델로, 네트워크 통신 구조를 크게 7개의 계층(Layer) 개념으로 나눠 설명한 것이다." /><meta name="twitter:card" content="summary" /><meta property="article:published_time" content="2021-09-25T00:00:00+00:00" /><meta property="article:modified_time" content="2021-09-25T00:00:00+00:00" />
+
+
+<style>
+    @media (prefers-color-scheme: dark) {
+        body[data-theme='auto'] img {
+            filter: brightness(60%);
+        }
+    }
+
+    body[data-theme='dark'] img {
+        filter: brightness(60%);
+    }
+</style>
+
+
+
+
+<link rel="stylesheet" href="https://junu0516.github.io/assets/css/fuji.min.css" />
+
+
+
+
+
+
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css" integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc" crossorigin="anonymous">
+<style>
+    img{
+        filter: brightness(100%) !important;
+        display: block !important;
+        margin: auto !important;
+        margin-top: 15px !important;
+        margin-bottom: 15px !important;
+    }
+    .custom-post-meta-tags a{
+        background-color: rgba(231, 231, 231, 0.897);
+        padding: 1px 1px;
+        border-radius: 3px;
+        font-size: 14px;
+        color: gray;
+    }
+    .custom-tags>div a{
+        background-color: rgba(231, 231, 231, 0.897);
+        padding: 2px 5px;
+        border-radius: 3px;
+        color: gray;
+    }
+    .custom-social-link-box{
+        text-align: center;
+    }
+    .custom-social-link{
+        font-size: 2em;
+        margin-right: 15px;
+        color: rgb(104, 98, 98);
+    }
+    .custom-profile-imgbox{
+        width: 100%;
+        height: 100%;
+    }
+    .custom-profile-imgbox__mobile{
+        width: 100%;
+        height: 100%;
+    }
+    .custom-profile-img{
+        width: 90%;
+        height: 80%;
+        border: 1px solid lightgray;
+        border-radius: 100%;
+        opacity: 0.9;
+    }
+
+    .post+.post{
+        border-top: 0.5px solid rgb(226, 226, 226) !important;
+    }
+
+    .custom-content{
+        margin-top : 2%;
+        margin-right: 5%;
+    }
+
+    .custom-content>article>.post-meta{
+        padding-bottom: 5px;
+        border-bottom: 1px solid lightgray;
+    }
+    .custom-content>article>.post-title{
+        font-size: 2rem;
+    }
+
+    header{
+        background-color: rgba(243, 241, 241, 0.89);
+        border-bottom: 0px !important;
+    }
+
+    .custom-header{
+        height: 30%;
+    }
+
+    main{
+        margin-top: 2%;
+    }
+    header .header {
+        height: 80px;
+        padding: 1.2rem 1rem 1rem 1.22rem;
+    }
+
+    .title-main{
+        font-size : 2rem !important;
+        color: rgb(57, 58, 58);
+    }
+
+    .post{
+        padding-bottom: 10px !important;
+    }
+
+    .post-title{
+        font-size: 1.4rem;
+    }
+
+    .post-summary{
+        cursor: pointer;
+        color: rgb(80, 75, 75);
+        font-size: 15px;
+        display: none !important;
+
+    }
+
+    .pagination{
+        margin-top: 50px !important;
+         
+        border-top: none !important;
+    }
+
+    .sidebar{
+        margin-top: 2%;
+        padding: 0 !important;
+    }
+
+         
+
+    @media (min-width: 1025px) and (max-width: 1280px) {
+        .sidebar{
+            min-width: 30vh !important;
+        }
+    }
+
+    .sidebar-item>h3{
+        border-bottom: 1px solid lightgray;
+        margin-bottom: 10px;
+    }
+    
+    .container-lg{
+        max-width: 1400px !important;
+    }
+
+    .markdown-body h1, .markdown-body h2 {
+        border-bottom: 1px solid var(--color-divider) !important;
+    }
+    .markdown-body h3{
+        font-size: 1.35rem !important;
+    }
+    .markdown-body h4{
+        font-size: 1.25rem !important;
+    }
+
+    .content{
+        padding-left: 2.5rem !important;
+    }
+    
+</style>
+
+</head>
+
+<body
+  data-theme="auto"
+  data-theme-auto='false'
+  >
+    <script data-cfasync="false">
+  
+  var fujiThemeData = localStorage.getItem('fuji_data-theme');
+  
+  if (!fujiThemeData) {
+    localStorage.setItem('fuji_data-theme', 'auto');
+  } else {
+    
+    if (fujiThemeData !== 'auto') {
+      document.body.setAttribute('data-theme','light');
+      
+    }
+  }
+</script>
+
+    <header>
+    <div class="container-lg clearfix">
+        <div class="header">
+            <a class="title-main" href="https://junu0516.github.io/">Junu-Devlog</a>
+            
+        </div>
+    </div>
+</header>
+
+    <main>
+        <div class="container-lg clearfix">
+            
+            <div class="col-12 col-md-12 float-left content custom-content">
+                
+<article>
+    
+    <h2 class="post-item post-title">
+        <a href="https://junu0516.github.io/posts/tcp_ip_4%EA%B3%84%EC%B8%B5/">TCP/IP 4계층의 이해</a>
+    </h2>
+    <div class="post-item post-meta">
+        <span>
+    <i class="iconfont icon-today-sharp"></i>&nbsp;2021-09-25
+</span>
+
+
+
+<span class="custom-post-meta-tags">
+    <i class="iconfont icon-pricetags-sharp"></i>&nbsp;
+    <a href="/tags/%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC">네트워크</a>&nbsp;
+    <a href="/tags/cs%EC%8A%A4%ED%84%B0%EB%94%94">CS스터디</a>&nbsp;
+</span>
+<span class="custom-post-meta-categories">
+    <i class="fas fa-file-alt"></i>&nbsp;
+    <a href="/categories/%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC">네트워크</a>&nbsp;
+</span>
+    </div>
+    
+    <div class="post-content markdown-body">
+        <p>TCP/IP 4계층에서 각각의 계층별 특징에 대해 알아보도록 하자.</p>
+<p><img class="img-zoomable" src="https://microchip.wdfiles.com/local--files/tcpip:tcp-ip-five-layer-model/tcpip_5_layer_overview.png" alt="Chapter 02 TCP/IP Packet Transmission - 1" />
+</p>
+<br>
+<p>​</p>
+<p>네트워크 이론에서 흔히 접하는 OSI 7계층은 1984년 ISO에서 개발한 네트워크 통신 모델로, 네트워크 통신 구조를 크게 7개의 계층(Layer) 개념으로 나눠 설명한 것이다. TCP/IP 4계층은 오늘날 흔히 쓰이는 TCP/IP 프로토콜이 미 국방성 통신 표준으로 채택되면서, 해당 프로토콜의 통신 과정을 크게 4개의 계층 구조로 나눠 설명한 것이다.</p>
+<p>2개 모델은 엄밀히 말하면 서로 다른 탄생 배경을 가지지만, 쉽고 간단하게 이해하고자 한다면 전반적인 네트워크 전송 표준의 전반이 OSI 7계층이고, TCP/IP 프로토콜에 이러한 계층구조 개념을 적용하여 좀 더 단순화시킨 모형이 TCP/IP 4계층이라 할 수 있다.</p>
+<p>여기서는 오늘날 흔히 쓰이는 TCP/IP 프로토콜에 초점을 맞춰 TCP/IP 4계층에 대해 살펴보고자 한다.</p>
+<br>
+<p>​</p>
+<h2 id="1-tcpip의-계층구조">1. TCP/IP의 계층구조</h2>
+<p>위에서 언급한대로 TCP/IP 프로토콜에서 네트워크 통신을 위해, 각종 기능을 계층화하고 복수의 프로토콜을 조합하여 실현시킨 것이 TCP/IP 4계층 모델이다.</p>
+<p><strong>네트워크 연결 계층, 인터넷 계층, 트랜스포트 계층, 어플리케이션 계층</strong> 의 총 4계층으로 구성되며, 이런 식의 구분을 통해  각 기능들의 <strong>서로 간에 간섭을 최소화</strong> 할 수 있으므로, 유지와 보수에 있어 편리하다는 이점이 있다. 특정 계층에서 문제가 생기면, 그 계층을 살펴보면 되기 때문이다.</p>
+<p>서로 다른 계층들 끼리는 데이터의 전달 과정을 구체적으로 알 필요가 없기 때문에, <strong>데이터의 캡슐화</strong> 와 은닉이 가능하며,  이러한 캡슐화는 계층별로 데이터가 전달되면서 특정 정보를 담고 있는 헤더의 첨부를 통해 가능해진다.</p>
+<p>그렇다면 각 계층별로 어떤 특징을 가지고 있는 지 살펴보자</p>
+<br>
+<p>​    <img class="img-zoomable" src="https://www.elprocus.com/wp-content/uploads/Data-Flow-of-TCP-IP-protocol.jpg" alt="Data-Flow-of-TCP/IP-protocol" />
+</p>
+<h3 id="1-1-제-4계층--어플리케이션-계층application-layer">1-1. 제 4계층 : 어플리케이션 계층(Application Layer)</h3>
+<p>응용계층이라고도 하며, 사용자와 가장 가까운 계층으로 사용자-소프트웨어 간 소통을 담당하는 계층이다. 웹프로그래밍을 하면서 흔히 접하는 여러 서버나 클라이언트 관련 응용 프로그램들이 동작하는 계층이다.</p>
+<p>어플리케이션 계층에서는 어플리케이션의 기능을 실행하기 위한 데이터의 형식 및 처리절차 등을 결정하며, 데이터는 인간이 인식할 수 있는 문자나 이미지와 같은 형식으로 표현된다. 다양한 프로토콜이 사용되는데, 대표적으로 80번 포트를 사용하는 <strong>http 프로토콜</strong> 이 여기에 속한다.</p>
+<br>
+<p>​</p>
+<h3 id="1-2-제-3계층--트랜스포트-계층transport-layer">1-2. 제 3계층 : 트랜스포트 계층(Transport Layer)</h3>
+<p>전송계층이라고도 하며, 데이터의 전송 및 흐름에 있어 <strong>신뢰성 보장</strong> 을 담당한다. 이는 다시말해 데이터를 적절한 어플리케이션에 제대로 전달되도록 배분함을 의미하며 다른 말로 <strong>End-to-End의 신뢰성을 확보</strong> 한다고도 표현할 수 있다.</p>
+<p>흔히 어플리케이션 계층에서 트랜스포트 계층까지 바르게 동작하면, 출발지와 목적지 어플리케이션 간에 제대로 된 데이터의 송수신이 가능해진다고 할 수 있는데, 이는 앞서 말한대로 신뢰성이 보장되었기 때문이다.</p>
+<p>트랜스포트 계층에 사용되는 대표적인 프로토콜로는 <strong><code>TCP</code></strong> 와 <strong><code>UDP</code></strong> 가 있다. 크게 <strong>TCP</strong> 는 연결지향형 프로토콜로, 패킷에 하나의 오류라도 있으면 재전송을 통해 에러를 복구하는 반면, <strong>UDP</strong> 는 패킷을 중간에 잃거나 오류가 발생해도 이에 대처하지 않고 계속해서 데이터를 전송하는 TCP에 비해 간단한 구조를 가지는 프로토콜이란 차이가 있다.</p>
+<br>
+<p>​</p>
+<h4 id="tcp-프로토콜과-tcp-헤더">TCP 프로토콜과 TCP 헤더</h4>
+<blockquote>
+<p>전송 과정에서 나오는 각각의 개념들은 TCP 헤더 부분에서 살펴보도록 하자.</p>
+</blockquote>
+<p>앞서 언급한대로 TCP 프로토콜은 신뢰성이 보장되는 연결지향형 프로토콜이다. TCP에서는 목적지로 어플리케이션 계층에서 전달받은 데이터를 전송에 알맞게 <strong><code>세그먼트(Segment)</code></strong> 단위로 나눠 전송하기 되는데, 여기서 세그먼트들은 <strong><code>검사합(Checksum)</code></strong> 이라 불리는 일종의 중복 및 오류 검사의 수행을 거쳐 일정한 순서에 맞춰서 전송된다.</p>
+<p><img class="img-zoomable" src="http://itwiki.kr/images/thumb/a/a6/3-way-handshake.png/500px-3-way-handshake.png" alt="http://www.mdpi.com/2076-3417/6/11/358/htm" />
+</p>
+<p>신뢰성 보장은 연결지향적 특징으로 이어지는데, 이를 위한 대표적인 것이 위의 그림에서 설명하고 있는 <strong><code>3 Way Handshake</code></strong> 과정이다. 이는 사전에 통신이 정상적으로 이루어질 수 있는 지를 확인하는 과정으로, 상태 확인을 위한 데이터 패킷을 보내고 받는 과정을 통해 이루어진다.</p>
+<p>우선 클라이언트가 서버에 접속을 요청하는 <strong><code>SYN 패킷</code></strong> 을 보내며, 응답을 기다리는 <strong><code>SYN_SENT</code></strong> 상태가 된다. 이후 서버가 포트가 열린 상태(<strong><code>Listen</code></strong>)에서 패킷을 받으면 <strong><code>SYN_RESEIVED</code></strong> 상태가 되며, 데이터를 송신해도 좋다는 의미로 <strong><code>ACK 패킷</code></strong> 으로 응답하고 클라이언트로부터의 응답을 기다리게 된다. 이후 클라이언트는 응답을 받으면 다시 서버로 <strong><code>ACK패킷</code></strong> 보내고, 이후부터는 TCP 커넥션이 이루어진 <strong><code>ESTABLISHED</code></strong> 상태가 되어 데이터를 주고받을 수 있게 되는 것이다.</p>
+<p>이 외에도 <strong>흐름 제어</strong> , <strong>혼잡 제어</strong> 등의 역할을 수행하는데, 여기서 흐름제어는 <strong>수신 측 버퍼의 오버플로우를 방지하는 것을 의미하며</strong> , 혼잡제어는 <strong>전송되는 패킷 데이터가 과도하게 많아져 혼잡을 초래하는 상황을 방지하는 것을 의미한다.</strong></p>
+<br>
+<p>​</p>
+<p><img class="img-zoomable" src="https://t1.daumcdn.net/cfile/tistory/9990713359CD072F27" alt="TCP Flags: PSH 그리고 URG :: 하얀쿠아의 이것저것 만들기 Blog" />
+</p>
+<p>앞서 TCP 프로토콜에서는 데이터가 세그먼트 단위로 전송된다고 하였다. 보통 TCP 세그먼트라고 함은, 어플리케이션 계층에서 보내진 데이터에 TCP 헤더가 추가된 것을 말한다. TCP 헤더에는 출발지와 목적지 포트번호, 시퀀스 번호, ACK 번호, 검사합 등의 요소가 존재하는데 각각의 요소에 대한 설명은 아래와 같다.</p>
+<ul>
+<li><strong>시퀀스 번호</strong> : 데이터 전송의 순서 보장을 위한 정보로, 데이터가 분할된 경우에는 시퀀스 번호를 통해 어떻게 분할되었는 지 알 수 있음(전송되는 바이트 수를 기준으로 점점 증가)
+<ul>
+<li>앞서 언급한 <strong><code>MSS</code></strong> 기준 세그먼트가 분할되는 것과 대응되는 내용!</li>
+</ul>
+</li>
+<li><strong>ACK 번호</strong> : 응답 번호라고도 하며 수신측 프로세스에서 수신한 바이트 수를 제대로 응답하기 위해 사용됨</li>
+<li><strong>Flags</strong> : SYN, ACK 등의 제어 번호가 담긴 제어 비트 영역</li>
+<li><strong>Window Size</strong> : 수신 윈도우의 버퍼 크기를 지정할 때 사용되는데, 사이즈가 0일 경우에는 송신 프로세스가 전송을 중지함</li>
+<li><strong>포트 번호</strong> : TCP 프로토콜을 통해 연결되는 송, 수신측(출발지-목적지 양 끝)에 할당되는 포트 번호</li>
+<li><strong>검사합(checksum)</strong> : 세그먼트에 포함된 헤더 및 데이터에 대한 오류 검출 용도</li>
+</ul>
+<br>
+<p>​</p>
+<h4 id="udp-프로토콜">UDP 프로토콜</h4>
+<p><img class="img-zoomable" src="https://www.bluesplatter.com/assets/images/posts/UDP_header.png" alt="정보보안 - 네트워크 UDP 프로토콜 | Bluesplatter" />
+</p>
+<p>UDP 프로토콜은 TCP와 대비되는 <strong>비연결, 비신뢰적 특징</strong> 을 갖는 전송계층의 프로토콜이다. TCP와 달리 사전 연결 과정 없이 일단 데이터그램을 전송하고 보기 때문에, 빠른 전송이 가능하지만 신뢰성은 그만큼 떨어진다.</p>
+<p>UDP가 제공하는 서비스는 최소한의 신뢰성을 위한 오류제어 메커니즘으로 <strong>검사합(checksum)</strong> 기능을 옵션으로 제공할 뿐이며,  UDP 헤더는 TCP 헤더에 비해 포트번호에 검사합 관련 정보 정도가 추가된 정도로 비교적 간단한 구조를 보인다.</p>
+<p>동일하게 데이터그램(여기서는 세그먼트가 아닌 데이터그램 단위로 데이터가 전송된다.)의 전송 순서 또한 보장되지 않으며 중간에 유실되어도 이를 재전송하지 않는다. 하지만 TCP와 달리 UDP는 데이터를 분할하는 과정을 거치지 않기 때문에, 전체 데이터의 경계가 구분될 뿐더러 1:1, 1:N, N:N 통신이 모두 가능해진다.</p>
+<br>
+<p>​</p>
+<h3 id="1-3-제-2계층--인터넷-계층internet-layer">1-3. 제 2계층 : 인터넷 계층(Internet Layer)</h3>
+<p><img class="img-zoomable" src="https://download.huawei.com/mdl/image/download?uuid=d4bba2bb38274f32b0d5b61e0002966a" alt="Routing Table and FIB Table - S2720, S5700, and S6700 V200R020C00  Configuration Guide - IP Unicast Routing - Huawei" />
+</p>
+<p>네트워크 상에서 데이터의 전송(패킷의 이동)을 담당하는 계층으로 서로 다른 네트워크 간의 통신을 가능하게 하는 역할을 수행한다.</p>
+<p>인터넷 계층에서는 네트워크 상에서의 데이터의 이동경로를 다루는데, 여기서 출발지와 목적지의 표시를 위한 논리적인 주소로 <strong><code>IP주소</code></strong> 를 할당하게 된다. IP주소는 네트워크 상에서 컴퓨터를 식별하는 번호로 기능하며, 보통은 32비트의 숫자롤 8비트씩 끊어서 표현한 <strong><code>IPv4</code></strong> 가 보편적이지만, 오늘날 이것이 포화상태이기 때문에 범위를 확장시켜 128비트의 주소 체계를 활용한 <strong><code>IPv6</code></strong> 가 사용되고 있다.</p>
+<p>네트워크끼리 연결하고 데이터를 전송하는 기기를 <strong><code>라우터</code></strong> 라고 하며, 라우터에 의한 네트워크 간 전송을 <strong><code>라우팅</code></strong> 이라고 한다. 라우터는 내부의 <strong><code>라우팅 테이블(Routing Table)</code></strong> 을 통해 경로 정보를 등록하여 데이터 전송을 위한 최적의 경로를 찾는데, 이렇게 출발지와 목적지 간의 데이터 전송 과정을 가리켜 <strong><code>End-to-End 통신</code></strong> 이라고 부른다.</p>
+<p>쉽게 말해, 출발지에서 목적지까지 여러 라우팅 과정을 거쳐 최종적으로 End-to-End 통신이 수행되는 셈이다.</p>
+<br>
+<p>​</p>
+<h3 id="1-4-제-1계층--네트워크-연결-계층network-access-layer">1-4. 제 1계층 : 네트워크 연결 계층(Network Access Layer)</h3>
+<p>네트워크 연결 계층은 물리적인 데이터의 전송을 담당하는 계층으로, 여기서는 인터넷 계층과 달리 같은 네트워크 안에서 데이터가 전송된다.</p>
+<p>제 1계층을 <strong><code>물리적 계층(Physical Layer)</code></strong> 과 <strong><code>데이터 링크 계층(Data Link Layer)</code></strong> 로 나눠서 TCP/IP 계층구조를 5개로 나누기도 하는데, 여기서 물리적 계층은 하드웨어적 측면의 기능을 담당하며, 네트워크 간의 데이터의 전송은 데이터 링크 계층이 담당하게 된다.</p>
+<br>
+<p>​</p>
+<h4 id="데이터-링크-계층data-link-layer">데이터 링크 계층(Data Link Layer)</h4>
+<p>네트워크 장비 간에 데이터를 전송하는 역할을 수행하며, <strong><code>이더넷(Ethernet)</code></strong> 프로토콜을 사용한다. 데이터 링크 계층에서는 데이터 전송 과정에서의 오류를 감지하는 역할도 하는데, 이는 <strong><code>이더넷 헤더</code></strong> 와 함께 인터넷 계층에서 전달받은 <strong><code>패킷</code></strong> 의 반대쪽 끝에 <strong><code>트레일러(trailer)</code></strong> 을 붙임으로써 수행된다.</p>
+<p>이더넷은 LAN과 WAN에서 사용되는 기술규격으로 MAC 패킷과 프로토콜의 형식을 정의한다. 실제로 뒤이어 언급할 물리 계층을 거쳐 들어온 데이터가 통신망 내에서 최종적으로 전송될 목적지를 식별하기 위해 <strong><code>MAC 주소</code></strong> 를 사용하는데, 이는 논리적 주소인 IP와 달리 제조사에 의해 할당된 고유 주소로 컴퓨터의 물리적인 주소를 나타내는 것이다.</p>
+<blockquote>
+<p><strong>LAN(Local Area Network) &amp; WAN(Wide Area Network)</strong></p>
+<p>LAN은 근거리 통신망을 의미하며 특정 거점 내의 PC나 서버의 통신을 가능하게 하며, 복수의 거점에서 통신을 하기 위해 LAN끼리 연결한 것을 WAN이라고 한다.</p>
+</blockquote>
+<br>
+<p>​</p>
+<h4 id="물리-계층physical-layer">물리 계층(Physical Layer)</h4>
+<p>물리 계층은 0과 1로 표현된 이진 데이터를 전기 신호로 변환하거나, 전기 신호를 이진 데이터로 변환하는 역할 수행한다. 여기서 전기 신호의 전달은 유, 무선의 전송매체를 통해 이루어지는데, 대표적으로 <strong><code>허브(hub)</code></strong> 라는 장비가 사용되며 전기 신호를 전형하고 증폭하는 기능을 한다.</p>
+<p>허브에는 보통 여러 개의 포트가 있어 여러 컴퓨터와의 연결이 가능한데, 특정 포트에 연결된 컴퓨터로부터 데이터를 받았을 때 여기서 어떤 포트로 전송할 지 결정하지 않고 일단 나머지 모든 포트로 받은 데이터를 전송한다. 앞서 언급한대로 최종 목적지 컴퓨터로의 데이터 전송 판단은 이후 데이터 링크 계층에서 헤더에 나타난 MAC 주소를 보고 최종 판별하게 된다.</p>
+<br>
+<p>​</p>
+<h2 id="2-데이터-전송의-흐름">2. 데이터 전송의 흐름</h2>
+<p><img class="img-zoomable" src="https://blog.kakaocdn.net/dn/drvQM4/btqSdt4T2TY/xckBtJ9gBIlIknEI7lAymK/img.png" alt="img" />
+</p>
+<p>앞서 4개 계층의 각 역할에 대해서 간단히 살펴보았다. 똑같은 데이터이지만 각 계층별로 이를 부르는 명칭이 다른데, 이는  TCP/IP의 각 계층을 거치면서 데이터에는 여러 프로토콜의 헤더가 추가됨에 따라 명칭을 달리했기 때문이다.</p>
+<p>맨 처음 언급했지만 이런 식으로 각 계층별로 헤더를 추가하여 정보를 감싸는 것을 <strong><code>캡슐화(Encapsulation)</code></strong> 라고 한다. 반복해서 말하지만 보통 제 4계층에서 1계층으로 데이터가 전송되면서 헤더가 추가되며, 데이터를 역으로 수신할 경우에는 1계층에서 4계층으로 가면서 해당 계층별로 필요한 헤더를 확인 후 헤더를 삭제하게 된다.</p>
+<p>데이터의 전송 과정에서 1계층에서 4계층까지 순서대로 <strong><code>프레임(frame)</code></strong> , <strong><code>패킷(packet) 혹은 데이터그램(datagram)</code></strong> , <strong><code>세그먼트(segment) 혹은 데이터그램</code></strong> , <strong><code>메시지(message)</code></strong> 로 데이터를 구분해서 표현한다. 웹 브라우저에서의 http 통신을 예로 들면 아래와 같이 표현할 수 있다.</p>
+<ol>
+<li>전형적인 웹브라우저에서의 통신의 경우, 우선 데이터에 <strong><code>http 헤더</code></strong> 가 추가되면서 http 메시지가 된다.</li>
+<li>트랜스포트 계층을 거치면서 http 메시지에 <strong><code>TCP 헤더</code></strong> 가 추가되면서 세그먼트가 된다.
+<ul>
+<li>만일 UDP 프로토콜을 사용할 경우에는 데이터를 분할하지 않았기 때문에 세그먼트 대신 <strong><code>데이터그램</code></strong> 이 될 것이다.</li>
+</ul>
+</li>
+<li>인터넷 계층을 거치면서 IP 주소 정보가 포함된 <strong><code>IP 헤더</code></strong> 가 추가되어 패킷이 된다.</li>
+<li>패킷에 <strong><code>이더넷 헤더</code></strong> 와 FCS가 추가되어 <strong><code>프레임</code></strong> 이 된다.</li>
+</ol>
+<br>
+<p>​</p>
+<hr>
+<h2 id="reference">Reference</h2>
+<ul>
+<li><a href="https://www.guru99.com/tcp-ip-model.html" target="_blank">TCP/IP Model: Layers &amp; Protocol | What is the TCP IP Stack?</a></li>
+<li>[<a href="https://zion830.tistory.com/104" target="_blank">네트워크] TCP/IP 5계층에서 일어나는 일 (1)</a></li>
+<li><a href="https://velog.io/@jehjong/%EA%B0%9C%EB%B0%9C%EC%9E%90-%EC%9D%B8%ED%84%B0%EB%B7%B0-TCPIP-4%EA%B3%84%EC%B8%B5" target="_blank">TCP/IP 4계층</a></li>
+</ul>
+
+    </div>
+    <hr>
+    <script src="https://utteranc.es/client.js"
+        repo="junu0516/blog"
+        issue-term="pathname"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script>
+</article>
+
+
+
+
+            </div>
+            <aside class="col-12 col-md-3 float-left sidebar">
+    
+    
+    <div class="sidebar-item sidebar-toc">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-tcpip의-계층구조">1. TCP/IP의 계층구조</a>
+      <ul>
+        <li><a href="#1-1-제-4계층--어플리케이션-계층application-layer">1-1. 제 4계층 : 어플리케이션 계층(Application Layer)</a></li>
+        <li><a href="#1-2-제-3계층--트랜스포트-계층transport-layer">1-2. 제 3계층 : 트랜스포트 계층(Transport Layer)</a>
+          <ul>
+            <li><a href="#tcp-프로토콜과-tcp-헤더">TCP 프로토콜과 TCP 헤더</a></li>
+            <li><a href="#udp-프로토콜">UDP 프로토콜</a></li>
+          </ul>
+        </li>
+        <li><a href="#1-3-제-2계층--인터넷-계층internet-layer">1-3. 제 2계층 : 인터넷 계층(Internet Layer)</a></li>
+        <li><a href="#1-4-제-1계층--네트워크-연결-계층network-access-layer">1-4. 제 1계층 : 네트워크 연결 계층(Network Access Layer)</a>
+          <ul>
+            <li><a href="#데이터-링크-계층data-link-layer">데이터 링크 계층(Data Link Layer)</a></li>
+            <li><a href="#물리-계층physical-layer">물리 계층(Physical Layer)</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#2-데이터-전송의-흐름">2. 데이터 전송의 흐름</a></li>
+    <li><a href="#reference">Reference</a></li>
+  </ul>
+</nav></div>
+</aside>
+
+        </div>
+        <div class="btn">
+    
+    <div class="btn-menu" id="btn-menu">
+        <i class="iconfont icon-grid-sharp"></i>
+    </div>
+    <div class="btn-toggle-mode" style="display: none;">
+        <i class="iconfont icon-contrast-sharp"></i>
+    </div>
+    
+    <div class="btn-scroll-top">
+        <i class="iconfont icon-chevron-up-circle-sharp"></i>
+    </div>
+</div>
+
+<aside class="sidebar-mobile" style="display: none;">
+  <div class="sidebar-wrapper">
+    
+    <div class="sidebar-item sidebar-pages" style="display: none;">
+        <h3>Pages</h3>
+        <ul>
+            
+        </ul>
+    </div>
+    
+    <div class="sidebar-item sidebar-links" style="display: none;">
+        <h3>Links</h3>
+        <ul>
+            
+            <li>
+                <a href="https://github.com/junu0516" target="_blank"><span>GitHub</span></a>
+            </li>
+            
+            <li>
+                <a href="https://twitter.com/dsrkafuu" target="_blank"><span>Linkedin</span></a>
+            </li>
+            
+            <li>
+                <a href="https://space.bilibili.com/19767474" target="_blank"><span>Instagram</span></a>
+            </li>
+            
+        </ul>
+    </div>
+    
+    <div class="sidebar-item sidebar-tags" style="display: none;">
+        <h3>Tags</h3>
+        <div>
+            
+            <span>
+                <a href="/tags/c&#43;&#43;/">c&#43;&#43;</a>
+            </span>
+            
+            <span>
+                <a href="/tags/cs%EC%8A%A4%ED%84%B0%EB%94%94/">CS스터디</a>
+            </span>
+            
+            <span>
+                <a href="/tags/java/">java</a>
+            </span>
+            
+            <span>
+                <a href="/tags/spring/">spring</a>
+            </span>
+            
+            <span>
+                <a href="/tags/%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC/">네트워크</a>
+            </span>
+            
+            <span>
+                <a href="/tags/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C/">운영체제</a>
+            </span>
+            
+            <span>
+                <a href="/tags/%EC%9E%90%EB%A3%8C%EA%B5%AC%EC%A1%B0/">자료구조</a>
+            </span>
+            
+        </div>
+    </div>
+
+    
+    <div class="sidebar-item sidebar-tags" >
+        <h3>Categories</h3>
+        <ul style="list-style: none !important;">
+            
+            <li>
+                <a href="/categories/spring/">Spring</a>
+            </li>
+            
+            <li>
+                <a href="/categories/%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC/">네트워크</a>
+            </li>
+            
+            <li>
+                <a href="/categories/%EB%B0%A9%ED%86%B5%EB%8C%80-%EA%B0%95%EC%9D%98%EB%85%B8%ED%8A%B8/">방통대 강의노트</a>
+            </li>
+            
+            <li>
+                <a href="/categories/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C/">운영체제</a>
+            </li>
+            
+            <li>
+                <a href="/categories/%EC%9E%90%EB%A3%8C%EA%B5%AC%EC%A1%B0/">자료구조</a>
+            </li>
+            
+        </ul>
+    </div>
+    
+    
+    
+    
+  </div>
+</aside>
+    </main>
+
+    <footer>
+    <div class="container-lg clearfix">
+        <div class="col-12 footer">
+            
+            <span>&copy; 2021
+                <a href="https://junu0516.github.io/"></a>
+                
+                | Powered by <a href="https://github.com/dsrkafuu/hugo-theme-fuji/"
+                   target="_blank">Fuji-v2</a> &amp; <a href="https://gohugo.io/"
+                                                    target="_blank">Hugo</a> 
+            </span>
+        </div>
+    </div>
+</footer>
+
+    
+<script defer src="https://cdn.jsdelivr.net/npm/medium-zoom@1.0.6/dist/medium-zoom.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/components/prism-core.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/autoloader/prism-autoloader.min.js"></script>
+
+
+
+<script defer src="/assets/js/fuji.min.js"></script>
+
+
+
+</body>
+
+</html>

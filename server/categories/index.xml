@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Categories on Junu-Devlog</title>
+    <link>https://junu0516.github.io/categories/</link>
+    <description>Recent content in Categories on Junu-Devlog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 23 Oct 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://junu0516.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>운영체제</title>
+      <link>https://junu0516.github.io/categories/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C/</link>
+      <pubDate>Sat, 23 Oct 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://junu0516.github.io/categories/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>네트워크</title>
+      <link>https://junu0516.github.io/categories/%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC/</link>
+      <pubDate>Sun, 10 Oct 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://junu0516.github.io/categories/%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>자료구조</title>
+      <link>https://junu0516.github.io/categories/%EC%9E%90%EB%A3%8C%EA%B5%AC%EC%A1%B0/</link>
+      <pubDate>Sun, 10 Oct 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://junu0516.github.io/categories/%EC%9E%90%EB%A3%8C%EA%B5%AC%EC%A1%B0/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>방통대 강의노트</title>
+      <link>https://junu0516.github.io/categories/%EB%B0%A9%ED%86%B5%EB%8C%80-%EA%B0%95%EC%9D%98%EB%85%B8%ED%8A%B8/</link>
+      <pubDate>Sat, 09 Oct 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://junu0516.github.io/categories/%EB%B0%A9%ED%86%B5%EB%8C%80-%EA%B0%95%EC%9D%98%EB%85%B8%ED%8A%B8/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Spring</title>
+      <link>https://junu0516.github.io/categories/spring/</link>
+      <pubDate>Mon, 20 Sep 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://junu0516.github.io/categories/spring/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>c&#43;&#43; on Junu-Devlog</title>
+    <link>https://junu0516.github.io/tags/c&#43;&#43;/</link>
+    <description>Recent content in c&#43;&#43; on Junu-Devlog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 09 Oct 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://junu0516.github.io/tags/c++/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>[방송통신대 강의노트] C&#43;&#43; 프로그래밍</title>
+      <link>https://junu0516.github.io/posts/c&#43;&#43;/</link>
+      <pubDate>Sat, 09 Oct 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://junu0516.github.io/posts/c&#43;&#43;/</guid>
+      <description>2021-2 C++ 프로그래밍 수업 내용 정리한 것입니다. 잘못된 부분은 댓글 통해 지적해주세요</description>
+    </item>
+    
+  </channel>
+</rss>

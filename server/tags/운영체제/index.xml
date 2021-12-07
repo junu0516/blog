@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>운영체제 on Junu-Devlog</title>
+    <link>https://junu0516.github.io/tags/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C/</link>
+    <description>Recent content in 운영체제 on Junu-Devlog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 23 Oct 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://junu0516.github.io/tags/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Operating System Concepts - Chapter 2 요약</title>
+      <link>https://junu0516.github.io/posts/os_chapter2/</link>
+      <pubDate>Sat, 23 Oct 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://junu0516.github.io/posts/os_chapter2/</guid>
+      <description>공룡책 Ch 2 요약 (원서를 읽고 요약하는 과정에서 잘못된 내용이 있을 수 있습니다.</description>
+    </item>
+    
+    <item>
+      <title>Operating System Concepts - Chapter 1 요약</title>
+      <link>https://junu0516.github.io/posts/os_chapter1/</link>
+      <pubDate>Tue, 21 Sep 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://junu0516.github.io/posts/os_chapter1/</guid>
+      <description>공룡책 Ch 1 요약 (원서를 읽고 요약하는 과정에서 잘못된 내용이 있을 수 있습니다.</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>자료구조 on Junu-Devlog</title>
+    <link>https://junu0516.github.io/categories/%EC%9E%90%EB%A3%8C%EA%B5%AC%EC%A1%B0/</link>
+    <description>Recent content in 자료구조 on Junu-Devlog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 10 Oct 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://junu0516.github.io/categories/%EC%9E%90%EB%A3%8C%EA%B5%AC%EC%A1%B0/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>[자료구조] 자바로 스택과 큐 구현하기</title>
+      <link>https://junu0516.github.io/posts/stack_queue/</link>
+      <pubDate>Sun, 10 Oct 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://junu0516.github.io/posts/stack_queue/</guid>
+      <description>자바로 스택과 큐에 대해 알아보도록 하자
+ 1. 스택(Stack) 스택의 개념과 활용, 자바를 통한 스택 구현 세 가지를 학습해보자!</description>
+    </item>
+    
+  </channel>
+</rss>

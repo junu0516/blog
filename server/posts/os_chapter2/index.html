@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<meta name="HandheldFriendly" content="True" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<meta name="generator" content="Hugo 0.88.1" />
+
+
+<link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/dsrkafuu/dsr-cdn-main@1/images/favicons/dsrca.ico" />
+
+
+
+<title>Operating System Concepts - Chapter 2 요약 - Junu-Devlog</title>
+
+
+
+
+<meta name="keywords" content="운영체제, CS스터디" />
+
+
+<meta property="og:title" content="Operating System Concepts - Chapter 2 요약" />
+<meta name="twitter:title" content="Operating System Concepts - Chapter 2 요약" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://junu0516.github.io/posts/os_chapter2/" /><meta property="og:description" content="공룡책 Ch 2 요약 (원서를 읽고 요약하는 과정에서 잘못된 내용이 있을 수 있습니다." />
+<meta name="twitter:description" content="공룡책 Ch 2 요약 (원서를 읽고 요약하는 과정에서 잘못된 내용이 있을 수 있습니다." /><meta name="twitter:card" content="summary" /><meta property="article:published_time" content="2021-10-23T00:00:00+00:00" /><meta property="article:modified_time" content="2021-10-24T20:30:49+09:00" />
+
+
+<style>
+    @media (prefers-color-scheme: dark) {
+        body[data-theme='auto'] img {
+            filter: brightness(60%);
+        }
+    }
+
+    body[data-theme='dark'] img {
+        filter: brightness(60%);
+    }
+</style>
+
+
+
+
+<link rel="stylesheet" href="https://junu0516.github.io/assets/css/fuji.min.css" />
+
+
+
+
+
+
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css" integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc" crossorigin="anonymous">
+<style>
+    img{
+        filter: brightness(100%) !important;
+        display: block !important;
+        margin: auto !important;
+        margin-top: 15px !important;
+        margin-bottom: 15px !important;
+    }
+    .custom-post-meta-tags a{
+        background-color: rgba(231, 231, 231, 0.897);
+        padding: 1px 1px;
+        border-radius: 3px;
+        font-size: 14px;
+        color: gray;
+    }
+    .custom-tags>div a{
+        background-color: rgba(231, 231, 231, 0.897);
+        padding: 2px 5px;
+        border-radius: 3px;
+        color: gray;
+    }
+    .custom-social-link-box{
+        text-align: center;
+    }
+    .custom-social-link{
+        font-size: 2em;
+        margin-right: 15px;
+        color: rgb(104, 98, 98);
+    }
+    .custom-profile-imgbox{
+        width: 100%;
+        height: 100%;
+    }
+    .custom-profile-imgbox__mobile{
+        width: 100%;
+        height: 100%;
+    }
+    .custom-profile-img{
+        width: 90%;
+        height: 80%;
+        border: 1px solid lightgray;
+        border-radius: 100%;
+        opacity: 0.9;
+    }
+
+    .post+.post{
+        border-top: 0.5px solid rgb(226, 226, 226) !important;
+    }
+
+    .custom-content{
+        margin-top : 2%;
+        margin-right: 5%;
+    }
+
+    .custom-content>article>.post-meta{
+        padding-bottom: 5px;
+        border-bottom: 1px solid lightgray;
+    }
+    .custom-content>article>.post-title{
+        font-size: 2rem;
+    }
+
+    header{
+        background-color: rgba(243, 241, 241, 0.89);
+        border-bottom: 0px !important;
+    }
+
+    .custom-header{
+        height: 30%;
+    }
+
+    main{
+        margin-top: 2%;
+    }
+    header .header {
+        height: 80px;
+        padding: 1.2rem 1rem 1rem 1.22rem;
+    }
+
+    .title-main{
+        font-size : 2rem !important;
+        color: rgb(57, 58, 58);
+    }
+
+    .post{
+        padding-bottom: 10px !important;
+    }
+
+    .post-title{
+        font-size: 1.4rem;
+    }
+
+    .post-summary{
+        cursor: pointer;
+        color: rgb(80, 75, 75);
+        font-size: 15px;
+        display: none !important;
+
+    }
+
+    .pagination{
+        margin-top: 50px !important;
+         
+        border-top: none !important;
+    }
+
+    .sidebar{
+        margin-top: 2%;
+        padding: 0 !important;
+    }
+
+         
+
+    @media (min-width: 1025px) and (max-width: 1280px) {
+        .sidebar{
+            min-width: 30vh !important;
+        }
+    }
+
+    .sidebar-item>h3{
+        border-bottom: 1px solid lightgray;
+        margin-bottom: 10px;
+    }
+    
+    .container-lg{
+        max-width: 1400px !important;
+    }
+
+    .markdown-body h1, .markdown-body h2 {
+        border-bottom: 1px solid var(--color-divider) !important;
+    }
+    .markdown-body h3{
+        font-size: 1.35rem !important;
+    }
+    .markdown-body h4{
+        font-size: 1.25rem !important;
+    }
+
+    .content{
+        padding-left: 2.5rem !important;
+    }
+    
+</style>
+
+</head>
+
+<body
+  data-theme="auto"
+  data-theme-auto='false'
+  >
+    <script data-cfasync="false">
+  
+  var fujiThemeData = localStorage.getItem('fuji_data-theme');
+  
+  if (!fujiThemeData) {
+    localStorage.setItem('fuji_data-theme', 'auto');
+  } else {
+    
+    if (fujiThemeData !== 'auto') {
+      document.body.setAttribute('data-theme','light');
+      
+    }
+  }
+</script>
+
+    <header>
+    <div class="container-lg clearfix">
+        <div class="header">
+            <a class="title-main" href="https://junu0516.github.io/">Junu-Devlog</a>
+            
+        </div>
+    </div>
+</header>
+
+    <main>
+        <div class="container-lg clearfix">
+            
+            <div class="col-12 col-md-12 float-left content custom-content">
+                
+<article>
+    
+    <h2 class="post-item post-title">
+        <a href="https://junu0516.github.io/posts/os_chapter2/">Operating System Concepts - Chapter 2 요약</a>
+    </h2>
+    <div class="post-item post-meta">
+        <span>
+    <i class="iconfont icon-today-sharp"></i>&nbsp;2021-10-23
+</span>
+
+<span>
+    <i class="iconfont icon-sync-circle-sharp"></i>&nbsp;2021-10-24</span>
+
+
+<span class="custom-post-meta-tags">
+    <i class="iconfont icon-pricetags-sharp"></i>&nbsp;
+    <a href="/tags/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C">운영체제</a>&nbsp;
+    <a href="/tags/cs%EC%8A%A4%ED%84%B0%EB%94%94">CS스터디</a>&nbsp;
+</span>
+<span class="custom-post-meta-categories">
+    <i class="fas fa-file-alt"></i>&nbsp;
+    <a href="/categories/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C">운영체제</a>&nbsp;
+</span>
+    </div>
+    
+    <div class="post-content markdown-body">
+        <p>공룡책 Ch 2 요약 (원서를 읽고 요약하는 과정에서 잘못된 내용이 있을 수 있습니다.)</p>
+<p><img class="img-zoomable" src="https://media.wiley.com/product_data/coverImage300/66/11198003/1119800366.jpg" alt="img" />
+</p>
+<br>
+<h2 id="1-operating-system-services">1. Operating-System Services</h2>
+<blockquote>
+<p>운영체제가 제공하는 서비스는 크게 아래와 같이 나눠볼 수 있음</p>
+</blockquote>
+<ul>
+<li>
+<p><strong>유저 인터페이스</strong> : GUI, 터치스크린 등 유저친화적인 사용환경을 제공</p>
+</li>
+<li>
+<p><strong>프로그램 실행(Program Execution)</strong> : 프로그램을 메모리에 적재한 후, 프로세스를 실행하는 것</p>
+</li>
+<li>
+<p><strong>입출력(I/O Operation)</strong> : 입출력장치를 비롯하여 여러 입출력 관련 프로그램 실행과 관련</p>
+</li>
+<li>
+<p><strong>파일 시스템 조작(File-system manipulation)</strong> : 프로그램일 읽고 쓸 수 있는 파일과 디렉토리 관리를 위한 시스템을 제공</p>
+</li>
+<li>
+<p><strong>Communications</strong> : 공유 메모리( <strong><code>Shared Memory</code></strong> ) 혹은 메시지 교환( <strong><code>Message Passing</code></strong> ) 등을 통한 프로세스들 간의 정보 교환을 가능하게 하는 것</p>
+</li>
+<li>
+<p><strong>오류 감지(Error detection)</strong> : 프로그램이 실행되면서 발생할 수 있는 여러 오류를 감지하고, 해결</p>
+</li>
+<li>
+<p><strong>자원 할당</strong> : 여러 프로세스를 동시에 실행시켜야 하는 경우에,  CPU 등의 자원을 적절히 프로세스별로 분배시키는 것</p>
+</li>
+<li>
+<p>이 외에도 로깅, 보안 등의 여러 기능을 수행</p>
+</li>
+</ul>
+<br>
+<h2 id="2-user-and-operating-system-interface">2. User and Operating-System Interface</h2>
+<h3 id="2-1-command-interpreters">2-1. Command Interpreters</h3>
+<ul>
+<li><strong>명령어 인터프리터</strong> 라고도 해석하며, 운영체제나 프로그래밍 언어의 환경 등에서 해석하는 입력된 명령어를 읽고 실행하는 컴퓨터 프로그램을 말함
+<ul>
+<li>대표적으로 리눅스의 <strong><code>shell</code></strong> 이 인터프리터 프로그램에 속하며, <strong>Third-Party shell</strong> , <strong>Free User-Written shell</strong> 등의 형태도 가능함</li>
+</ul>
+</li>
+<li>명령어 인터프리터 자체가 명령 수행을 위한 코드를 포함할 수도 있고, <strong><code>Unix</code></strong> 와 같이 인터프리터가 명령어를 해석하는 것이 아니라 각 명령에 해당하는 파일을 찾아 메모리에 적재 &amp; 실행하는 형식이 될 수도 있음
+<ul>
+<li>후자의 경우 <strong><code>rm file.txt</code></strong> 라는 리눅스 명령어를 사용한다고 치면, 인터프리터가 이를 해석하는 것이 아니라 파일 시스템에서 <strong><code>rm</code></strong> 이라는 파일을 찾아 실행시키는 것</li>
+</ul>
+</li>
+</ul>
+<br>
+<h3 id="2-2-graphical-user-interface--touch-screen-interface">2-2. Graphical User Interface &amp; Touch-Screen Interface</h3>
+<ul>
+<li>윈도우의 GUI 환경이 대표적이며, 여러 파일에 대응하는 아이콘과 이를 담는 폴더를 통해 프로그램을 실행</li>
+<li>스마트폰이나 태블릿과 같은 기기라면 여기서 더 나아가 터치스크린 기반의 인터페이스를 사용</li>
+</ul>
+<br>
+<h2 id="3-system-calls">3. System Calls</h2>
+<p><img src="https://user-images.githubusercontent.com/68586291/138590591-08befe07-22e7-4e7e-bed1-76f34bceffbb.png" alt="image" style="zoom:120%;" /></p>
+<ul>
+<li><strong>시스템 호출</strong> 로 해석하며, 운영체제의 <strong><code>커널(kernel)</code></strong> 이 제공하는 서비스에 대해, 응용 프로그램의 여러 요청에 따른 커널 접근을 위한 인터페이스를 말함</li>
+<li>보통 C, C++과 같은 언어로 쓰여있으며, 일부 low-level task에 대해서는 어셈블리어로 쓰여있기도 함
+<ul>
+<li><strong><code>어셈블리어(Assembly Language)</code></strong> : 기계어와 1:1 대응이 되는 저급 언어로, 컴퓨터 구조에 따라 상이함</li>
+</ul>
+</li>
+</ul>
+<br>
+<h3 id="3-1-application-programming-interface">3-1. Application Programming Interface</h3>
+<ul>
+<li>
+<p>간단한 프로그램이라 할 지라도, 순차적으로 명령어를 실행하기 위해 운영체제의 잦은 작업 및 시스템 호출을 수반함</p>
+</li>
+<li>
+<p>개발자의 입장에서, 각 시스템 호출을 위한 디테일을 직접 보게될 일은 거의 없음</p>
+</li>
+<li>
+<p>왜냐하면, <strong><code>API(Application Programming Interface)</code></strong> 라고 불리는 인터페이스가 시스템 호출을 대신 수행하기 때문</p>
+<ul>
+<li>리눅스의 경우 C언어의 <strong><code>libc</code></strong> 표준 라이브러리가 입출력 프로세스 및 메모리 할당 등 운영체제와 연관된 여러 작업 수행을 위한 함수를 제공</li>
+</ul>
+<p><em>the functions that make up an API typically invoke the actual system calls on behalf of the application programmer</em></p>
+</li>
+<li>
+<p>같은 API를 지원하는 시스템 어디에서나 동일한 어플리케이션의 동작을 기대할 수 있으며, 실제 시스템 호출이 복잡할 경우에는 간단한 API 명령 호출로 이를 대체할 수 있음</p>
+<p><img src="https://user-images.githubusercontent.com/68586291/138591002-783472e5-96fc-4f51-9a39-b4ed8066299a.png" alt="image" style="zoom:120%;" /></p>
+</li>
+<li>
+<p><strong><code>Run-time Environment(RTE)</code></strong> : 프로그램이 실행되고 있는 동안의 동작을 의미하며, 이를 위한 프로그래밍 언어, 컴파일러, 라이브러리 등의 개념을 모두 포함함</p>
+</li>
+<li>
+<p>런타임 환경은 시스템 호출 인터페이스(<strong><code>System-call interface</code></strong> )를 제공하며, 이는 운영체제로 하여금 시스템 호출을 가능하게 함</p>
+</li>
+<li>
+<p>시스템 호출 인터페이스가 API의 명령 호출을 받아, 이를 수행하기 위한 운영체제의 시스템 호출을 부르는 것</p>
+<p><em>The system-call interface intercepts function calls in the API and invokes the necessary system calls within the operating system.</em></p>
+</li>
+<li>
+<p>이런 상황에서 명령어를 호출하는 쪽, 즉 개발자는 구체적인 시스템 호출의 상세를 이해하기 보다는 API의 호출과, 호출의 결과가 운영체제의 어떤 동작을 수반하는 지 정도를 이해하면 됨</p>
+<ul>
+<li>운영체제 동작 과정 등의 상세한 것들은 대부분 프로그래머가 겉으로 봐서 알 수 없도록 숨겨져 있는 것</li>
+</ul>
+</li>
+<li>
+<p>여러 시스템 호출이 순차적으로 일어나는 경우에는 각 과정에서의 수행 결과를 파라미터로서 넘기는 방법에 대해 고민해볼 수 있음</p>
+<ul>
+<li>제일 간단한 방법은 각 과정에 해당하는 레지스터로 파라미터를 넘겨주는 것</li>
+<li>하지만 레지스터의 양보다, 넘길 파라미터의 양이 더 많다면 이를 특정 메모리 공간에 저장하고, 주소값을 파라미터로 레지스터에 넘겨도 됨</li>
+</ul>
+<p><em>The simplest appraoct is to pass the parameters in registers. In some cases, however, there may be more parameters than registers. In these caes, the parameters are generally stored in a block, or table, in memory, and the address of the block is passed as a parameter in a register.</em></p>
+<p><img src="https://user-images.githubusercontent.com/68586291/138592060-9797fd71-7607-4e88-9eac-5d87e94618c2.png" alt="image" style="zoom:130%;" /></p>
+<ul>
+<li>파라미터의 전달은 <strong><code>stack</code></strong> 에서의 pop &amp; push 과정을 통해 일어남</li>
+</ul>
+</li>
+</ul>
+<br>
+<h3 id="3-2-types-of-system-calls">3-2. Types of System Calls</h3>
+
+    </div>
+    <hr>
+    <script src="https://utteranc.es/client.js"
+        repo="junu0516/blog"
+        issue-term="pathname"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script>
+</article>
+
+
+
+
+            </div>
+            <aside class="col-12 col-md-3 float-left sidebar">
+    
+    
+    <div class="sidebar-item sidebar-toc">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-operating-system-services">1. Operating-System Services</a></li>
+    <li><a href="#2-user-and-operating-system-interface">2. User and Operating-System Interface</a>
+      <ul>
+        <li><a href="#2-1-command-interpreters">2-1. Command Interpreters</a></li>
+        <li><a href="#2-2-graphical-user-interface--touch-screen-interface">2-2. Graphical User Interface &amp; Touch-Screen Interface</a></li>
+      </ul>
+    </li>
+    <li><a href="#3-system-calls">3. System Calls</a>
+      <ul>
+        <li><a href="#3-1-application-programming-interface">3-1. Application Programming Interface</a></li>
+        <li><a href="#3-2-types-of-system-calls">3-2. Types of System Calls</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+</aside>
+
+        </div>
+        <div class="btn">
+    
+    <div class="btn-menu" id="btn-menu">
+        <i class="iconfont icon-grid-sharp"></i>
+    </div>
+    <div class="btn-toggle-mode" style="display: none;">
+        <i class="iconfont icon-contrast-sharp"></i>
+    </div>
+    
+    <div class="btn-scroll-top">
+        <i class="iconfont icon-chevron-up-circle-sharp"></i>
+    </div>
+</div>
+
+<aside class="sidebar-mobile" style="display: none;">
+  <div class="sidebar-wrapper">
+    
+    <div class="sidebar-item sidebar-pages" style="display: none;">
+        <h3>Pages</h3>
+        <ul>
+            
+        </ul>
+    </div>
+    
+    <div class="sidebar-item sidebar-links" style="display: none;">
+        <h3>Links</h3>
+        <ul>
+            
+            <li>
+                <a href="https://github.com/junu0516" target="_blank"><span>GitHub</span></a>
+            </li>
+            
+            <li>
+                <a href="https://twitter.com/dsrkafuu" target="_blank"><span>Linkedin</span></a>
+            </li>
+            
+            <li>
+                <a href="https://space.bilibili.com/19767474" target="_blank"><span>Instagram</span></a>
+            </li>
+            
+        </ul>
+    </div>
+    
+    <div class="sidebar-item sidebar-tags" style="display: none;">
+        <h3>Tags</h3>
+        <div>
+            
+            <span>
+                <a href="/tags/c&#43;&#43;/">c&#43;&#43;</a>
+            </span>
+            
+            <span>
+                <a href="/tags/cs%EC%8A%A4%ED%84%B0%EB%94%94/">CS스터디</a>
+            </span>
+            
+            <span>
+                <a href="/tags/java/">java</a>
+            </span>
+            
+            <span>
+                <a href="/tags/spring/">spring</a>
+            </span>
+            
+            <span>
+                <a href="/tags/%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC/">네트워크</a>
+            </span>
+            
+            <span>
+                <a href="/tags/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C/">운영체제</a>
+            </span>
+            
+            <span>
+                <a href="/tags/%EC%9E%90%EB%A3%8C%EA%B5%AC%EC%A1%B0/">자료구조</a>
+            </span>
+            
+        </div>
+    </div>
+
+    
+    <div class="sidebar-item sidebar-tags" >
+        <h3>Categories</h3>
+        <ul style="list-style: none !important;">
+            
+            <li>
+                <a href="/categories/spring/">Spring</a>
+            </li>
+            
+            <li>
+                <a href="/categories/%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC/">네트워크</a>
+            </li>
+            
+            <li>
+                <a href="/categories/%EB%B0%A9%ED%86%B5%EB%8C%80-%EA%B0%95%EC%9D%98%EB%85%B8%ED%8A%B8/">방통대 강의노트</a>
+            </li>
+            
+            <li>
+                <a href="/categories/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C/">운영체제</a>
+            </li>
+            
+            <li>
+                <a href="/categories/%EC%9E%90%EB%A3%8C%EA%B5%AC%EC%A1%B0/">자료구조</a>
+            </li>
+            
+        </ul>
+    </div>
+    
+    
+    
+    
+  </div>
+</aside>
+    </main>
+
+    <footer>
+    <div class="container-lg clearfix">
+        <div class="col-12 footer">
+            
+            <span>&copy; 2021
+                <a href="https://junu0516.github.io/"></a>
+                
+                | Powered by <a href="https://github.com/dsrkafuu/hugo-theme-fuji/"
+                   target="_blank">Fuji-v2</a> &amp; <a href="https://gohugo.io/"
+                                                    target="_blank">Hugo</a> 
+            </span>
+        </div>
+    </div>
+</footer>
+
+    
+<script defer src="https://cdn.jsdelivr.net/npm/medium-zoom@1.0.6/dist/medium-zoom.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/components/prism-core.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/plugins/autoloader/prism-autoloader.min.js"></script>
+
+
+
+<script defer src="/assets/js/fuji.min.js"></script>
+
+
+
+</body>
+
+</html>
