@@ -3,7 +3,7 @@
 +++
 title = 'Spring DI와 IoC'
 tags = ['spring', 'java']
-categories = ['Spring']
+categories = ['Java&Spring']
 date = "2021-09-20"
 
 +++

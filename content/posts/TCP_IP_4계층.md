@@ -2,8 +2,8 @@
 
 +++
 title = "TCP/IP 4계층의 이해"
-tags = ["네트워크","CS스터디"]
-categories = ["네트워크"]
+tags = ["네트워크"]
+categories = ["Computer Science"]
 date = "2021-09-25"
 
 +++

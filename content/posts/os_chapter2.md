@@ -2,8 +2,8 @@
 
 +++
 title = "Operating System Concepts - Chapter 2 요약"
-tags = ["운영체제","CS스터디"]
-categories = ["운영체제"]
+tags = ["운영체제"]
+categories = ["Computer Science"]
 date = "2021-10-23"
 
 +++
@@ -94,9 +94,86 @@ date = "2021-10-23"
   *The simplest appraoct is to pass the parameters in registers. In some cases, however, there may be more parameters than registers. In these caes, the parameters are generally stored in a block, or table, in memory, and the address of the block is passed as a parameter in a register.*
 
   <img src="https://user-images.githubusercontent.com/68586291/138592060-9797fd71-7607-4e88-9eac-5d87e94618c2.png" alt="image" style="zoom:130%;" />
+  
   - 파라미터의 전달은 __`stack`__ 에서의 pop & push 과정을 통해 일어남
 
 <br>
 
 ### 3-2. Types of System Calls
+
+- 시스템 호출은 크게 프로세스 컨트롤, 파일 관리, 장치 관리, 정보 저장, 커뮤니케이션, 보안의 6개 카테고리로 나눌 수 있음
+
+1) __프로세스 컨트롤(Process Control)__
+
+   - 프로세스를 실행하거나 종료하는 일을 수행함
+
+     - 만일 프로그램 실행 중에 오류가 발생하면, 실행중이던 프로세스를 강제로 종료하도록 하는 시스템 호출이 일어나며 명령어 인터프리터(command interpreter)로 하여금 다음 명령을 읽어들여 수행하도록 유도하는 것
+     - 때때로 오류가 발생하면 메모리 덤프(dump of memory)를 뜨고 디버거(debugger)에 의해 해당 에러에 대한 분석이 일어날 수도 있음
+     - 윈도우와 같은 GUI 시스템에서는 에러 발생 시 시스템 호출과 함께 이에 대한 팝업(alert)이 사용자 화면에 나타남
+     - 에러의 정도(Severity of error)를 구분하여 명령어 인터프리터로 하여금 자동으로 상황에 따른 에러 처리를 달리하도록할 수도 있음
+
+   - 한 프로세스의 실행은, 다른 프로세스를 메모리에 적재하고 실행하도록 시스템 호출을 일으킬 수도 있음 ( 혹은 메모리를 해제할 수도 있음 ) 
+
+     *A process executing one program may want to load() and execute() another program.*
+
+     -  이러한 시스템 호출의 기능은 명령어 인터프리터로 하여금 사용자에 의해 특정 프로그램을 실행하거나 마우스 클릭 등과 같은 이벤트의 발생 시에 또 다른 프로그램을 실행하도록 유도하는 것을 의미함
+
+     - 여기서 메모리에 새로 적재된 프로그램이 종료된 경우에는 기존에 존재하던 프로그램에 대한 제어권의 반환이 어디에 이루어져야 하는 지에 대한 의문이 있을 수 있음
+
+       *An interesting question is where to return control when the loaded program terminates.*
+
+     - 다시 말해 적재된 프로그램을 그대로 메모리에 삭제하거나 둘 지, 혹은 새로운 프로그램과 병행하여 실행상태로 계속 둘 지 선택해야 하는 것
+
+       *If control returns to the existing program when the new program terminates, we must save the memory image of the existing program; thus, we have effectively created a mechanism for one program to call another program. If both progrmas continue concurrently, we have created a new process to be multiprogrammed. Often, there is a system call specifically for this purpose(create_process())*
+
+   - 두 개 이상의 프로세스는 특정 데이터를 공유할 수도 있는데, 여기서 데이터의 무결성(integrity of shared data) 보존을 위해 운영체제는 데이터에 __`lock`__ 을 거는 시스템 호출을 일으킬 수 있음
+
+     - 다시 말해 공유 자원에 하나의 프로세스가 접근 중일 동안에는, 락이 걸려있기 때문에 이것이 해제될 때 까지 다른 프로세스가 접근할 수 없는 것
+
+   - 이 외에도 특정 이벤트를 기다리거나(wait event) 신호를 알리는 이벤트(signal event)의 발생을 유도할 수도 있을 것
+
+2) __파일 관리(File Management)__
+
+   - 파일 혹은 디렉토리에 대한 생성과 삭제, 읽기와 쓰기 등의 행위 제어에 관한 것
+
+3) __장치 관리(Device Management)__
+
+   - 장치는 물리 장치(physical devices)와 가상 장치(virtual devices) 모두를 포함하는 개념이며, 운영체제에 의해 관리되는 자원(resources)을 여기서는 장치라고 표현
+     - 다시 말해, 장치 관리는 곧 프로세스 수행에 필요한 자원의 관리를 일컫는 것
+   - 프로세스 수행에 필요한 자원이 가용 상태일 때 비로소 해당 프로세스에 제어권이 오며, 그렇지 않다면 프로세스는 자원이 가용상태일 때 까지 대기해야 함
+   - 자원의 사용은 요청( __`request()`__ )을 통해 해당 프로세스에 의한 배타적인 사용권한을 부여하고, 이를 읽거나(__`read()`__) 쓰고(__`write()`__) 난 후 다시 반환( __`release()`__ )하는 일련의 과정을 거치게 됨
+
+4) __정보 보존(Information Maintenance)__
+
+   - 디버깅 등의 목적을 위해 가용 메모리 크기, 디스크 공간 혹은 프로그램 수행 시간 등의 정보를 시스템 호출을 통해 반환하는 것을 의미
+   - 특히 많은 운영체제는 프로그램이 수행되는 위치와 수행 시간 등의 정보를 제공하는 기능을 수행하는데, 타이머 인터럽트(__`timer interrupts`__)의 발생시켜서 측정하는 것
+   - 운영체제는 프로세스 자체에 대한 정보를 보관할 수도 있는데, 여기서 시스템 호출은 운영체제가 보관하는 프로세스 정보 접근을 위해서도 사용됨
+
+5) __커뮤니케이션(Communication)__
+
+   - 커뮤니케이션은 크게 __message-passing model__ 과 __shared-memory model__ 의 두 가지 형태로 나뉨
+
+   - Message-Passing Model
+
+     - 프로세스 간에 서로 메시지를 주고받는 식으로 소통하는 형태로 서버-클라이언트 간 메시지 전달 형태와 유사함
+     - 커넥션을 열고 닫거나, 메시지를 읽고 쓰는 등의 각각의 행위에 대한 시스템 호출이 발생하는 것
+
+   - Shared-Memory Model
+
+     - 시스템 호출을 통해 두개 이상의 프로세스가 공통된 메모리 영역에 접근하는 방식
+
+     - 앞서 언급한, 운영체제가 특정 공유 데이터에 대한 락을 거는 등의 제한을 없애고 공유된 영역에서 프로세스들이 데이터를 읽고 씀
+
+     - 단, 여러 프로세스가 동시에 쓰기 행위를 하는 일이 발생하지 않아야 하는 책임이 존재
+
+       *Shared memory requires that two or more processes agree to remove this restriction. (...) The processes are also responsible for ensuring that they are not writing to the same location simultaneously.*
+
+6) __보안 혹은 보호(Protection)__
+
+   - 컴퓨터 시스템이 제공하는 자원에 대한 접근을 제어하는 매커니즘 제공을 의미함
+   - 특정 자원에 대한 허가권을 부여하거나, 유저의 접근을 허가하는 행위 등에 대한 시스템 호출이 있을 수 있음
+
+<br>
+
+## 4. System Services
 

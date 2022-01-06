@@ -2,8 +2,8 @@
 
 +++
 title = "Operating System Concepts - Chapter 1 요약"
-tags = ["운영체제","CS스터디"]
-categories = ["운영체제"]
+tags = ["운영체제"]
+categories = ["Computer Science"]
 date = "2021-09-21"
 
 +++

@@ -2,8 +2,8 @@
 
 +++
 title = "Http 메시지와 Https 통신"
-tags = ["네트워크","CS스터디"]
-categories = ["네트워크"]
+tags = ["네트워크"]
+categories = ["Computer Science"]
 date = "2021-10-10"
 
 +++
