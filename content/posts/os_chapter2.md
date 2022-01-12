@@ -126,7 +126,7 @@ date = "2021-10-23"
 
        *If control returns to the existing program when the new program terminates, we must save the memory image of the existing program; thus, we have effectively created a mechanism for one program to call another program. If both progrmas continue concurrently, we have created a new process to be multiprogrammed. Often, there is a system call specifically for this purpose(create_process())*
 
-   - 두 개 이상의 프로세스는 특정 데이터를 공유할 수도 있는데, 여기서 데이터의 무결성(integrity of shared data) 보존을 위해 운영체제는 데이터에 __`lock`__ 을 거는 시스템 호출을 일으킬 수 있음
+   - 두 개 이상의 프로세스는 특정 데이터를 공유할 수도 있는데, 여 기서 데이터의 무결성(integrity of shared data) 보존을 위해 운영체제는 데이터에 __`lock`__ 을 거는 시스템 호출을 일으킬 수 있음
 
      - 다시 말해 공유 자원에 하나의 프로세스가 접근 중일 동안에는, 락이 걸려있기 때문에 이것이 해제될 때 까지 다른 프로세스가 접근할 수 없는 것
 
@@ -177,3 +177,31 @@ date = "2021-10-23"
 
 ## 4. System Services
 
+- System Service는 System Utilities라고도 불리며, 프로그램 개발 및 실행에 편리한 환경을 제공해주는 것을 일컫으며, 단순한 시스템 호출을 위한 사용자 인터페이스 또한 시스템 서비스의 일종이라 할 수 있음
+
+### 4-1. System Service Categories
+
+- **File Management** : 파일 혹은 디렉토리의 생성, 읽기, 수정, 복사 등의 행위에 관한 것들
+- **Status information** : 레지스트리와 같은 설정 및 상태 정보를 저장하고 운용하는 것들
+- **File modificatio** : md, properties 등의 확장자를 지닌 파일을 메모장과 같은 에디터 프로그램을 통해 수정하는 것을 생각하면 됨
+- **Programming-language support** : 일반적인 프로그래밍 언어를 위한 컴파일러나 인터프리터, 혹은 디버거 등을 운영체제가 제공하기도 함
+- **Program loading and execution** : 프로그램의 실행을 위해, 정적인 코드 덩어리 상태의 프로그램을 메모리에 올려 실행 가능한 상태로 하는 것
+- **Communications** : 프로세스들, 유저들, 혹은 다른 컴퓨터 시스템들 간의 가상 연결 등과 같은 매커니즘을 제공하는 프로그램들
+- **Background services** : 일반적이고 보편적인 목적의 시스템을 백그라운드에서 돌리는 경우
+
+*Along with system programs, most operating systems are supplied with programs that are useful in solving common problems or performing common operations. (...) The view of the operating system seen by most users is defined by the application and system programs, rather than by the actual system calls.*
+
+<br>
+
+## 5. Linkers and Loaders
+
+- 보통 CPU 상에서 프로그램을 돌리고자 한다면, 프로그램을 메모리에 올려 실행 가능한 프로세스 상태가 되도록 해야 함
+
+- 여러 프로그래밍 언어로 된 소스 파일(__`source files`__)들이 컴파일 되어 목적 파일(__`object file`__)이 되며, 이것이 물리적인 메모리 위치에 로드되는 것
+
+  (*source files are compiled into object files that are designed to be loaded into any physical memory location, a format known as relocatable object file*)
+
+- 이후 링커(__`linker`__) 라고 불리는 것이 이러한 목적 파일들을 합쳐 하나의 실행 가능한 바이너리 파일(__`single binary executable file`__) 로 만들어줌
+  - 이러한 링킹 과정에서 여러 목적 파일 혹은 라이브러리가 하나로 합쳐지는 것
+  - 가령 자바 파일이 컴파일된 경우라면, java.util 라이브러리와 같이 자동으로 제공되는 것들이 사용자에 의해 만들어진 파일과 합쳐짐
+- 로더(__`loader`__)는 이러한 바이터리 파일을 메모리에 올리는 역할을 수행하며, 이후 CPU 자원을 사용하여 실행 가능한 상태가 되는 것
