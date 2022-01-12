@@ -37,17 +37,6 @@
         </ul>
     </div>
     -->
-    <!-- tags -->
-    <div class="sidebar-item sidebar-tags custom-tags">
-        <h3>{{ i18n "sidebarTags" }}</h3>
-        <div>
-            {{ range .Site.Taxonomies.tags }}
-            <span>
-                <a href="{{ .Page.RelPermalink }}">{{ .Page.Title }}</a>
-            </span>
-            {{ end }}
-        </div>
-    </div>
     <div class="sidebar-item">
         <h3>Categories</h3>
         <div>
@@ -60,6 +49,19 @@
             </ul>            
         </div>
     </div>
+    <br>
+    <!-- tags -->
+    <div class="sidebar-item sidebar-tags custom-tags">
+        <h3>{{ i18n "sidebarTags" }}</h3>
+        <div>
+            {{ range .Site.Taxonomies.tags }}
+            <span>
+                <a href="{{ .Page.RelPermalink }}">{{ .Page.Title }}</a>
+            </span>
+            {{ end }}
+        </div>
+    </div>
+ 
     <br><br></b>
     {{- end -}}
     <!-- in-post toc -->
