@@ -2,7 +2,7 @@
 
 +++
 title = "[자료구조] 자바로 스택과 큐 구현하기"
-tags = ["자료구조"]
+tags = ["자료구조","java"]
 categories = ["Computer Science"]
 date = "2021-10-10"
 
