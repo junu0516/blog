@@ -386,7 +386,56 @@ class LinkedList<T: Equatable>{
 
 ## 3. 시간복잡도 검증
 
-​        
+> 일반적인 이중 연결 리스트 연산의 시간 복잡도와, 구현한 클래스의 함수의 시간 복잡도를 서로 비교해본다.
+
+- 이중 연결 리스트에서 일반적으로 노드 탐색 시 시간 복잡도는 O(N) 이다.
+  - 배열과 비교했을 때 연결 리스트가 가지는 단점이 된다.
+  - 배열의 경우 각 원소마다 고유의 인덱스가 있기 때문에, 인덱스를 알면 바로 접근하므로 O(1)이 되기 때문이다.
+  - 연결 리스트의 경우에는 매번 헤드 노드에서 시작해서, 찾고자 하는 노드가 나타날 때 까지 순차적으로 탐색해야 하기 때문에 최악의 경우에는 리스트의 맨 끝까지 가야 하므로 O(N)이 되는 것이다.
+- 위의 LinkedList의 __`search`__ 함수 두 개 모두 순차적으로 노드를 순회하는 아래의 반복문으로 인해, 실행 시 시간복잡도는 O(N)이 된다.
+
+```swift
+//0부터 인덱스까지 순차적으로 검색
+for _ in 0..<index{
+  if curr.next == nil{
+    return nil
+  }else{
+    curr = curr.next!
+  }
+}
+//헤드노드에서 시작해서, 순차적으로 다음 노드를 탐색
+var curr: Node<T> = self.head!
+while curr.next != nil{
+  if(curr.data == data){
+    return curr
+  }
+  curr = curr.next!
+}
+```
+
+- 탐색과 달리 이중 연결 리스트에서 노드의 추가 및 삭제 연산 시의 시간 복잡도는 O(1) 이 된다.
+  - 이는 배열과 달리 연결 리스트가 가지는 장점이 된다.
+  - 배열의 경우 배열 중간에 위치한 특정 원소를 추가 및 삭제 할 경우, 나머지 원소들의 위치를 모두 재조정해야 하기 때문에 최악의 경우 시간복잡도가 O(N)이 된다.
+  - 연결 리스트의 경우에는, 추가 및 삭제할 위치만 찾아서 추가할 노드와 이어질 노드들의 참조값만 바꿔주면 되기 때문에 O(1)이 된다.
+- 위의 LinkedList의 __`append`__ , __`remove`__ 모두 별도의 반복문 없이 노드들의 참조값만 바꾸고 있기 때문에 함수 실행 시의 시간복잡도가 O(1)이 된다.
+
+```swift
+//노드 추가 시 맨 끝의 참조값만 바꿔줌
+tail!.next = node
+node.prev = tail
+tail = node
+
+//노드 삭제 시 참조값만 바꿔줌
+let prev: Node<T> = nodeToBeRemoved.prev!
+let next: Node<T> = nodeToBeRemoved.next!
+prev.next = next
+next.prev = prev
+
+nodeToBeRemoved.prev = nil
+nodeToBeRemoved.next = nil         
+```
+
+​    
 
 ## Reference
 
