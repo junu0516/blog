@@ -99,6 +99,69 @@ class LinkedList<T: Equatable>{
 }
 ```
 
+​     
+
+- 우선 노드가 비어있는 지의 판단은 단순히 __헤드 노드가 nil인 지를 검증__ 하면 된다.
+  - 여기서 헤드 노드는 리스트의 시작이 되며, 리스트가 비어있다는 것은 노드의 시작 부분인 헤드 노드가 비어있다는 뜻이기 때문이다.
+
+```swift
+func isEmpty()->Bool{
+  return head==nil
+}
+```
+
+​    
+
+- 연결 리스트에서 노드의 추가는 __리스트의 맨 끝__에서만 일어난다.
+  - 리스트가 비어있다면 헤드 노드와 테일 노드를 추가할 노드로 두면 된다.
+  - 리스트가 비어있지 않다면 현재 테일 노드의 다음 노드로 추가할 노드를 두고, 추가한 노드를 테일 노드로 바꾸면 된다.
+    - 단, 테일 노드를 변경하기 전, 추가할 노드의  __`prev`__ 가 참조하는 노드를 기존 테일 노드로 둠에 주의한다. 
+
+```swift
+func append(node: Node<T>){
+  if(isEmpty()){
+    head = node
+    tail = node
+  }else{
+    tail!.next = node
+    node.prev = tail
+    tail = node
+  }
+}
+```
+
+​    
+
+- 연결 리스트에서 노드의 탐색은 노드의 시작부터 끝까지 순서대로 노드를 살펴보는 식으로 구현한다.
+  - 노드는 배열과 달리, 순차적으로 탐색해야 하기 때문에 시간복잡도가 O(N)이 된다.
+
+```swift
+func search(index: Int)->Node<T>?{
+  var curr:Node<T> = head!
+  if(index != -1){
+    for _ in 0..<index{
+      if curr.next == nil{
+        return nil
+      }else{
+        curr = curr.next!
+      }
+    }
+  }else{
+    return nil
+  }
+
+  return curr
+}
+```
+
+​    
+
+#### 노드 삭제
+
+
+
+
+
 - 최종적으로 완성된 LinkedList 클래스는 아래와 같다.
 
 ```swift
