@@ -99,7 +99,9 @@ class LinkedList<T: Equatable>{
 }
 ```
 
-​     
+​    
+
+#### 리스트가 비어있는 지 검증하기     
 
 - 우선 노드가 비어있는 지의 판단은 단순히 __헤드 노드가 nil인 지를 검증__ 하면 된다.
   - 여기서 헤드 노드는 리스트의 시작이 되며, 리스트가 비어있다는 것은 노드의 시작 부분인 헤드 노드가 비어있다는 뜻이기 때문이다.
@@ -112,7 +114,9 @@ func isEmpty()->Bool{
 
 ​    
 
-- 연결 리스트에서 노드의 추가는 __리스트의 맨 끝__에서만 일어난다.
+#### 리스트 맨 끝에 노드 추가하기
+
+- 기본적으로 연결 리스트에서 노드의 추가는 __리스트의 맨 끝__에서만 일어난다.(중간에 노드를 삽입하는 과정은 이후에 언급한다.)
   - 리스트가 비어있다면 헤드 노드와 테일 노드를 추가할 노드로 두면 된다.
   - 리스트가 비어있지 않다면 현재 테일 노드의 다음 노드로 추가할 노드를 두고, 추가한 노드를 테일 노드로 바꾸면 된다.
     - 단, 테일 노드를 변경하기 전, 추가할 노드의  __`prev`__ 가 참조하는 노드를 기존 테일 노드로 둠에 주의한다. 
@@ -132,8 +136,29 @@ func append(node: Node<T>){
 
 ​    
 
-- 연결 리스트에서 노드의 탐색은 노드의 시작부터 끝까지 순서대로 노드를 살펴보는 식으로 구현한다.
+#### 노드 탐색하기
+
+- 연결 리스트에서 특정 노드의 탐색은 노드의 시작부터 끝까지 순서대로 노드를 살펴보는 식으로 구현한다.
   - 노드는 배열과 달리, 순차적으로 탐색해야 하기 때문에 시간복잡도가 O(N)이 된다.
+  - 구현할 __`search`__ 함수는 파라미터로 찾고자 하는 데이터 타입 __`T`__ 를 받게 된다.
+  - 리스트 클래스에서 제네릭으로 선언한 __`T`__ 는 __`Equatable`__ 하기 때문에, 안에 들어있는 데이터의 참조가 서로 동일한 객체를 바라보는 지 비교하는 과정을 순차적으로 거치게 된다.
+
+```swift
+func search(data: T)->Node<T>{
+  var curr: Node<T> = self.head!
+  while curr.next != nil{
+    if(curr.data == data){
+      return curr
+    }
+    curr = curr.next!
+  }
+  return curr
+}
+```
+
+- 파라미터로 찾고자 하는 데이터 외에, __`Int`__ 타입의 인덱스값을 받아, 리스트의 해당 인덱스에 어떤 노드가 존재하는 지 탐색할 수도 있다.
+  - 인덱스 0부터 파라미터로 받은 인덱스 직전까지 반복문을 돌면서, 헤드노드부터 __`curr`__ 이 참조하는 변수를 순서대로 __`next`__ 로 바꿔가면 된다.
+  - 반복문을 빠져나왔을 떄의 __`curr`__ 이 최종적으로 찾고자 하는 노드가 된다.
 
 ```swift
 func search(index: Int)->Node<T>?{
@@ -149,18 +174,68 @@ func search(index: Int)->Node<T>?{
   }else{
     return nil
   }
-
   return curr
 }
 ```
 
 ​    
 
-#### 노드 삭제
+#### 원하는 위치에 노드 넣기
+
+```swift
+func insert(node: Node<T>, index: Int){
+  if(head == nil){
+    head = node
+    tail = node
+    return
+  }
+
+  guard let prevTemp = search(index: index-1) else{
+    node.next = head
+    head = node
+    return
+  }
+
+  guard let nextTemp = prevTemp.next else{
+    prevTemp.next = node
+    tail = node
+    return
+  }
+
+  node.next = nextTemp
+  prevTemp.next = node
+}
+```
 
 
 
+#### 노드 삭제하기
 
+```swift
+func remove(data: T){
+
+  let nodeToBeRemoved: Node<T> = search(data: data)
+  if(nodeToBeRemoved.data == head!.data){
+    self.head = head!.next
+    head!.prev = nil
+    return
+  }else if(nodeToBeRemoved.data == tail!.data){
+    self.tail = tail!.prev
+    tail!.next = nil
+    return
+  }
+
+  let prev: Node<T> = nodeToBeRemoved.prev!
+  let next: Node<T> = nodeToBeRemoved.next!
+  prev.next = next
+  next.prev = prev
+
+  nodeToBeRemoved.prev = nil
+  nodeToBeRemoved.next = nil
+}
+```
+
+​    
 
 - 최종적으로 완성된 LinkedList 클래스는 아래와 같다.
 
