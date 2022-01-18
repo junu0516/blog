@@ -44,10 +44,10 @@ func print() {
 ```swift
 func outer(){
   func print(_ name: String) {
-    print("Hello \(a)")
+    print("Hello \(name)")
   }
   var name: String = "Jed"
-	print(name)
+  print(name)
 }
 ```
 
