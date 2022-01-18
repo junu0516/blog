@@ -195,6 +195,8 @@ date = "2021-10-23"
 
 ## 5. Linkers and Loaders
 
+<img src="https://user-images.githubusercontent.com/68586291/149954302-7ea88267-6ae1-4409-8771-b07073789f6f.png" alt="image" style="zoom:70%">
+
 - 보통 CPU 상에서 프로그램을 돌리고자 한다면, 프로그램을 메모리에 올려 실행 가능한 프로세스 상태가 되도록 해야 함
 
 - 여러 프로그래밍 언어로 된 소스 파일(__`source files`__)들이 컴파일 되어 목적 파일(__`object file`__)이 되며, 이것이 물리적인 메모리 위치에 로드되는 것
@@ -202,6 +204,43 @@ date = "2021-10-23"
   (*source files are compiled into object files that are designed to be loaded into any physical memory location, a format known as relocatable object file*)
 
 - 이후 링커(__`linker`__) 라고 불리는 것이 이러한 목적 파일들을 합쳐 하나의 실행 가능한 바이너리 파일(__`single binary executable file`__) 로 만들어줌
-  - 이러한 링킹 과정에서 여러 목적 파일 혹은 라이브러리가 하나로 합쳐지는 것
-  - 가령 자바 파일이 컴파일된 경우라면, java.util 라이브러리와 같이 자동으로 제공되는 것들이 사용자에 의해 만들어진 파일과 합쳐짐
-- 로더(__`loader`__)는 이러한 바이터리 파일을 메모리에 올리는 역할을 수행하며, 이후 CPU 자원을 사용하여 실행 가능한 상태가 되는 것
+  - 링커가 작용하는 과정에서 여러 목적 파일 혹은 라이브러리가 하나로 합쳐짐
+
+    (*During the linking phase, other object files or libraries may be included as well, such as the standard C or math library*)
+
+  - 가령 자바 파일이 컴파일된 경우라면, java.util 라이브러리와 같이 자동으로 제공되는 것들이 사용자에 의해 만들어진 파일과 합쳐는 경우를 생각하면 됨
+
+- 로더(__`loader`__)는 이러한 바이너리 파일을 메모리에 올리는 역할을 수행하며, 이후 CPU 자원을 사용하여 실행 가능한 상태가 되는 됨
+
+- 링커와 로더가 작용하는 과정을 __`relocation`__ 이라고도 표현하며, 프로그램의 실행을 위한 모든 코드 및 기타 라이브러리 등의 데이터가 하나로 합쳐져 프로그램의 최종적인 주소값이 할당되는 것을 의미함
+
+- 따라서 프로세스(__`process`__) 는 이러한 실행 가능한 파일에 필요한 라이브러리들이 연결되있고 이것이 메모리에 적재된 것으로 표현할 수 있음
+
+  - 대부분의 시스템은 프로그램이 메모리에 로드되면 동적으로 라이브러리를 연결시키도록 되어있음
+
+  - 윈도우를 예로 들면, DLL 형식의 파일을 지원하는데 이는 런타임 시점에 필요한 경우에만 라이브러리가 실행파일의 일부분이 된다는 이점이 있음
+
+    (*The benefit of this approach is that it avoids linking and loading libraries that may end up not being used into an executable file. Instead, the library is conditionally linked and is loaded if its is required during program run time*)
+
+<br>
+
+## 6. Why Applications Are Operating-System Specific
+
+- 일반적으로 하나의 운영체제 하에서 컴파일된 어플리케이션은 다른 운영체제 환경에서 실행 불가능함
+- 여러 운영체제들이 각자의 시스템 호출을 가지거나 어플리케이션의 바이너리 형식을 읽어들이는 방식이 다르는 등  환경이 상이하기 때문
+- 만일 복수의 운영체제 환경에서 실행가능한 파일이라면 아래의 이유로 인한 것임을 유추해볼 수 있음
+
+***
+
+1. 어플리케이션이 파이썬이나 루비같은 인터프리터 언어로 쓰여진 경우
+   - 인터프리터가 기본적으로 복수의 운영체제에서 사용 가능하며, 인터프리터가 코드를 읽어들이면서 현재 운영체제에 알맞은 시스템 호출을 일으키는 것
+   - 단, 환경마다 퍼포먼스가 상이할 수 있다는 점을 고려해야 함
+2. 어플리케이션이 자바와 같이 가상머신(자바의 경우 __`JVM`__) 환경에서 실행되는 언어로 쓰여진 경우
+   - 자바의 경우 런타임 환경에 로더(__`lodaer`__)와 바이트 코드 검증기(__`byte-code verifier`__) 및 자바 가상 머신에 자바 어플리케이션을 올리는 기타 다른 요소 등이 포함되어 있음
+   - 이러한 런타임 환경이 위에서의 인터프리터와 유사하게 자바 어플리케이션이 복수의 운영체제 환경에서 실행되는 것을 가능하게 하는 것
+3. 이 외에 개발자가 복수의 운영체제 환경을 염두에 두고 각 환경에서 실행 가능한 코드를 작성하는 것
+
+***
+
+
+
