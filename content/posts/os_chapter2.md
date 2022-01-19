@@ -287,7 +287,7 @@ date = "2021-10-23"
 
 ​    
 
-### 7-3 Microkernels
+### 7-3. Microkernels
 
 <img src="https://user-images.githubusercontent.com/68586291/150077270-63d3798b-f4ac-4d65-9da3-7170dbafba3c.png" alt="image" style="zoom:80%"/>
 
@@ -300,12 +300,33 @@ date = "2021-10-23"
 - 이러한 마이크로커널 방식은 우선 계층화와 마찬가지로 운영체제의 규모 확장을 더욱 쉽게 한다는 이점이 있음.
   - 모든 새로운 서비스는 유저 공간에 추가되며 여기서 커널의 수정은 필요 없기 때문
   - 또한 커널의 수정이 필요한 경우에 수정해야 될 것들의 양도 상대적으로 적음
-- 또한 
-- 대표적인 마이크로 커널 방식의 예로 애플 운영체제에서 사용하는 __`Darwin`__ 이 있음
-  - 두 개의 커널로 구성되며 여기서 하나가 __`Mach`__ 마이크로 커널임
-- 
+- 또한 대부분의 서비스가 유저 레벨에서 동작하기 대문에 커널 자체의 보안 및 신뢰성의 제고라는 이점이 있음
+- 하지만 이러한 마이크로커널 방식은 __`system-function`__ 의 오버헤드 증가로 인한 퍼포먼스 문제가 존재한다는 한계 또한 있음
+  - 예를 들어 2개의 유저 레벨 서비스가 서로 커뮤니케이션할 경우 서로 다른 메모리 공간 사이에 복수의 메시지가 전달되는데 마이크로커널의 경우 대부분의 기능이 유저 레벨에 존재하기 때문에 오버헤드가 당연히 많을 수 밖에 없는 것
+  - 이는 꽤나 중요한 문제라 윈도우의 경우 초기 버전에서 진화할수록 점점 마이크로커널이 아닌 모놀리식 방식으로 변모하게 되었음
 
+​    
 
+### 7-4. Modules
 
+- 위에서 언급된 각 방식의 단점을 종합하여 오늘날 제일 많이 사용되는 것은 __`lodable kernel modules(LKMs)`__ 라 불리는, 동적으로 커널 모듈이 추가되는 방식임
 
+- 이는 간단히 말해 커널은 핵심 기능만 수행하고 나머지는 동적으로 모듈이 추가되는 것을 의미함
 
+- 커널이 동작하고 있으면 링킹 시스템이 필요에 따라 동적으로 새로운 기능을 커널에 직접 추가하며, 커널이 변경될 때마다 컴파일을 다시 하는 방식임
+
+- 이는 커널이 섹션별로 여러 인터페이스로 분리된다는 점에서 계층화와 비슷해 보이지만, 여러 모듈이 아무나 서로 호출할 수 있다는 점에서 더욱 융통성 있음
+
+  (*The overall result resembles a layered system in that each kernel section has defined, protected interfaces; but it is more flexible than a layered system, because any module can call any other modules*)
+
+- 또한 주요 모듈이 주 기능을 가진 상태에서 다른 모듈과 상호작용하기 때문에 마이크로커널과 유사해 보이지만, 메시지 전달(__`Message Passing`__) 과정을 수반하지 않기 때문에 더욱 효율적임
+
+  (*The approach is also similar to the microkernel approach in that the primary module has only core functions and knowledge of how to load and communicate with other modules; but it is more efficient, because modules do not need to invoke message passing in order to communicate.*)
+
+- 리눅스가 LKMs를 적용한 대표적인 운영체제임
+
+<br>
+
+## Reference
+
+- Abraham Silberschatz, Greg Gagne, Peter B. Galvin *__Operating System Concepts__* , Wiley
