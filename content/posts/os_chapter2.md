@@ -50,7 +50,7 @@ date = "2021-10-23"
 
 ## 3. System Calls
 
-<img src="https://user-images.githubusercontent.com/68586291/138590591-08befe07-22e7-4e7e-bed1-76f34bceffbb.png" alt="image" style="zoom:120%;" />
+<img src="https://user-images.githubusercontent.com/68586291/138590591-08befe07-22e7-4e7e-bed1-76f34bceffbb.png" alt="image" style="zoom:150%;" />
 
 - __시스템 호출__ 로 해석하며, 운영체제의 __`커널(kernel)`__ 이 제공하는 서비스에 대해, 응용 프로그램의 여러 요청에 따른 커널 접근을 위한 인터페이스를 말함
 - 보통 C, C++과 같은 언어로 쓰여있으며, 일부 low-level task에 대해서는 어셈블리어로 쓰여있기도 함
@@ -72,7 +72,7 @@ date = "2021-10-23"
 
 - 같은 API를 지원하는 시스템 어디에서나 동일한 어플리케이션의 동작을 기대할 수 있으며, 실제 시스템 호출이 복잡할 경우에는 간단한 API 명령 호출로 이를 대체할 수 있음
 
-  <img src="https://user-images.githubusercontent.com/68586291/138591002-783472e5-96fc-4f51-9a39-b4ed8066299a.png" alt="image" style="zoom:120%;" />
+  <img src="https://user-images.githubusercontent.com/68586291/138591002-783472e5-96fc-4f51-9a39-b4ed8066299a.png" alt="image" style="zoom:150%;" />
 
 - __`Run-time Environment(RTE)`__ : 프로그램이 실행되고 있는 동안의 동작을 의미하며, 이를 위한 프로그래밍 언어, 컴파일러, 라이브러리 등의 개념을 모두 포함함
 
@@ -93,7 +93,7 @@ date = "2021-10-23"
 
   *The simplest appraoct is to pass the parameters in registers. In some cases, however, there may be more parameters than registers. In these caes, the parameters are generally stored in a block, or table, in memory, and the address of the block is passed as a parameter in a register.*
 
-  <img src="https://user-images.githubusercontent.com/68586291/138592060-9797fd71-7607-4e88-9eac-5d87e94618c2.png" alt="image" style="zoom:130%;" />
+  <img src="https://user-images.githubusercontent.com/68586291/138592060-9797fd71-7607-4e88-9eac-5d87e94618c2.png" alt="image" style="zoom:150%;" />
   
   - 파라미터의 전달은 __`stack`__ 에서의 pop & push 과정을 통해 일어남
 
@@ -195,7 +195,7 @@ date = "2021-10-23"
 
 ## 5. Linkers and Loaders
 
-<img src="https://user-images.githubusercontent.com/68586291/149954302-7ea88267-6ae1-4409-8771-b07073789f6f.png" alt="image" style="zoom:70%">
+<img src="https://user-images.githubusercontent.com/68586291/149954302-7ea88267-6ae1-4409-8771-b07073789f6f.png" alt="image" style="zoom:80%">
 
 - 보통 CPU 상에서 프로그램을 돌리고자 한다면, 프로그램을 메모리에 올려 실행 가능한 프로세스 상태가 되도록 해야 함
 
@@ -241,6 +241,71 @@ date = "2021-10-23"
 3. 이 외에 개발자가 복수의 운영체제 환경을 염두에 두고 각 환경에서 실행 가능한 코드를 작성하는 것
 
 ***
+
+<br>
+
+## 7. Operating-System Structure
+
+- 운영체제 구조의 제일 기본적인 접근은 커널이 모든 것을 포함하는 것이 아닌, 전체를 여러 모듈로 나눠 접근하는 방식임
+- 코드로 치면 모든 로직이 __`main()`__ 안에 있는 것이 아니라, 모듈화를 한 후 여러 함수를 __`main()`__ 에서 필요에 따라 조합하여 호출하는 방식인 것
+- 여러 부분이 커널에 합쳐지는 방식에는 여러 가지가 있음
+
+​    
+
+### 7-1. Monolithic Structure
+
+<img src="https://user-images.githubusercontent.com/68586291/150074426-a46be681-a57e-47ad-bf58-b8424e12ca9a.png" alt="image" style="zoom:70%"/>
+
+- 커널은 일반적으로 시스템 호출을 통해 파일 시스템, CPU 스케쥴링, 메모리 관리 등의 기능을 수행함
+- 모놀리식 구조는 단일형 구조를 의미하며, 제일 간단한 접근 방식으로 모듈화 없이 운영체제의 기능이 단일한 메모리 공간 위에서 동작하도록 하는 방식임
+  - 오리지널 유닉스 구조가 이런 방식이며, 크게 커널과 시스템 프로그램의 두 부분으로 나뉜 형태였음
+  - 이러한 구조였던 것이 유닉스가 진화하면서 커널이 여러 디바이스 드라이버와 인터페이스로 나뉘어 추가 및 확장되온 것
+- 구조상으로는 단일한 것이 제일 간단하지만 기능을 확장시키는 것이 힘들다는 단점이 있음
+
+​    
+
+### 7-2. Layered Approach
+
+<img src="https://user-images.githubusercontent.com/68586291/150077110-4d3ca11e-a91a-487b-802a-de09b33593ee.png" alt="image" style="zoom:80%">
+
+- 단일형 구조가 tightly-coupled한 특징이 있다면, 전체를 부분으로 나누는 모듈화 구조는 loosely-coupled한 특징이 있음
+
+  - 각각의 고유한 기능을 가진 부분으로 전체를 나누어 접근하는 방식이며, 각각의 모듈에 변화가 있더라도 다른 모듈에는 영향을 미치지 않음
+
+- 이러한 모듈화를 구현하는 대표적인 방식이 계층화로, 보통 제일 낮은 계층이 하드웨어이고 제일 높은 계층이 유저 인터페이스에 해당함
+
+- 운영 체제 계층은 데이터와 데이터를 조작하는 작업으로 구성된 추상 객체의 구현임
+
+  (*An operating-system layer is an implementation of an abstract object amde up of data and the operations that can manipulate those data*)
+
+- 계층화된 접근의 제일 주요한 장점은 모듈화가 간단하다는 점과, 디버깅하기 유리하다는 점임
+
+  - 모듈이 순차적으로 계층화되있기 때문에, 특정 기능에 문제가 있으면 계층별로 서로 독립적이기 때문에 하위부터 상위로 순서대로 살펴보면 되기 때문
+  - 이러한 계층화 구조가 제일 많이 적용된 것이 __`TCP/IP`__ 등과 같은  네트워크 프로토콜 혹은 이를 적용한 웹 어플리케이션임
+
+- 하지만 이러한 장점에도 불구하고 기능별로 계층을 구분하는 것의 어려움으로 인해 소수의 운영 체제만이 완전한 계층화를 채택하고 있음
+
+​    
+
+### 7-3 Microkernels
+
+<img src="https://user-images.githubusercontent.com/68586291/150077270-63d3798b-f4ac-4d65-9da3-7170dbafba3c.png" alt="image" style="zoom:80%"/>
+
+- 단일 구조에서 언급했듯, 유닉스가 진화하면서 커널의 규모가 점점 크고 다루기가 어려워짐에 따라 단일 구조로 관리하기가 어려워졌음
+- 1980년대 중반 카네기 멜론 대학의 연구자들은 __`Mach`__ 이라고 불리는 운영체제를 개발했는데, 이는 마이크로 커널이라 불리는 모듈화된 커널을 적용한 운영체제였음
+- 이는 운영체제에서 필수적이지 않는 부분을 커널에서 모두 제거해서 별도의 유저 레벨의 메모리 공간에서 커널과 함께 동작하도록 한 방식임
+- 따라서, 커널의 규모는 결과적으로 더 작아졌기 때문에 마이크로 커널이라 불리게 된 것이며, 마이크로 커널은 커뮤니케이션과 최소한의 프로세스와 메모리 관리만을 제공함
+  - 여기서 __커뮤니케이션__ 은 마이크로 커널이 클라이언트 프로그램과 여러 서비스들 간에 메시지 전달(__`Message Passing`__)을 통해 이루어지는 것을 의미
+  - 예를 들어 클라이언트 프로그램이 특정 파일에 접근하고자 한다면, 파일 서버와 프로그램 간에 서로 이를 위한 메시지를 주고받게 되는 것
+- 이러한 마이크로커널 방식은 우선 계층화와 마찬가지로 운영체제의 규모 확장을 더욱 쉽게 한다는 이점이 있음.
+  - 모든 새로운 서비스는 유저 공간에 추가되며 여기서 커널의 수정은 필요 없기 때문
+  - 또한 커널의 수정이 필요한 경우에 수정해야 될 것들의 양도 상대적으로 적음
+- 또한 
+- 대표적인 마이크로 커널 방식의 예로 애플 운영체제에서 사용하는 __`Darwin`__ 이 있음
+  - 두 개의 커널로 구성되며 여기서 하나가 __`Mach`__ 마이크로 커널임
+- 
+
+
 
 
 
