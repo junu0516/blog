@@ -2,7 +2,7 @@
 
 +++
 
-title = "스위프트 클로저 개념 정리"
+title = "스위프트 클로저 개념 정리(작성중)"
 tags = ["swift"]
 categories = ["Swift&Ios"]
 date = "2022-01-15"
@@ -19,7 +19,7 @@ date = "2022-01-15"
 
 ​    
 
-<img src="https://camo.githubusercontent.com/073d4db3e63450a4287978fd866b98ab9816dd2040cb87ef5395ec5a2f9a732e/68747470733a2f2f7377696674756e626f7865642e636f6d2f696d616765732f636c6f737572652d6573636170652e706e67" alt="image" style="zoom:35%"/>    
+<img src="https://camo.githubusercontent.com/073d4db3e63450a4287978fd866b98ab9816dd2040cb87ef5395ec5a2f9a732e/68747470733a2f2f7377696674756e626f7865642e636f6d2f696d616765732f636c6f737572652d6573636170652e706e67" alt="image" style="zoom:33%"/>    
 
 ​    
 
@@ -63,7 +63,9 @@ let num: Int = {return 0}
 
 ​    
 
-## 2. 기본적인 클로저 사용
+## 2. 클로저 사용하기
+
+### 2-1. 기본적인 클로저 사용하기
 
 우선, 클로저의 표현은 기본적으로 아래의 형식을 따른다.
 
@@ -104,6 +106,50 @@ mutating func sort(by areInIncreasingOrder: (Element, Element) throws -> Bool) r
 ```
 
 여기서 파라미터의 타입으로 __`(Element, Element) throws -> Bool`__ 이 선언된 것을 볼 수 있는데, 이는 2개의 인자를 받아 Bool 타입을 리턴하는 클로저를 해당 함수가 인자(by)로 받음을 의미한다. 클로저가 함수의 인자로 전달되는 대표적인 예인 것이다.
+
+​    
+
+### 2-2. 후행 클로저 사용하기
+
+스위프트에서는 __`후행 클로저(Trailing Closure)`__ 를 사용할 수 있다. 함수의 마지막 인자에 클로저가 위치할 때, 소괄호를 닫은 후 클로저를 작성해도 되는 것인데 클로저의 길이가 길거나 괄호 안에 모든 인자를 명시하기에 가독성이 떨어진다 싶을 때 유용하다.
+
+위의 __`sort()`__ 의 인자로 클로저를 넘길 때, 후행 클로저를 사용하면 아래와 같이 코드를 작성할 수 있다.
+
+```swift
+//기본 클로저
+arr.sort(by:{return $0>$1})
+
+//후행 클로저
+arr.sort(){return $0>$1}
+```
+
+또한, 하나의 클로저만 인자로 전달할 경우에는 함수의 소괄호를 생략해도 된다.
+
+```swift
+arr.sort{$0>$1}
+```
+
+​    
+
+주의할 점은 후행 클로저로 사용 가능한 클로저는 __전달인자의 맨 마지막에 위치한 것들만 가능하다는 점이다.__ 따라서 여러 개의 클로저를 인자로 전달할 경우에는 맨 마지막 클로저만 후행 클로저 형식으로 사용할 수 있다.
+
+아래와 같이 클로저를 인자로 받는 함수가 존재한다고 가정해보자.
+
+```swift
+func calculate(_ a: Int, _ b: Int, _ increment:(Int, Int)-> Int,  _ subtract: (Int, Int) -> Int) -> Int {
+  let left = increment(a,b)
+  let right = subtract(a,b)
+  return left+right
+}
+
+var result = calculate(1,2,{$0+$1},{$0-$1})
+print(result)
+//2
+```
+
+​    
+
+### 2-3. 클로저를 간단하게 표현하기
 
 ​    
 

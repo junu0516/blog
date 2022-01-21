@@ -1,7 +1,7 @@
 
 
 +++
-title = "Operating System Concepts - Chapter 3 요약"
+title = "Operating System Concepts - Chapter 3 요약(작성중)"
 tags = ["운영체제"]
 categories = ["Computer Science"]
 date = "2022-01-18"
