@@ -90,13 +90,13 @@ let num: Int = {return 0}
 var arr: [Int] = [1,3,2,5,4]
 ```
 
-위와 같은 정수 배열에서 __`arr.sort()`__ 를 실행하면 배열이 [1,2,3,4,5]로 자동 정렬될 것이다.
-
-이를 별도의 정렬 기준을 전달해서 내림차순으로 바꾸고 싶다면 아래와 같이 작성하면 된다. 여기서 인자로 넘긴 __`{return $0>$1}`__ 은 $0이 $1보다 큰 지 여부를 Bool 타입으로 리턴하는 클로저이다. 
+위와 같은 정수 배열에서 __`arr.sort()`__ 를 실행하면 배열이 [1,2,3,4,5]로 자동 정렬될 것이다. 이를 별도의 정렬 기준을 전달해서 내림차순으로 바꾸고 싶다면 아래와 같이 작성하면 된다. 
 
 ```swift
 //내림차순 정렬
-arr.sort(by:{return $0>$1})   
+arr.sort(by:{(_ a: Int,_ b: Int)->Bool in
+	return a>b
+})
 ```
 
 애플의 [공식 문서](https://developer.apple.com/documentation/swift/array/2296801-sort)를 보면 __`sort()`__ 의 정의를 아래와 같이 설명하고 있다.
@@ -117,16 +117,22 @@ mutating func sort(by areInIncreasingOrder: (Element, Element) throws -> Bool) r
 
 ```swift
 //기본 클로저
-arr.sort(by:{return $0>$1})
+arr.sort(by:{(_ a: Int,_ b: Int)->Bool in
+	return a>b
+})
 
 //후행 클로저
-arr.sort(){return $0>$1}
+arr.sort(){(_ a: Int,_ b: Int)->Bool in
+	return a>b
+}
 ```
 
 또한, 하나의 클로저만 인자로 전달할 경우에는 함수의 소괄호를 생략해도 된다.
 
 ```swift
-arr.sort{$0>$1}
+arr.sort{(_ a: Int,_ b: Int)->Bool in
+	return a>b
+}
 ```
 
 ​    
@@ -142,14 +148,92 @@ func calculate(_ a: Int, _ b: Int, _ increment:(Int, Int)-> Int,  _ subtract: (I
   return left+right
 }
 
-var result = calculate(1,2,{$0+$1},{$0-$1})
+//마지막 인자를 괄호밖으로 빼줬음
+var result = calculate(1,2,{$0+$1}){$0-$1}
 print(result)
 //2
+```
+
+위의 코드에서 __`calculate()`__ 의 마지막 인자인 __`subtract()`__ 에 해당하는 클로저를 소괄호 밖으로 빼줬다. __`sort()`__ 예시와의 차이는 __`calculate()`__ 는 전달인자의 개수가 여러개이다. 따라서 맨 마지막 클로저만 후행 클로저로 사용하되, 나머지 인자들의 존재로 인해 소괄호는 생략하지 못한 것이다.
+
+​    
+
+클로저가 여러개인 경우에는 __`다중 후행 클로저(Multiple Trailing Closure)`__ 문법을 사용할 수 있다. [애플 공식 문서](https://docs.swift.org/swift-book/LanguageGuide/Closures.html) 에서는 다음과 같은 상황에 다중 후행 클로저를 사용할 수 있다고 설명하고 있다. 아래와 같은 함수가 존재한다고 가정해보자.
+
+```swift
+func loadPicture(from server: Server, completion: (Picture) -> Void, onFailure: () -> Void) {
+  if let picture = download("photo.jpg", from: server) {
+    completion(picture)
+  } else {
+    onFailure()
+  }
+}
+```
+
+__`loadPicture()`__ 은 서버로부터 jpg 파일을 다운받아(__`download()`__)서 성공할 경우에는 __`completion()`__ 을 호출하고, 그렇지 않을 경우에는 __`onFailure()`__ 을 호출하는 함수이다. 특정 로직의 성공, 실패에 따라 각기 다른 처리를 클로저를 통해 명시하는 것이다.
+
+이를 다중 후행 클로저를 통해 호출하면 아래와 같이 __첫 번째 클로저의 이름은 생략한 채로 전달 인자를 명시하는 소괄호 밖에 여러 개의 중괄호를 열고 닫음으로써 각 클로저를 표현할 수 있다.__
+
+```swift
+loadPicture(from: someServer) { picture in
+	someView.currentPicture = picture //completion()에 해당함
+} onFailure: {
+  print("Couldn't download the next picture.")
+}    
 ```
 
 ​    
 
 ### 2-3. 클로저를 간단하게 표현하기
+
+위에서 살펴봤듯이 함수의 인자로 클로저를 전달할 때는, __함수에서 정의한 대로 전달인자와 리턴타입을 지켜야 한다.__ 따라서 함수를 호출했을 때 컴파일 오류 없이 클로저가 잘 전달되었다는 것은 __클로저가 형식을 제대로 지켰음을 의미한다.__ 문맥에 따라 넘겨진 클로저의 인자 타입과 리턴 타입 등을 유추할 수 있는 것이다.
+
+2-1에서 다룬 __`Array.sort()`__ 를 다시 살펴보면 아래와 같은 형식으로 클로저를 인자로 넘길 것을 정의하고 있다.
+
+```swift
+sort(by areInIncreasingOrder: (Element, Element) throws -> Bool)
+```
+
+ 여기서 클로저의 인자타입인 (Element, Element) 와 리턴타입 ->Bool 모두 문맥에 따라 유추 가능한 부분이다. 그래서 아래와 같이 이를 모두 생략한 채로 함수를 호출하는 것이 가능하다.
+
+```swift
+//before
+arr.sort(by:{(_ a: Int,_ b: Int)->Bool in
+	return a>b
+})
+
+//after
+arr.sort{(a,b) in
+	return a>b
+}
+```
+
+​    
+
+위의 코드에서 간략화된 부분을 보면 클로저의 전달인자 타입과 리턴타입을 생략했지만 여전히 전달 인자명인 __`a`__ , __`b`__ 가 반복적으로 사용되고 있다. 스위프트는 이러한 부분 역시 __단축 인자의 사용을 통해 인자의 이름을 일일히 사용하지 않아도 되도록 하고 있다.__
+
+```swift
+//before
+arr.sort{(a,b) in
+	return a>b
+}
+
+//after
+arr.sort{ $0>$1 }
+```
+
+첫번째 전달인자부터 시작해서 $0, $1의 순서로 전달인자의 이름을 달러기호(__`$`__)와 숫자의 조합으로 표현하여 대체한 것이다. 이렇게 단축 인자를 사용하게 되면 클로저 내에서 전달 인자 부분을 표시할 필요가 없어지므로 자연스레 __`in`__ 키워드 역시 사용할 필요가 없어진다.
+
+또한 마지막으로 __`return $0>$1`__ 과 같이 단 한줄의 실행문만 남은 경우라면 __`return`__ 도 생략할 수 있다.(마지막 실행문의 결과값이 리턴값이 되는 것으로 유추 가능하기 때문이다.)
+
+​    
+
+살펴본 클로저 문법의 축약법은 아래와 같이 요약할 수 있다.
+
+- 클로저의 전달인자 타입과 리턴 타입을 생략할 수 있다.
+- 전달인자 이름은 인자들이 선언된 순서대로 $0,$1과 같이 단축 인자로 대체할 수 있다.
+- 단축 인자를 사용할 경우 전달인자를 명시하지 않아도 되며 __`in`__ 키워드를 생략할 수 있다.
+- 위의 세 가지를 적용했을 때 한 줄의 실행문만 남으면 __`return`__ 키워드 역시 생략 가능하다.
 
 ​    
 
@@ -157,5 +241,4 @@ print(result)
 
 - 스위프트 프로그래밍: Swift 5(3판) - 야곰, 한빛미디어
 - [Swift) 클로저(Closure) 정복하기(1/3) - 클로저, 누구냐 넌](https://babbab2.tistory.com/81)
-
-- 
+- [애플 스위프트 공식문서](https://docs.swift.org/swift-book/LanguageGuide/Closures.html)
