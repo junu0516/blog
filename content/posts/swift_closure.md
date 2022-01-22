@@ -2,7 +2,7 @@
 
 +++
 
-title = "스위프트 클로저 개념 정리(작성중)"
+title = "스위프트 클로저 개념 정리"
 tags = ["swift"]
 categories = ["Swift&Ios"]
 date = "2022-01-15"
