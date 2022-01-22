@@ -122,8 +122,19 @@ header .header {
         min-width: 30vh !important;
     }
     .container-lg{
+        padding-left: 0 !important;
         padding-right: 0 !important;
     } 
+}
+
+@media screen and (max-width: 768px){
+    .container-lg {
+        padding-left: 0 !important;
+        padding-right: 1rem !important
+    }  
+    .post-title{
+        font-size: 1.5rem !important;
+    }
 }
 
 .sidebar-item>h3{
@@ -132,7 +143,8 @@ header .header {
 }
 
 .container-lg{
-    padding-right: 3rem !important;
+    padding-left: 4rem;
+    padding-right: 3rem;
     max-width: 1350px !important;
 }
 
