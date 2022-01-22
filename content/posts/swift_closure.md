@@ -237,6 +237,63 @@ arr.sort{ $0>$1 }
 
 ​    
 
+## 3. 값 획득(Capturing Values)
+
+스위프트에서 클로저는 주변 문맥으로부터 상수나 변수를 획득하여 이를 내부에서 참조하거나 수정할 수 있다. 이럴 경우 상수나 변수가 정의된 기존의 블록이 메모리상에 존재하지 않는다 해도 해당 상수 및 변수의 참조는 여전히 가능하다.
+
+​    
+
+이러한 주변 문맥에서 값을 획득하는 것이 적용된 대표적 예가 중첩함수(내부함수)의 사용이다. 아래 코드를 통해 살펴보자
+
+```swift
+func makeIncrementer(forIncrement amount: Int) -> () -> Int{
+  var runningTotal=0
+  func incrementer() -> Int{
+    runningTotal += amount
+    return runningTotal
+  }
+  return incrementer
+}
+```
+
+__`makeIncrementer()`__ 의 리턴타입은 __`()->Int`__ , 즉 전달인자 없이 정수타입을 리턴하는 클로저이다. 내부에 __`incrementer()`__ 이라는 함수가 선언되있고, 이는 외부에서 __`runningTotal`__ 와 __`amount`__ 값을 참조하여 수정된 __`runningTotal`__ 값을 리턴한다. 이후 내부에 선언된 __`incrementer()`__ 이 최종적으로 __`makeIncrementer()`__ 의 리턴값이 된다. 함수도 클로저의 한 형태라는 점에서, 내부의 클로저가 외부로부터 변수를 획득하여 내부에서 수정한 것이다.
+
+만일, 아래와 같이 내부의 __`incrementer()`__ 함수를 외부로 뺄 경우에는 겉으로만 봤을 때 문법적으로 이상한 코드가 된다. 아무런 전달 인자도 없기 때문에 내부에서 참조하고자 하는 __`runningTotal`__ 과 __`amount`__ 의 값이 어디있는 지 모르기 때문이다.
+
+```swift
+func incrementer()-> Int{
+  //블록 내에서 runningTotal, amount값을 찾을 수 없음
+  runningTotal += amount
+  return runningTotal
+}
+```
+
+하지만 __`makeIncrementer()`__ 의 내부함수 형태와 같이 블록 주변에 __`runningTotal`__ 과 __`amount`__ 가 정의되있다면 참조를 획득할 수 있다. 다시 말해, __`makeIncrementer()`__ 의 호출이 끝나더라도, 내부에 있던 __`runningTotal`__ 과 __`amount`__ 의 참조는 사라지지 않았기 때문에 이후에 __`incrementer()`__ 이 호출되더라도 계속해서 사라지지 않은 기존 값을 사용할 수 있는 것이다. 
+
+아래의 예를 통해 살펴보자. 
+
+```swift
+let incrementByTwo: (() -> Int) = makeIncrementer(forIncrement: 2)
+let first: Int = incrementByTwo()
+let second: Int = incrementByTwo()
+let third: Int = incrementByTwo()
+print(first)//2
+print(second)//4
+print(third)//6
+```
+
+__`incrementByTwo`__ 는 __`runningTotal`__ 값이 0인 상태에서  __`inrementer()`__ 를 참조하고 있다.(함수가 객체처럼 취급되어 변수에 할당된 것이다.) 이후 __`first`__ , __`second`__ , __`third`__ 에 __`incrementByTwo()`__ 를 순서대로 호출하여 리턴한 값을 할당하면 차례 대로 2,4,6이 할당된 것을 확인할 수 있다.
+
+이는 __`incrementer()`__ 이 세 번 호출된 것인데 각 차례마다 앞에서 수정된  __`runningTotal`__ 값을 참조하고 있기 때문에 2->4->6의 순서대로 값이 변화한 것이다. __`makeIncrementer()`__ 의 호출은 끝났지만 각각 인자와 내부에 선언된 값이던 __`amount`__ 와 __`runningTotal`__ 의 참조는 살아있었기 때문에 __`incrementer()`__ 이 호출될 때마다 살아있던 참조값을 획득하여 다시 값을 수정한 것이다.  
+
+​     
+
+위에서 살펴본 값 획득 예를 통해 하나 더 알 수 있는 사실은, __스위프트에서 클로저는 참조 타입(Closures are reference types)__ 라는 것이다.
+
+__`incrementByTwo`__ 라는 상수에 __`makeIncrementer()`__ 이라는 함수를 할당한 것은 결국 이것이 리턴하는 클로저인 __`incrementer()`__ 을 할당한 것인데, 여기서 클로저를 값으로써 할당한 것이 아닌 맨  클로저의 참조를 할당한 것이다. 따라서 상수 __`first`__ , __`second`__ , __`third`__ 는 __`makeIncrementer()`__ 이 맨 처음 리턴했던 클로저를 동일하게 가리키고 있던 것이다. 이로 인해 __`incrementer()`__ 이 세 번 호출되면서 결과적으로 동일한 __`runningTotal`__ , __`amount`__ 이 참조하는 값을 가져와 쓸 수 있던 것임을 알 수 있다.
+
+​     
+
 ## Reference
 
 - 스위프트 프로그래밍: Swift 5(3판) - 야곰, 한빛미디어
