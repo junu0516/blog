@@ -290,7 +290,7 @@ __`incrementByTwo`__ 는 __`runningTotal`__ 값이 0인 상태에서  __`inremen
 
 위에서 살펴본 값 획득 예를 통해 하나 더 알 수 있는 사실은, __스위프트에서 클로저는 참조 타입(Closures are reference types)__ 라는 것이다.
 
-__`incrementByTwo`__ 라는 상수에 __`makeIncrementer()`__ 이라는 함수를 할당한 것은 결국 이것이 리턴하는 클로저인 __`incrementer()`__ 을 할당한 것인데, 여기서 클로저를 값으로써 할당한 것이 아닌 맨  클로저의 참조를 할당한 것이다. 따라서 상수 __`first`__ , __`second`__ , __`third`__ 는 __`makeIncrementer()`__ 이 맨 처음 리턴했던 클로저를 동일하게 가리키고 있던 것이다. 이로 인해 __`incrementer()`__ 이 세 번 호출되면서 결과적으로 동일한 __`runningTotal`__ , __`amount`__ 이 참조하는 값을 가져와 쓸 수 있던 것임을 알 수 있다.
+__`incrementByTwo`__ 라는 상수에 __`makeIncrementer()`__ 이라는 함수를 할당한 것은 결국 이것이 리턴하는 클로저인 __`incrementer()`__ 을 할당한 것인데, 여기서 클로저를 값으로써 할당한 것이 아닌 클로저의 참조를 할당한 것이다. 따라서 상수 __`first`__ , __`second`__ , __`third`__ 는 __`makeIncrementer()`__ 이 맨 처음 리턴했던 클로저를 동일하게 가리키고 있던 것이다. 이로 인해 __`incrementer()`__ 이 세 번 호출되면서 결과적으로 동일한 __`runningTotal`__ , __`amount`__ 이 참조하는 값을 가져와 쓸 수 있던 것임을 알 수 있다.
 
 ​     
 
