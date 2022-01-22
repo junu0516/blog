@@ -294,6 +294,74 @@ __`incrementByTwo`__ 라는 상수에 __`makeIncrementer()`__ 이라는 함수�
 
 ​     
 
+## 4. 탈출 클로저(Escaping Closure)
+
+함수의 전달인자로 클로저가 전달될 때, __함수 종료 후 클로저가 호출되는 경우를 가리켜 클로저가 함수를 탈출한다고 표현한다.__ 클로저는 기본적으로 클로저가 속한 함수 블록(스코프) 안에서만 사용할 수 있다.  따라서 함수의 호출이 종료된 후 클로저를 호출하는 것은 기본적으로 불가능하며, 클로저는 기본적으로 비탈출 클로저이다. 
+
+하지만 상황에 따라서 외부 변수가 함수 내부의 클로저값을 참조해야할 수도 있고, 함수의 호출이 종료된 이후에 클로저를 호출해야하는 경우가 있을 수도 있다. 스위프트에서는 탈출 클로저를 선언하여 클로저가 함수 밖을 탈출하도록 할 수 있다.
+
+​    
+
+클로저를 인자로 전달할 때 변수명 옆의 __`:`__ 뒤에 __`@escaping`__ 어노테이션을 붙여 탈출 클로저임을 명시할 수 있으며, 이후 해당 클로저는 함수 외부에서 사용 가능하게 된다. 
+
+클로저가 함수를 탈출한다는 것이 구체적으로 어떤 의미인지 살펴보도록 하자. 아래 코드는 클로저 타입의 외부 변수에 __`setClosure()`__ 을 통해 클로저를 할당하는 코드이다.
+
+```swift
+var someClosure: ()->Void = {}
+func setClosure(_ closure: ()->Void){
+  someClosure = closure
+}
+setClosure({print("hello")})
+someClosure()
+```
+
+위의 코드를 실행하려고 하면 Xcode에서 아래와 같은 메시지가 나타나는 것을 확인할 수 있을 것이다.
+
+```
+Assigning non-escaping parameter 'closure' to an @escaping closure
+```
+
+전달인자로 넘긴 __`closure`__ 은 탈출 클로저 선언을 하지 않았기 때문에 비탈출 클로저이다. 그런데 함수 외부의 __`someClosure`__ 에 __`closure`__ 이 참조하는 클로저값을 넘기는 것은 곧, 해당 클로저가 함수 외부로 호출될 수 있음을 의미하기 때문에 위의 코드는 전달인자로 넘긴 클로저를 탈출 클로저로 선언해야 한다. 
+
+```swift
+//탈출 클로저 선언
+func setClosure(_ closure: @escaping ()->Void){
+  someClosure = closure
+}
+```
+
+​    
+
+## 5. 자동 클로저(Auto Closure)
+
+자동 클로저는 함수의 전달 인자로 사용되는 코드를 자동으로 클로저로 만들어주는 것을 말한다. 자동 클로저의 사용은 탈출 클로저와 동일하게 함수 선언 시에 __`:`__ 옆에 __`@autoclosure`__ 를 선언을 통해 가능하다. 단, 자동 클로저로 사용하기 위한 클로저는 __인자가 없고 리턴값만 존재하는 형태여야 한다.__
+
+
+
+위에서 살펴본 __`setClosure()`__ 에 자동 클로저를 적용해보도록 하자.
+
+```swift
+var someClosure: ()->Void = {}
+func setClosure(_ closure: @escaping ()->Void){
+  someClosure = closure
+}
+setClosure({print("hello")})
+someClosure()
+```
+
+여기서 __`setClosure()`__ 을 호출하여 전달 인자로 {print("hello")} 라는 클로저를 넘겼다. __이는 전달인자는 없고 리턴값은 Void인 클로저이다.__ 여기서 __`closure`__ 를 아래와 같이 자동클로저를 적용하면 아래와 같이 __`setClosure()`__ 을 호출할 수 있다.
+
+```swift
+func setClosure(_ closure: @autoclosure @escaping ()->Void){
+  someClosure = closure
+}
+setClosure(print("hello"))
+```
+
+전달인자로 클로저를 넘길 때 중괄호__`{}`__ 없이 일반적인 코드를 넘기면 이를 알아서 감싸서 클로저로 처리해주는 것이다. 단, __자동 클로저는 기본적으로 비탈출클로저__ 이기 때문에 위와 같이 클로저를 탈출시키려면 __`@escaping`__ 을 같이 선언해야 한다.
+
+​    
+
 ## Reference
 
 - 스위프트 프로그래밍: Swift 5(3판) - 야곰, 한빛미디어
