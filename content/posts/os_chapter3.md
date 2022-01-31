@@ -1,7 +1,7 @@
 
 
 +++
-title = "Operating System Concepts - Chapter 3 요약(작성중)"
+title = "Operating System Concepts - Chapter 3 요약"
 tags = ["운영체제"]
 categories = ["Computer Science"]
 date = "2022-01-18"
@@ -45,7 +45,7 @@ date = "2022-01-18"
 
 ### 1-2. Process State
 
-<img src="https://user-images.githubusercontent.com/68586291/151744076-5dfe2474-a5c1-4368-a457-120ba7a7ca25.png" style="zoom:80%"/>
+<img src="https://user-images.githubusercontent.com/68586291/151744076-5dfe2474-a5c1-4368-a457-120ba7a7ca25.png" alt="image" style="zoom:80%"/>
 
 - 프로세스가 실행된다는 것은 프로세스의 상태(state)가 바뀐다는 것을 의미
 - 프로세스의 상태는 __`생성(New)`__ , __`실행(Running)`__ , __`대기(Waiting)`__ , __`준비(Ready)`__ , __`종료(Terminated)`__ 의 5가지로 나뉨
@@ -61,7 +61,7 @@ date = "2022-01-18"
 
 ### 1-3. Process Control Block
 
-<img src="https://user-images.githubusercontent.com/68586291/151744163-c3ffb8e7-2bf0-41d3-a198-e9f8001d61e3.png"  style="zoom:80%"/>
+<img src="https://user-images.githubusercontent.com/68586291/151744163-c3ffb8e7-2bf0-41d3-a198-e9f8001d61e3.png" alt="image"  style="zoom:80%"/>
 
 - 각각의 프로세스는 운영체제 상에서 프로세스 제어 블록(__`PCB`__) 으로 대표되며, 여기에는 개별 프로세스의 구체적인 정보들이 포함되어 있음
 - 프로세스 상태(__`Process State`__) : 바로 위에서 언급한 생성,준비,실행,대기,종료 등의 상태 정보
@@ -97,7 +97,7 @@ date = "2022-01-18"
 
 ### 2-1. Scheduling Queues
 
-<img src="https://user-images.githubusercontent.com/68586291/151747948-ff278869-4171-4c94-910e-38943facf6b2.png" style="zoom:80%"/>
+<img src="https://user-images.githubusercontent.com/68586291/151747948-ff278869-4171-4c94-910e-38943facf6b2.png" alt="image" style="zoom:80%"/>
 
 - 일단 프로세스가 실행을 위해 메모리에 올라가면 준비 큐(__`ready queue`__)에 올라가서 CPU 코어와 같은 자원을 배분받기 위해 기다리게 됨
 - 준비 큐 외에 대기 큐(__`wait queue`__) 라는 것도 존재하는데, 이는 특정 이벤트의 발생을 위해 대기 상태로 있는 프로세스들이 보관된 큐임
@@ -120,7 +120,7 @@ date = "2022-01-18"
 
 ### 2-3. Context Switch
 
-<img src="https://user-images.githubusercontent.com/68586291/151749614-e383fba0-2fd2-407c-b99a-e443298f7721.png" style="zoom:80%">
+<img src="https://user-images.githubusercontent.com/68586291/151749614-e383fba0-2fd2-407c-b99a-e443298f7721.png" alt="image" style="zoom:80%">
 
 - 앞에서 언급했듯이 인터럽트가 발생하면 운영체제는 CPU 코어를 현재 작업을 수행하던 것에서 커널 실행을 위한 모드를 바꾸도록 변경함
 - 이 경우 시스템 상에서 변경된 코어에서 실행중이던 프로세스의 상황 정보(__`context of process`__)를 추후 프로세스의 재개를 위해 저장해둘 필요가 있는데, 이는 프로세스 제어 블록에 저장됨
@@ -138,15 +138,62 @@ date = "2022-01-18"
 <img src="https://user-images.githubusercontent.com/68586291/151751565-26bda367-74f9-4ca7-af16-dc4e0ceb0abf.png" style="zoom:90%"/>
 
 - 프로세스가 새로운 프로세스를 생성할 수 있는데, 여기서 만드는 것이 부모 프로세스이고 만들어진 것이 자식 프로세스에 해당됨
+
   - 부모 프로세스가 자식 프로세스를 생성하는 과정은 위의 그림과 같이 결과적으로 트리 형태로 나타남
+
+- 유닉스 계열의 경우 보통 새로운 프로세스는 __`fork()`__ 시스템 호출을 통해 생성된 후 실행되며, 실행이 끝나면 __`exec()`__ 호출을 통해 실행이 끝났음을 알린 후 프로세스의 메모리 공간에 기존의 프로그램을 새로운 프로그램으로 대체하여 새로운 작업을 실행할 수 있도록 함
+
+  (*After a fork() system call, one of the two processes typically uses the exec() system call to replace the process's memory space with a new program.*)
+
 - 대부분의 운영체제는 여러 프로세스를 프로세스 식별자(__`Process Identifie, PID`__)를 통해 구분하는데 보통 정수값(integer value)을 가짐
-- 리눅스의 경우 시스템이 시장되면 __`systemd`__ 프로세스가 여러 프로세를 생성하게 되는데, 이것이 곧 최초 부모 프로세스에 해당되며 pid 값이 1이 됨
+
+  - 리눅스의 경우 시스템이 시장되면 __`systemd`__ 프로세스가 여러 프로세를 생성하게 되는데, 이것이 곧 최초 부모 프로세스에 해당되며 pid 값이 1이 됨
+
+- 프로세스가 보통 자식 프로세스를 생성하게 되면, 자식 프로세스는 필요한 자원을 운영체제로부터 얻을 수도 있고 부모 프로세스의 자원을 일부 얻어 한정적으로 사용할 수도 있음
+
+- 자식 프로세스의 실행은 보통 __부모 프로세스와 자식 프로세스들이 동시적으로 실행되거나(execute concurrently)__ , __자식 프로세스가 모두 종료될 때 까지 부모 프로세스가 대기하는 형태가 될 수도 있음__ 
+
+  - 만일 부모 프로세스를 대기시켜야 하는 경우라면 __`wait()`__ 시스템 호출을 통해 자식 프로세스가 종료될 때까지 대기시킴
+
+- 또한, 자식 프로세스 생성으로 인한 주소 공간(Adress space)은 부모 프로세스와 동일한 프로글매 및 데이터를 복제하여 적재하거나, 자식 프로세스가 새로운 프로그램을 메모리에 적재하여 실행하는 형태가 될 수도 있음
+
+  - 부모 프로세스를 복제하는 것은 부모 프로세스와 자식 프로세스 간의 통신(communication)을 더욱 쉽게 한다는 이점이 있음
 
 <br>
 
 ### 3-2. Process Termination
 
-- 프로세스는 실행이 끝나면 종료 상태가 되면서 운영체제로 하여금 __`exit()`__ 시스템 호출을 통해 스스로를 제거할 것을 요청함 
+- 위에서 언급했듯 프로세스는 마지막 구문(final statement)의 실행이 끝나면 종료 상태가 되면서 운영체제로 하여금 __`exit()`__ 시스템 호출을 통해 스스로를 제거할 것을 요청함
+- 자식 프로세스가 종료되는 경우에는 정수 형태의 상태값을 __`wait()`__ 을 통해 대기중인 부모 프로세스에게 반환하고 물리, 가상 메모리와 입출력 머퍼 등을 포함한 모든 프로세스 자원은 운영체제에 의해 메모리에서 해제됨
+
+- 프로세스의 종료는 윈도우의 __`TerminateProcess()`__ 호출과 같이 부모 프로세스에 의해 종료되거나,  유저나 잘못 실행중인 프로세스가 임의로 다른 유저의 프로세스를 종료할 수도 있음
+
+  - 부모 프로세스에 의해 종료될 경우에는 부모 프로세스가 반드시 자식 프로세스의 신원을 알아야 하기 때문에 자식 프로세스를 새롭게 생성할 때 pid와 같은 신원정보가 전달되야 함
+
+- 부모 프로세스가 자식 프로세스를 종료하는 것은 보통 다음과 같은 경우로 나눌 수 있음
+
+  - 자식 프로세스가 허용된 자원의 범위를 초과하여 사용한 경우
+  - 자식 프로세스에 할당된 작업이 더 이상 필요한 것이 아니라고 판단될 경우
+  - 부모 프로세스가 종료되야 할 때, 운영체제가 자식 프로세스가 계속해서 실행되는 것을 허용하지 않는 경우(__`Cascading termination`__)
+
+- __`wait()`__ 호출은 자식 프로세스가 종료되면서 남긴 상태값을 얻을 수 있도록 하는 매개변수(parameter)을 전달하는데, 결과적으로 종료된 자식 프로세스의 pid와 같은 신원을 리턴하도록 함으로써 부모 프로세스가 어떤 자식 프로세스가 종료되었는 지 알 수 있도록 함
+
+  ```c
+  pid_t pid;
+  int status;
+  pid = wait(&status);
+  ```
+
+  - 만일 자식 프로세스의 실행이 끝났는데도 부모 프로세스가 __`wait()`__ 을 호출하지 않은 경우에는 이를 __`zombie process`__ 라고 부름
+  - 유닉스 계열에서는 이런 식으로 자식 프로세스가 사실상 고아 상태로 방치될 경우 __`init`__ 프로세스를 이러한 프로세스의 새로운 부모 프로세스가 되도록 하고 있음
+  - __`init`__ 프로세스가 주기적으로 __`wait()`__ 을 호출하여 실행이 끝난 후 __`exit()`__ 을 호출한 상태인 프로세스를 모아 이들의 pid와 프로세스 테이블 항목을 모두 할당 해제하는 것
+
+<br>
+
+## 4. Interprocess Communication
+
+- 보통 프로세스가 다른 프로세스와 그 어떤 데이터도 공유하지 않을 경우 두 프로세스가 서로 독립적이라고 표현함(independant)
+- 또한 프로세스가 실행을 통해 서로에게 영향을 끼치는 경우에는 두 프로세스 간에 협력한다고 표현함(cooperating)
 
 <br>
 
