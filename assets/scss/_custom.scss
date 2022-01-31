@@ -161,3 +161,19 @@ header .header {
 .content{
     padding-left: 2.5rem;
 }
+
+.custom-profile-img-mobile{
+    width: 7rem;
+    border: 1px solid lightgray;
+    border-radius: 10%;
+    opacity: 0.9;
+    margin: initial !important;
+    display: inline-block !important;
+    text-align: right !important;
+}
+
+.custom-social-link-mobile{
+    font-size: 1.5rem;
+    margin-right: 0.5rem;
+    color: rgb(104, 98, 98);
+}
