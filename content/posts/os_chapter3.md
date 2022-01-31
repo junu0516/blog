@@ -133,7 +133,9 @@ date = "2022-01-18"
 
 ## 3. Operations on Processes
 
-- 대부분의 시스템에서 프로세스들은 동시적으로 실행되며 생성과 제거가 동적으로 발생함
+### 3-1. Process Creation
+
+<img src="https://user-images.githubusercontent.com/68586291/151751565-26bda367-74f9-4ca7-af16-dc4e0ceb0abf.png" style="zoom:90%"/>
 
 <br>
 
