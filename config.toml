@@ -65,3 +65,8 @@ googleAnalytics = "G-BT32LLFM07"
     name = "Instagram"
     url = "https://space.bilibili.com/19767474"
     weight = 3
+
+[sitemap]
+  changefreq = "weekly"
+  filename = "sitemap.xml"
+  priority = 0.5
