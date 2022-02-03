@@ -4,7 +4,7 @@
 title = "Operating System Concepts - Chapter 4 요약"
 tags = ["운영체제"]
 categories = ["Computer Science"]
-date = "2022-02-03"
+date = "2022-02-02"
 
 +++
 
