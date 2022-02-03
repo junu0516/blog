@@ -9,7 +9,7 @@ enableInlineShortcodes = true
 enableGitInfo = true
 disableDarkImage = true
 # number of posts to show on home/category/tag pages (Default: 10)
-paginate = 6
+paginate = 5
 # number of words to use for summary on home/category/tag pages (Default: 70)
 summaryLength = 11
 # optionally override the site's footer with custom copyright text
