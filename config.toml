@@ -13,7 +13,7 @@ paginate = 5
 # number of words to use for summary on home/category/tag pages (Default: 70)
 summaryLength = 11
 # optionally override the site's footer with custom copyright text
-#googleAnalytics = "G-BT32LLFM07"
+googleAnalytics = "G-BT32LLFM07"
 #disqusShortname = "XYW"
 
 [markup]
