@@ -86,9 +86,116 @@ if var name = nameOpt, var age = ageOpt{
 } 
 ```
 
+​    
 
+## 2. 옵셔널 체이닝과 빠른 종료
+
+### 2-1. 옵셔널 체이닝
+
+__`옵셔널 체이닝(Optional Chaining)`__ 은 __여러 옵셔널이 마치 자전거 체인처럼 서로 꼬리에 꼬리를 무는 형태로 반복 사용된 형태를 말한다.__ 만일 연결된 일련의 옵셔널 중 __하나라도 값이 존재하지 않는다면 최종적으로 nil을 반환하게 된다.__
+
+아래와 같은 클래스 구조가 있다고 가정해보자.
+
+```swift
+class Room{
+  var number: Int
+  init(_ number: Int){
+    self.number = number
+  }
+}
+
+//Building은 내부에 Room 타입 프로퍼티를 가지고 있음
+class Building{
+  var name: String
+  var room: Room?
+
+  init(_ name: String){
+    self.name = name
+  }
+}
+
+//Address는 내부에 Building 타입 프로퍼티를 가지고 있음
+class Address{
+  var city: String
+  var building: Building?
+
+  init(_ city: String){
+    self.city = city
+  }
+}
+
+//Person은 내부에 Address 타입 프로퍼티를 가지고 있음
+class Person{
+  var name: String
+  var address: Address?
+
+  init(_ name: String){
+    self.name = name
+  }
+}
+```
 
 ​    
+
+Room->Building -> Address -> Person 순서로 각각의 타입을 내부에 프로퍼티로 두고 있는 형태이다. 여기서 Person 타입의 인스턴스를 하나 생성하고, Room 타입 인스턴의 number 값을 알기 위해 아래와 같이 옵셔널 체이닝과 강제 추출(Forced Unwrapping)을 적용해보았다.
+
+```swift
+//Person 인스턴스 선언
+let person: Person = Person("jed")
+
+//옵셔널 강제추출(여기서는 최종적으로 nil이 됨)
+let roomNumberUnwrapped: Int = person.address?.building?.room?.number
+print(String(roomNumberUnwrapped!)
+```
+
+위와 같은 방식으로 선언했을 때 roomNumberUnwrapped의 값은 nil이 된다. Person의 프로퍼티 중 address에 값이 없기 때문에 __옵셔널 체이닝 중간에 nil이 리턴된 것이다.__ 따라서 값을 강제로 추출하려고 하면 런타임 시접에 nil을 출력하려고 하기 때문에 오류가 발생한다.
+
+​    
+
+그렇다면 오류를 방지하기 위해 __`옵셔널 바인딩(Optional Binding)`__ 을 적용해보도록 하자.
+
+```swift
+//Person 인스턴스 선언
+let person: Person = Person("jed")
+var roomNumber: Int? nil
+
+//옵셔널 바인딩을 적용해서 roomNumber 값 가져오기
+if let address: Address = person.address{
+  if let building: Building = address.building{
+    if let room: Room = building.room{
+      roomNumber = room.number
+    }
+  }
+}
+
+if let number: Int = roomNumber{
+    print(number)
+}else{
+    print("Cannot find room number")
+}
+```
+
+Address->Building->Room 타입 순서로 각각의 값이 존재하는 지를 차례대로 확인한 후, 최종적으로 roomNumber이 nil인 지 확인하기 때문에 런타임 시점에 오류가 발생하지 않는다. 하지만 위의 코드는 __옵셔널 바인딩을 중첩사용하는 부분에서 들여쓰기가 많이 지기 때문에 가독성 측면에서 좋지 않다.__ 
+
+​    
+
+바로 여기서 옵셔널 바인딩 부분에 옵셔널 체이닝을 적용하면 코드가 훨씬 간결해진다.
+
+```swift
+//Person 인스턴스 선언
+let person: Person = Person("jed")
+
+//옵셔널 바인딩에 옵셔널 체이닝 적용
+if let roomNumber: Int = person.address?.building?.room?.number{
+    print(roomNumber)
+}else{
+    print("Cannot find room number")
+}
+```
+
+
+
+<br>
 
 ## Reference
 
