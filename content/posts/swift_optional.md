@@ -2,7 +2,7 @@
 
 +++
 
-title = "[Swift] 옵셔널(Optional)과 옵셔널 체이닝(Optional Chaining)"
+title = "옵셔널(Optional)과 옵셔널 체이닝(Optional Chaining)"
 tags = ["swift"]
 categories = ["Swift&Ios"]
 date = "2022-01-24"
@@ -90,7 +90,7 @@ if var name = nameOpt, var age = ageOpt{
 
 ## 2. 옵셔널 체이닝과 빠른 종료
 
-### 2-1. 옵셔널 체이닝
+### 2-1. 옵셔널 체이닝(Optional Chaining)
 
 __`옵셔널 체이닝(Optional Chaining)`__ 은 __여러 옵셔널이 마치 자전거 체인처럼 서로 꼬리에 꼬리를 무는 형태로 반복 사용된 형태를 말한다.__ 만일 연결된 일련의 옵셔널 중 __하나라도 값이 존재하지 않는다면 최종적으로 nil을 반환하게 된다.__
 
@@ -175,11 +175,11 @@ if let number: Int = roomNumber{
 }
 ```
 
-Address->Building->Room 타입 순서로 각각의 값이 존재하는 지를 차례대로 확인한 후, 최종적으로 roomNumber이 nil인 지 확인하기 때문에 런타임 시점에 오류가 발생하지 않는다. 하지만 위의 코드는 __옵셔널 바인딩을 중첩사용하는 부분에서 들여쓰기가 많이 지기 때문에 가독성 측면에서 좋지 않다.__ 
+Address->Building->Room 타입 순서로 각각의 값이 존재하는 지를 차례대로 확인한 후, 최종적으로 roomNumber이 nil인 지 확인하기 때문에 런타임 시점에 오류가 발생하지 않을 것이다. 하지만 위의 코드는 __옵셔널 바인딩을 중첩사용하는 부분에서 들여쓰기가 많이 지기 때문에 가독성 측면에서 좋지 않다.__ 
 
 ​    
 
-바로 여기서 옵셔널 바인딩 부분에 옵셔널 체이닝을 적용하면 코드가 훨씬 간결해진다.
+바로 여기서 옵셔널 바인딩 부분에 옵셔널 체이닝을 같이 적용하면 코드가 훨씬 간결해진다. __`if let {}`__ 형식의 nil 체크를 일일히 할 필요 없이 옵셔널 체이닝 한 번으로 여러 번의 옵셔널 바인딩을 한 번에 끝낼 수 있다. 
 
 ```swift
 //Person 인스턴스 선언
@@ -193,10 +193,95 @@ if let roomNumber: Int = person.address?.building?.room?.number{
 }
 ```
 
+​    
 
+값을 받아오는 것 외에도 __옵셔널 체이닝을 통해 값을 할당하는 것도 가능하다.__ 단, __값을 읽을 때와 마찬가지로 옵셔널 체이닝 중간에 nil이 없어야 한다.__
+
+```swift
+person.address?.building?.room?.number = 1000
+print(person.address?.building?.room?.number) //nil
+```
+
+위의 경우에는 number까지 가기 전에 이미 address에 값이 없기 때문에  결과적으로 room 프로퍼티도 존재하지 않으므로 값을 할당할 수가 없다. 따라서 값을 할당하고자 한다면 __옵셔널 체이닝상에 있는 모든 프로퍼티에 값을 할당해야 한다.__
+
+```swift
+person.address = Address("seoul")
+person.address?.building = Building("Geumho")
+person.address?.building?.room = Room(500)
+person.address?.building?.room?.number = 1000
+
+print(person.address?.building?.room?.number) // Optional(1000)
+```
+
+​    
+
+### 2-2. 빠른 종료(Early Exit)
+
+일반적인 옵셔널 바인딩은 __`if-else`__ 구문을 통해 특정 조건을 만족하는 경우와, 그렇지 않은 경우에 대한 처리를 각각 해준다. 하지만 조건에 부합하지 않을 경우 해당 코드 블록을 좀 더 빠르게 종료하고자 한다면  __`guard`__ 키워드를 사용하는 것이 더욱 유리하다. __`guard`__ 구문은 __`guard-else`__ 형식을 사용하게 되며, 반드시 조건에 부합하지 않는 경우를 명시한 else 구문이 뒤따라와야 한다.
+
+아래의 형식으로 __`guard`__  를 사용하면 되며, 만일 Bool타입 값이 false인 경우에는 해당 코드 블록을 종료하는 실행문과 같은 코드를 작성함으로써 __조건에 부합하지 않을 때 바로 실행을 종료하도록 처리할 수 있다.__
+
+```
+guard (Bool 타입 값) else{
+    //조건에 부합하지 않을 경우 실행문
+}
+```
+
+​    
+
+```swift
+// if-else
+for i in 0...3{
+  if i == 2 {
+    print(i)
+  }else{
+    continue
+  }
+}
+
+// guard
+for i in 0...3{
+  guard i == 2 else{
+    continue
+  }
+  print(i)
+}
+```
+
+위의 코드는 실제로 같은 기능을 수행하는 코드에서  __`if-else`__ 와 __`guard`__ 를 사용했을 때의 차이를 보여주는 예시이다. 후자의 경우 i가 2가 아닐 경우에는 __다른 구문을 실행하지 않고 그즉시 해당 분기를 즉시 건너 뛰도록(continue) 처리할 수 있으며, 굳이 조건을 만족하는 경우와 그렇지 않은 경우를 모두 일일히 명시할 필요가 없어 가독성 측면에서 더욱 유리하다.__
+
+​    
+
+그렇다면 2-1에서 사용했던 __`if-else`__ 형식으로 선언된 옵셔널 바인딩 + 옵셔널 체이닝을 __`guard`__ 구문으로 바꿔보도록 하자.
+
+```swift
+//Person 인스턴스 선언
+let person: Person = Person("jed")
+
+//옵셔널바인딩 + 옵셔널체이닝에 guard 적용
+guard let roomNumber: Int = person.address?.building?.room?.number else{
+  print("Cannot find room number")
+  //값이 존재하지 않을 경우 바로 실행 종료
+  return
+}
+print(roomNumber)
+```
+
+옵셔널 체이닝상의 모든 옵셔널을 차례대로 언래핑(__`unwrapping`__) 하면서 하나라도 값이 없을 경우에는 바로 __`else`__ 뒤의 예외 처리 구문을 실행한 후 해당 블록을 실행 종료한다.
+
+단, __`if-esle`__ 와 다른 점은 __`guard`__ 구문은 __`return`__ , __`break`__ , __`continue`__ , __`throw`__ 등의 __제어문 전환 명령어를 사용할 수 있는 상황에서만 사용해야 한다.__ 즉, 함수와 같은 구문을 감싸고 있는 {} 코드블록이 반드시 존재해야 하는 것이다.
+
+만일 바로 위의 예시 코드를 코드 블록으로 감싸져 있지 않은 채로 외부에 __`return`__ 없이 선언하게 되면 아래와 같은 컴파일 오류를 확인할 수 있을 것이다.
+
+``` 
+guard' body must not fall through, consider using a 'return' or 'throw' to exit the scope
+```
 
 <br>
 
 ## Reference
 
 - 스위프트 프로그래밍: Swift 5(3판) - 야곰, 한빛미디어
+- [Swift: 기초문법 [Unwrapping with guard] - 서근 개발노트](https://seons-dev.tistory.com/132)
+
+​    
