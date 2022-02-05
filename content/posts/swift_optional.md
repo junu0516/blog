@@ -2,7 +2,7 @@
 
 +++
 
-title = "옵셔널과 옵셔널 체이닝(작성중)"
+title = "옵셔널과 옵셔널 체이닝"
 tags = ["swift"]
 categories = ["Swift&Ios"]
 date = "2022-01-24"
