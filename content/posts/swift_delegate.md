@@ -65,7 +65,7 @@ class MyViewController: UIViewController, UIImagePickerControllerDelegate {
 
 위의 코드는 이러한 지침을 적용해서 작성한 간단한 ViewController 클래스 코드이다. 작성한  __*imagePicker.delegate = self*__  는 클래스가 가지고 있는 UIImagePickerController 인스턴스의 __`delegate object`__ 가 자기 자신(MyViewController)이 될 것임을 의미한다. 또한 이를 위해 해당 클래스가  __`UIImageControllerDelegate`__ 을 채택하고 있음을 명시하였다.
 
-이후 선택 버튼(selectButton)을 누르면 미리 지정해둔 __`selectedButtonTouched`__ 액션 메소드가 실행되면서 화면에 사진선태
+이후 선택 버튼(selectButton)을 누르면 미리 지정해둔 __`selectedButtonTouched`__ 액션 메소드가 실행되면서 화면에 사진선택을 위한 창이 뜨게 된다.
 
 ​    
 
