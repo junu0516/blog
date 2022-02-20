@@ -126,8 +126,7 @@ header .header {
         padding-right: 0 !important;
     } 
 }
-
-@media screen and (max-width: 768px){
+@media screen and (max-width: $width-md){
     .container-lg {
         padding-left: 0 !important;
         padding-right: 1rem !important
