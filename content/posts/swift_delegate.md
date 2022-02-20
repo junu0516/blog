@@ -113,7 +113,9 @@ class MyViewController: UIViewController, UIImagePickerControllerDelegate {
 
 <img src="https://user-images.githubusercontent.com/68586291/154850655-7b768528-916a-453c-bbe5-75cf5ae4033a.png" alt="image" style="zoom:80%;"/>
 
-위의 그림과 같이 정리해보면 우선  __`UIImpagePickerController`__ 은 사용자의 동작 결과를 처리하는 일을 __`MyViewController`__ 에 위임(delegate) 하였고, 해당 뷰컨트롤러는 __`UIImagePickerControllerDelegate`__ 를 채택함으로써 __`delegate object`__ 로서 기능하게 된다. 이후 UIImagePickerController은 사용자 동작의 결과를 __`UIImagePickerControllerDelegate`__ 를 거쳐 __`MyViewController`__ 에 전달하게 되며, __`MyViewController`__ 내부에서 __`UIImagePickerControllerDelegate`__ 를 __`imagePickerController()`__ 과 같은 채택하면서 구현한 메소드가 실행될 것이다.  
+위의 그림과 같이 정리해보면 우선  __`UIImpagePickerController`__ 은 사용자의 동작 결과를 처리하는 일을 __`MyViewController`__ 에 위임(delegate) 하였고, 해당 뷰컨트롤러는 __`UIImagePickerControllerDelegate`__ 를 채택함으로써 __`delegate object`__ 로서 기능하게 된다. 
+
+이후 UIImagePickerController은 사용자 동작의 결과를 __`UIImagePickerControllerDelegate`__ 를 거쳐 __`MyViewController`__ 에 전달하게 되며, __`MyViewController`__ 내부에서는 __`UIImagePickerControllerDelegate`__ 를 채택하면서 구현한  __`imagePickerController()`__ 메소드가 실행되는 것이다.   
 
 ​    
 
