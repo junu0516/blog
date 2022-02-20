@@ -133,7 +133,15 @@ header .header {
         padding-right: 1rem !important
     }  
     .post-title{
-        font-size: 1.5rem;
+        font-size: 1.6rem !important;
+    }
+
+    .markdown-body ul, .markdown-body ol {
+        padding-left: 1em !important;
+    }
+
+    .markdown-body{
+        font-size: 15px !important;
     }
 }
 
