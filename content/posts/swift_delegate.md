@@ -35,9 +35,7 @@ __`UIImagePickerController`__ 은 위의 이미지와 같이 시스템 인터페
 
  [공식문서](https://developer.apple.com/documentation/uikit/uiimagepickercontroller) 의 설명을 보면 해당 컨트롤러는 사진의 선택 혹은 촬영과 같은 사용자의 동작에 대한 결과를 __`delegate object`__ 에 전달하며, __`delegate object`__ 는 __`UIImagePickerControllerDelegate`__ 라는 프로토콜의 요구사항을 준수(conform)해야 함을 아래와 같이 명시하고 있다.
 
-```
-To use image picker controller, you must provide a delegate that conforms to the UIImagePickerControllerDelegate procotol.
-```
+__*To use image picker controller, you must provide a delegate that conforms to the UIImagePickerControllerDelegate procotol.*__
 
 실제로 __`UIViewController`__ 의 내부 구조를 보면 프로퍼티로 __`delegate`__ 라는 프로퍼티를 가지고 있는 것을 확인할 수 있는데, 공식문서에서는 이것이 위에서 언급하는 __`delegate object`__ 에 해당한다.
 
