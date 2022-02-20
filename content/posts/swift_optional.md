@@ -4,7 +4,7 @@
 
 title = "옵셔널(Optional)과 옵셔널 체이닝(Optional Chaining)"
 tags = ["swift"]
-categories = ["Swift&Ios"]
+categories = ["Swift&iOS"]
 date = "2022-01-24"
 
 +++

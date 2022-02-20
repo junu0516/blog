@@ -4,7 +4,7 @@
 
 title = "스위프트 클로저(closure) 개념 정리"
 tags = ["swift"]
-categories = ["Swift&Ios"]
+categories = ["Swift&iOS"]
 date = "2022-01-15"
 
 +++
