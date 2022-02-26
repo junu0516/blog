@@ -20,9 +20,21 @@
     src: url('/fonts/Noto_Sans_KR/NotoSansKR-Medium.otf');
 }
 
+@font-face {
+    font-family: 'NotoSans-Thin';
+    src: url('/fonts/Noto_Sans_KR/NotoSansKR-Thin.otf');
+}
+
 .sidebar{
     font-family: 'NotoSans-Light';
     line-height: 1.5;
+}
+
+.sidebar-toc{
+    margin-top: 10%;
+    border-left: 1px solid rgb(231, 230, 230);
+    margin-left: 20px;
+    padding-left: 10px;
 }
 
 .container-lg > h1,h2,h3,h4{
@@ -35,7 +47,7 @@
 
 .markdown-body a{
     color: #0282ded4 !important;
-    font-family: 'NotoSans-Medium';
+    font-family: 'NotoSans-Light';
     text-decoration: underline;
 }
 
