@@ -7,7 +7,7 @@
     padding: 0.2em 0.4em;
     margin: 0;
     // stylelint-disable-next-line primer/typography
-    font-size: 85%;
+    font-size: 90%;
     background-color: var(--color-markdown-code-bg);
     border-radius: $border-radius;
 
@@ -46,10 +46,13 @@
     padding: $spacer-3;
     overflow: auto;
     // stylelint-disable-next-line primer/typography
-    font-size: 85%;
+    font-size: 90%;
     // stylelint-disable-next-line primer/typography
     line-height: 1.45;
-    background-color: var(--color-bg-tertiary);
+    background-color: rgba(235, 235, 235, 0.877) !important;
+    //background-color: rgb(232 232 232 / 67%) !important;
+    //background-color: var(--color-markdown-code-bg) !important;
+    //background-color: var(--color-bg-tertiary);
     border-radius: $border-radius;
   }
 
