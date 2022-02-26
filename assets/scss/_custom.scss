@@ -1,4 +1,57 @@
 // This file was used for overriding variables. Please use _custom_var.scss instead.
+
+@font-face {
+    font-family: 'NotoSans-Light';
+    src: url('/fonts/Noto_Sans_KR/NotoSansKR-Light.otf');
+}
+
+@font-face {
+    font-family: 'NotoSans-Bold';
+    src: url('/fonts/Noto_Sans_KR/NotoSansKR-Bold.otf');
+}
+
+@font-face {
+    font-family: 'NotoSans-Regular';
+    src: url('/fonts/Noto_Sans_KR/NotoSansKR-Regular.otf');
+}
+
+@font-face {
+    font-family: 'NotoSans-Medium';
+    src: url('/fonts/Noto_Sans_KR/NotoSansKR-Medium.otf');
+}
+
+.sidebar{
+    font-family: 'NotoSans-Regular';
+    line-height: 1.5;
+}
+
+.container-lg > h1,h2,h3,h4{
+    font-family: 'NotoSans-Regular';
+}
+
+.markdown-body{
+    font-size: 1rem !important;
+}
+
+.markdown-body a{
+    color: #0182df !important;
+    font-family: 'NotoSans-Medium';
+}
+
+.markdown-body p{
+    line-height: 1.65 !important;
+    font-family: 'NotoSans-Light';
+}
+
+.markdown-body ul{
+    line-height: 1.65 !important;
+    font-family: 'NotoSans-Light';
+}
+
+.markdown-body p strong{
+    font-family: 'NotoSans-Regular';
+}
+
 img{
     filter: brightness(100%) !important;
     display: block !important;
