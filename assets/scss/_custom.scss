@@ -1,19 +1,19 @@
 // This file was used for overriding variables. Please use _custom_var.scss instead.
 
-@font-face {
-    font-family: 'NotoSans-Light';
-    src: url('/fonts/Noto_Sans_KR/NotoSansKR-Light.otf') format('opentype');
-}
+// @font-face {
+//     font-family: 'NotoSans-Light';
+//     src: url('/fonts/Noto_Sans_KR/NotoSansKR-Light.otf') format('opentype');
+// }
 
 // @font-face {
 //     font-family: 'NotoSans-Bold';
 //     src: url('/fonts/Noto_Sans_KR/NotoSansKR-Bold.otf');
 // }
 
-@font-face {
-    font-family: 'NotoSans-Regular';
-    src: url('/fonts/Noto_Sans_KR/NotoSansKR-Regular.otf') format('opentype');
-}
+// @font-face {
+//     font-family: 'NotoSans-Regular';
+//     src: url('/fonts/Noto_Sans_KR/NotoSansKR-Regular.otf') format('opentype');
+// }
 
 // @font-face {
 //     font-family: 'NotoSans-Medium';
@@ -26,7 +26,7 @@
 // }
 
 .sidebar{
-    font-family: 'NotoSans-Light';
+    // font-family: 'NotoSans-Light';
     line-height: 1.5;
 }
 
@@ -37,9 +37,9 @@
     padding-left: 10px;
 }
 
-.container-lg > h1,h2,h3,h4{
-    font-family: 'NotoSans-Regular';
-}
+// .container-lg > h1,h2,h3,h4{
+//     font-family: 'NotoSans-Regular';
+// }
 
 .markdown-body{
     font-size: 1rem !important;
@@ -47,27 +47,27 @@
 
 .markdown-body a{
     color: #0282ded4 !important;
-    font-family: 'NotoSans-Light';
+    // font-family: 'NotoSans-Light';
     text-decoration: underline;
 }
 
 .markdown-body p{
     line-height: 1.65 !important;
-    font-family: 'NotoSans-Light';
+    // font-family: 'NotoSans-Light';
 }
 
 .markdown-body ul{
     line-height: 1.65 !important;
-    font-family: 'NotoSans-Light';
+    // font-family: 'NotoSans-Light';
 }
 
-.markdown-body p strong{
-    font-family: 'NotoSans-Regular';
-}
+// .markdown-body p strong{
+//     font-family: 'NotoSans-Regular';
+// }
 
-.markdown-body ul strong{
-    font-family: 'NotoSans-Regular';
-}
+// .markdown-body ul strong{
+//     font-family: 'NotoSans-Regular';
+// }
 
 img{
     filter: brightness(100%) !important;
