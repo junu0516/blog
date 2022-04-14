@@ -2,9 +2,9 @@
 
 +++
 
-title = '드롭박스 테스트'
-tags = ['spring', 'java']
-categories = ['Java&Spring']
+title = 'TODOList 배포 테스트'
+tags = ['iOS']
+categories = ['Swift&iOS']
 date = "2022-04-12"
 
 +++
